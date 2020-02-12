@@ -1,6 +1,7 @@
-# java class files
+# propios
 *.class
-
+.project
+.classpath
 
 
 #Eclipse.gitignore
