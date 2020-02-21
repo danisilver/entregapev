@@ -2,6 +2,7 @@ package es.ucm.fdi.pe;
 import java.util.*;
 
 public class Main{
+	@SuppressWarnings("serial")
 	public static void main(String[] args){
 
 		int nIteraciones=100;
@@ -16,9 +17,9 @@ public class Main{
 
 		Punto[] pob = new Punto[]{
 			new Punto(){{x=1;y=2;}},
-			new Punto(){{x=2;y=2;}},
-			new Punto(){{x=3;y=2;}},
-			new Punto(){{x=1;y=3;}}
+			new Punto(){{x=3;y=9;}},
+			new Punto(){{x=5;y=1;}},
+			new Punto(){{x=9;y=4;}}
 		};
 
 		ArrayList<Punto> npob = new ArrayList<>(){};
@@ -27,7 +28,7 @@ public class Main{
 			double cx = xmin + i.x*(xmax-xmin)/(Math.pow(2,nbits)-1);
 			double cy = xmin + i.y*(xmax-xmin)/(Math.pow(2,nbits)-1);
 			double res = 21.5 + cx*Math.sin(4*pi*cx)+cy*Math.sin(20*pi*cy);
-			return (int)(-res);
+			return (-res);
 		};
 		Seleccion<Punto> ts = p->{//Seleccion por ruleta
 			Punto[] s = new Punto[2];
@@ -35,16 +36,26 @@ public class Main{
 			double r2 = Math.random();
 			int pacc = 0;
 			int i = 0;
+			double probMin = 0;
+			double probMax = tf.fitness(p[0]);;
+			while(i<p.length) {
+				double fi = tf.fitness(p[i]);
+				if(fi<probMin)probMin=fi;
+				if(fi>probMax)probMax=fi;
+				i++;
+			}
+			i=0;
 			while (i<p.length){
 				if(pacc>=r1) s[0]=p[i];
 				if(pacc>=r2) s[1]=p[i];
-				pacc+=tf.fitness(p[i]);
+				double probi = normalize(tf.fitness(p[i]), probMin, probMax);
+				pacc+= probi;
 				i++;
 			}
 			return p;
 		};
 		Cruce<Punto> tc = (p1, p2)->{//monopunto
-			double prob = 1/nbits;
+			double prob = 1f/nbits;
 			double pacc = 0;
 			double r = Math.random();
 			int i = 0;
@@ -53,8 +64,8 @@ public class Main{
 				pacc+=prob;
 				i++;
 			}
-			String h1rep = Integer.toBinaryString(p1.x);
-			String h2rep = Integer.toBinaryString(p2.x);
+			String h1rep = fillZeros(Integer.toBinaryString(p1.x), nbits);
+			String h2rep = fillZeros(Integer.toBinaryString(p2.x), nbits);
 			String h1 = h1rep.substring(0,i).concat(h2rep.substring(i,nbits));
 			String h2 = h2rep.substring(0,i).concat(h1rep.substring(i,nbits));
 			Integer a = Integer.parseInt(h1,2);
@@ -67,8 +78,8 @@ public class Main{
 				pacc+=prob;
 				i++;
 			}
-			h1rep = Integer.toBinaryString(p1.y);
-			h2rep = Integer.toBinaryString(p2.y);
+			h1rep = fillZeros(Integer.toBinaryString(p1.y), nbits);
+			h2rep = fillZeros(Integer.toBinaryString(p2.y), nbits);
 			h1 = h1rep.substring(0,i).concat(h2rep.substring(i,h2.length()));
 			h2 = h2rep.substring(0,i).concat(h1rep.substring(i,h1.length()));
 			Integer c = Integer.parseInt(h1,2);
@@ -80,24 +91,28 @@ public class Main{
 			};
 		};
 		Mutacion<Punto> tm = h->{//mutacion basica
-			String brep = Integer.toBinaryString(h.x);
+			String brep = fillZeros(Integer.toBinaryString(h.x), nbits);
 			StringBuffer sb = new StringBuffer();
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
 				if(r<probMutacion) {
 					if(c=='0') sb.append('0');
 					else sb.append('1');
+				} else {
+					sb.append(c);
 				}
 			}
 			Integer nx = Integer.parseInt(sb.toString());
 
-			brep = Integer.toBinaryString(h.y);
+			brep = fillZeros(Integer.toBinaryString(h.y), nbits);
 			sb = new StringBuffer();
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
 				if(r<probMutacion) {
 					if(c=='0') sb.append('0');
 					else sb.append('1');
+				} else {
+					sb.append(c);
 				}
 			}
 			Integer ny = Integer.parseInt(sb.toString());
@@ -108,7 +123,7 @@ public class Main{
 			for(int i=0; i<(pob.length/2); i++){
 				Punto[] sel, hijos, mutados;
 				sel = seleccion(ts, pob);
-				hijos = cruce(tc, sel, probMutacion);
+				hijos = cruce(tc, sel, probCruce);
 				mutados = mutacion(tm, hijos, probMutacion);
 				npob.add(mutados[0]);
 			}
@@ -130,6 +145,15 @@ public class Main{
 		}
 		return Arrays.copyOf(hijos, hijos.length+1);
 	}
+	static String fillZeros(String ind, int nbits) {
+		StringBuffer pad = new StringBuffer(nbits);
+		nbits -= ind.length();
+		for(int i=0; i<nbits; i++) pad.append('0');
+		return pad.append(ind).toString();
+	}
+	static double normalize(double value, double min, double max) {
+	    return 1 - ((value - min) / (max - min));
+	}
 }
 
 interface Seleccion<T>{
@@ -148,7 +172,7 @@ interface Fenotipo<G,F>{
 	G genotipo();
 }
 interface Fitness<G>{
-	int fitness(G genotipe);
+	double fitness(G genotipe);
 }
 
 class Punto{
@@ -157,14 +181,3 @@ class Punto{
 		return "x:"+x+"y:"+y;
 	}
 }
-//System.out.println(Arrays.toString(s));
-//tamPoblacion
-//seleccion() 	ruleta, estocastico, torneo
-//cruce() monopunto, uniforme
-//mutacion() basica
-//ejecucion paso a paso, ejecucion total
-/*
-		Cruce<Integer> tc2 = (p1, p2)->{//uniforme
-			return new Integer[]{p1,p2};
-		};
-*/
