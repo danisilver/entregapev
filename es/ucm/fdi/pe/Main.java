@@ -10,28 +10,32 @@ public class Main{
 	@SuppressWarnings("serial")
 	public static void main(String[] args){
 
-		int nIteraciones=5000;
+		int nIteraciones=50000;
 		int generacion=0;
 		double probCruce = 0.6;
 		double probMutacion = 0.01;
 		double precision=0.001;
-		double xmax=10;
-		double xmin=0;
-		double x = 1+(xmax-xmin)/precision;
-		int nbits = (int)(Math.log(x)/Math.log(2));
-
+		double xmax = 12.1;
+		double xmin = -3;
+		double ymax = 5.8;
+		double ymin = 4.1;
+		int lcromx = (int) Math.ceil(Math.log(1+(xmax-xmin)/precision)/Math.log(2));
+		int lcromy = (int) Math.ceil(Math.log(1+(ymax-ymin)/precision)/Math.log(2));
 
 		
 		final ArrayList<Punto> pob = new ArrayList<>();
 		Random rand = new Random();
 		range(0,64).forEach(e->{
-			pob.add(new Punto(){{x=rand.nextInt((int)Math.pow(2,nbits));y=rand.nextInt((int)Math.pow(2,nbits));}});
+			pob.add(new Punto(){{
+				x=rand.nextInt((int)Math.pow(2,lcromx)-1);
+				y=rand.nextInt((int)Math.pow(2,lcromy)-1);
+			}});
 		});
 
 		ArrayList<Punto> npob = new ArrayList<>();
 		Fitness<Punto> tf = i->{
-			double cx = xmin + i.x*(xmax-xmin)/(Math.pow(2,nbits)-1);
-			double cy = xmin + i.y*(xmax-xmin)/(Math.pow(2,nbits)-1);
+			double cx = xmin + i.x*(xmax-xmin)/(Math.pow(2,lcromx)-1);
+			double cy = ymin + i.y*(ymax-ymin)/(Math.pow(2,lcromy)-1);
 			double res = 21.5 + cx*Math.sin(4*PI*cx)+cy*Math.sin(20*PI*cy);
 			return res;
 		};
@@ -59,8 +63,14 @@ public class Main{
 			}
 			i=0;
 			while (i<p.length){
-				if(pacc>=r1) s[0]=p[i];
-				if(pacc>=r2) s[1]=p[i];
+				if(pacc>=r1) {
+					s[0]=p[i];
+					r1=2;
+				}
+				if(pacc>=r2) {
+					s[1]=p[i];
+					r2=2;
+				}
 				double probi = probs[i];
 				pacc+= probi/fitnessTotal;
 				i++;
@@ -68,33 +78,35 @@ public class Main{
 			return p;
 		};
 		Cruce<Punto> tc = (p1, p2)->{//monopunto
-			double prob = 1f/nbits;
+			double prob = 1f/lcromx;
 			double pacc = 0;
 			double r = Math.random();
 			int i = 0;
-			while(i<nbits){
+			while(i<lcromx){
 				if(r<=pacc) break;
 				pacc+=prob;
 				i++;
 			}
-			String h1rep = fillZeros(Integer.toBinaryString(p1.x), nbits);
-			String h2rep = fillZeros(Integer.toBinaryString(p2.x), nbits);
-			String h1 = h1rep.substring(0,i).concat(h2rep.substring(i,nbits));
-			String h2 = h2rep.substring(0,i).concat(h1rep.substring(i,nbits));
+			String h1rep = fillZeros(Integer.toBinaryString(p1.x), lcromx);
+			String h2rep = fillZeros(Integer.toBinaryString(p2.x), lcromx);
+			String h1 = h1rep.substring(0,i).concat(h2rep.substring(i,lcromx));
+			String h2 = h2rep.substring(0,i).concat(h1rep.substring(i,lcromx));
 			Integer a = Integer.parseInt(h1,2);
 			Integer b = Integer.parseInt(h2,2);
 
+			prob = 1f/lcromy;
+			pacc=0;
 			r = Math.random();
 			i = 0;
-			while(i<nbits){
+			while(i<lcromy){
 				if(r<=pacc) break;
 				pacc+=prob;
 				i++;
 			}
-			h1rep = fillZeros(Integer.toBinaryString(p1.y), nbits);
-			h2rep = fillZeros(Integer.toBinaryString(p2.y), nbits);
-			h1 = h1rep.substring(0,i).concat(h2rep.substring(i,h2.length()));
-			h2 = h2rep.substring(0,i).concat(h1rep.substring(i,h1.length()));
+			h1rep = fillZeros(Integer.toBinaryString(p1.y), lcromy);
+			h2rep = fillZeros(Integer.toBinaryString(p2.y), lcromy);
+			h1 = h1rep.substring(0,i).concat(h2rep.substring(i,lcromy));
+			h2 = h2rep.substring(0,i).concat(h1rep.substring(i,lcromy));
 			Integer c = Integer.parseInt(h1,2);
 			Integer d = Integer.parseInt(h2,2);
 
@@ -104,7 +116,7 @@ public class Main{
 			};
 		};
 		Mutacion<Punto> tm = h->{//mutacion basica
-			String brep = fillZeros(Integer.toBinaryString(h.x), nbits);
+			String brep = fillZeros(Integer.toBinaryString(h.x), lcromx);
 			StringBuffer sb = new StringBuffer();
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
@@ -117,7 +129,7 @@ public class Main{
 			}
 			Integer nx = Integer.parseInt(sb.toString(),2);
 
-			brep = fillZeros(Integer.toBinaryString(h.y), nbits);
+			brep = fillZeros(Integer.toBinaryString(h.y), lcromy);
 			sb = new StringBuffer();
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
@@ -148,11 +160,9 @@ public class Main{
 		}
 		
 		pob.forEach(p->{
-			double cx = xmin + p.x*(xmax-xmin)/(Math.pow(2,nbits)-1);
-			double cy = xmin + p.y*(xmax-xmin)/(Math.pow(2,nbits)-1);
-			double res = 21.5 + cx*Math.sin(4*PI*cx)+cy*Math.sin(20*PI*cy);
-			System.out.println("x1:"+cx+",x2:"+cy+"; y:"+res);
-			System.out.println("fitness:"+tf.fitness(p));
+			double cx = xmin + p.x*(xmax-xmin)/(Math.pow(2,lcromx)-1);
+			double cy = ymin + p.y*(ymax-ymin)/(Math.pow(2,lcromy)-1);
+			System.out.println("x:"+cx+",y:"+cy+";\tfitness:"+tf.fitness(p));
 		});
 
 	}
