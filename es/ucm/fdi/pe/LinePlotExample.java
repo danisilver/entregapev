@@ -1,8 +1,7 @@
 package es.ucm.fdi.pe;
 
-import javax.swing.*;
-import org.math.plot.*;
-import java.util.*;
+import javax.swing.JFrame;
+import org.math.plot.Plot2DPanel;
 
 public class LinePlotExample {
 	public static void main(String[] args) {

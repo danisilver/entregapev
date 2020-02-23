@@ -16,8 +16,12 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+
+import org.math.plot.Plot2DPanel;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame {
@@ -33,6 +37,9 @@ public class Gui extends JFrame {
 	 * Launch the application. adsdww 
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) { System.exit(-1);}
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -249,34 +256,35 @@ public class Gui extends JFrame {
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_3)
-						.addComponent(lblNewLabel_4))
-					.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(comboBox_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_2, Alignment.TRAILING, 88, 88, 88))
+						.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
+							.addComponent(lblNewLabel_3)
+							.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 88, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addComponent(lblNewLabel_4)
+							.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+							.addComponent(textField_2, 88, 88, 88)))
 					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addGap(0, 0, Short.MAX_VALUE)
+				.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(comboBox_1, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
+							.addComponent(lblNewLabel_3)
+							.addGap(4)))
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(4)
-							.addComponent(lblNewLabel_3))
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+							.addGap(10)
+							.addComponent(lblNewLabel_4))
 						.addGroup(gl_panel_3.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addGap(9)
-							.addComponent(lblNewLabel_4)))
+							.addGap(7)
+							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
-		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {lblNewLabel_3, lblNewLabel_4});
 		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {comboBox_1, textField_2});
+		gl_panel_3.linkSize(SwingConstants.HORIZONTAL, new Component[] {lblNewLabel_3, lblNewLabel_4});
 		panel_3.setLayout(gl_panel_3);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -285,16 +293,23 @@ public class Gui extends JFrame {
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setSelectedIndex(0);
 		panel_2.add(tabbedPane, BorderLayout.CENTER);
 		
 		JPanel panel_6 = new JPanel();
 		tabbedPane.addTab("Aprendizaje", null, panel_6, null);
+		double[] x = { 1, 2, 3, 4, 5, 6 };
+		double[] y = { 45, 89, 6, 32, 63, 12 };
+		Plot2DPanel plot = new Plot2DPanel();
+		plot.addLegend("SOUTH");
+		plot.addLinePlot("my plot", x, y);
+		panel_6.setLayout(new BorderLayout(0, 0));
+		panel_6.add(plot);
 		
 		JPanel panel_7 = new JPanel();
 		tabbedPane.addTab("Grafico 3D", null, panel_7, null);
 		
 		JPanel panel_8 = new JPanel();
 		tabbedPane.addTab("Log", null, panel_8, null);
+		tabbedPane.setSelectedIndex(0);
 	}
 }

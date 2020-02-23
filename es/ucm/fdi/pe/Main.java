@@ -1,11 +1,16 @@
 package es.ucm.fdi.pe;
-import java.util.*;
+import static java.lang.Math.PI;
+import static java.util.stream.IntStream.range;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Main{
 	@SuppressWarnings("serial")
 	public static void main(String[] args){
 
-		int nIteraciones=100;
+		int nIteraciones=5000;
 		int generacion=0;
 		double probCruce = 0.6;
 		double probMutacion = 0.01;
@@ -15,41 +20,49 @@ public class Main{
 		double x = 1+(xmax-xmin)/precision;
 		int nbits = (int)(Math.log(x)/Math.log(2));
 
-		Punto[] pob = new Punto[]{
-			new Punto(){{x=1;y=2;}},
-			new Punto(){{x=3;y=9;}},
-			new Punto(){{x=5;y=1;}},
-			new Punto(){{x=9;y=4;}}
-		};
 
-		ArrayList<Punto> npob = new ArrayList<>(){};
+		
+		final ArrayList<Punto> pob = new ArrayList<>();
+		Random rand = new Random();
+		range(0,64).forEach(e->{
+			pob.add(new Punto(){{x=rand.nextInt((int)Math.pow(2,nbits));y=rand.nextInt((int)Math.pow(2,nbits));}});
+		});
+
+		ArrayList<Punto> npob = new ArrayList<>();
 		Fitness<Punto> tf = i->{
-			double pi = Math.PI;
 			double cx = xmin + i.x*(xmax-xmin)/(Math.pow(2,nbits)-1);
 			double cy = xmin + i.y*(xmax-xmin)/(Math.pow(2,nbits)-1);
-			double res = 21.5 + cx*Math.sin(4*pi*cx)+cy*Math.sin(20*pi*cy);
-			return (-res);
+			double res = 21.5 + cx*Math.sin(4*PI*cx)+cy*Math.sin(20*PI*cy);
+			return res;
 		};
 		Seleccion<Punto> ts = p->{//Seleccion por ruleta
 			Punto[] s = new Punto[2];
 			double r1 = Math.random();
 			double r2 = Math.random();
-			int pacc = 0;
+			double pacc = 0;
 			int i = 0;
-			double probMin = 0;
-			double probMax = tf.fitness(p[0]);;
+			double probMin = tf.fitness(p[0]);
+			double probMax = probMin;
+			double fitnessTotal = 0;
 			while(i<p.length) {
 				double fi = tf.fitness(p[i]);
 				if(fi<probMin)probMin=fi;
 				if(fi>probMax)probMax=fi;
 				i++;
 			}
+			double[] probs = new double[p.length];
+			i=0;
+			while(i<p.length) {
+				probs[i]=normalize(tf.fitness(p[i]), probMin, probMax);
+				fitnessTotal+=probs[i];
+				i++;
+			}
 			i=0;
 			while (i<p.length){
 				if(pacc>=r1) s[0]=p[i];
 				if(pacc>=r2) s[1]=p[i];
-				double probi = normalize(tf.fitness(p[i]), probMin, probMax);
-				pacc+= probi;
+				double probi = probs[i];
+				pacc+= probi/fitnessTotal;
 				i++;
 			}
 			return p;
@@ -102,7 +115,7 @@ public class Main{
 					sb.append(c);
 				}
 			}
-			Integer nx = Integer.parseInt(sb.toString());
+			Integer nx = Integer.parseInt(sb.toString(),2);
 
 			brep = fillZeros(Integer.toBinaryString(h.y), nbits);
 			sb = new StringBuffer();
@@ -115,22 +128,32 @@ public class Main{
 					sb.append(c);
 				}
 			}
-			Integer ny = Integer.parseInt(sb.toString());
+			Integer ny = Integer.parseInt(sb.toString(),2);
 			return new Punto(){{x=nx;y=ny;}};
 		};
 
 		while(generacion<nIteraciones){
-			for(int i=0; i<(pob.length/2); i++){
+			for(int i=0; i<(pob.size()/2); i++){
 				Punto[] sel, hijos, mutados;
-				sel = seleccion(ts, pob);
+				sel = seleccion(ts, pob.toArray(new Punto[]{}));
 				hijos = cruce(tc, sel, probCruce);
 				mutados = mutacion(tm, hijos, probMutacion);
 				npob.add(mutados[0]);
+				npob.add(mutados[1]);
 			}
-			pob=npob.toArray(pob);
+			pob.clear();
+			pob.addAll(npob);
+			npob.clear();
 			generacion++;
 		}
-		System.out.println(Arrays.toString(pob));
+		
+		pob.forEach(p->{
+			double cx = xmin + p.x*(xmax-xmin)/(Math.pow(2,nbits)-1);
+			double cy = xmin + p.y*(xmax-xmin)/(Math.pow(2,nbits)-1);
+			double res = 21.5 + cx*Math.sin(4*PI*cx)+cy*Math.sin(20*PI*cy);
+			System.out.println("x1:"+cx+",x2:"+cy+"; y:"+res);
+			System.out.println("fitness:"+tf.fitness(p));
+		});
 
 	}
 	public static <T> T[] seleccion(Seleccion<T> tsel, T[] poblacion){
@@ -143,7 +166,7 @@ public class Main{
 		for(int h=0; h<hijos.length; h++){
 			hijos[h] = tmutacion.execute(hijos[h]);
 		}
-		return Arrays.copyOf(hijos, hijos.length+1);
+		return Arrays.copyOf(hijos, hijos.length);
 	}
 	static String fillZeros(String ind, int nbits) {
 		StringBuffer pad = new StringBuffer(nbits);
@@ -178,6 +201,6 @@ interface Fitness<G>{
 class Punto{
 	public Integer x,y;
 	public String toString(){
-		return "x:"+x+"y:"+y;
+		return "x:"+x+", y:"+y;
 	}
 }
