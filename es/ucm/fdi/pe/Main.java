@@ -10,10 +10,10 @@ public class Main{
 	@SuppressWarnings("serial")
 	public static void main(String[] args){
 
-		int nIteraciones=50000;
+		int nIteraciones=100000;
 		int generacion=0;
 		double probCruce = 0.6;
-		double probMutacion = 0.01;
+		double probMutacion = 0.05;
 		double precision=0.001;
 		double xmax = 12.1;
 		double xmin = -3;
@@ -25,7 +25,7 @@ public class Main{
 		
 		final ArrayList<Punto> pob = new ArrayList<>();
 		Random rand = new Random();
-		range(0,64).forEach(e->{
+		range(0,100).forEach(e->{
 			pob.add(new Punto(){{
 				x=rand.nextInt((int)Math.pow(2,lcromx)-1);
 				y=rand.nextInt((int)Math.pow(2,lcromy)-1);
@@ -78,10 +78,12 @@ public class Main{
 			return p;
 		};
 		Cruce<Punto> tc = (p1, p2)->{//monopunto
-			double prob = 1f/lcromx;
-			double pacc = 0;
-			double r = Math.random();
-			int i = 0;
+			double prob, pacc, r;
+			int i;
+			prob = 1f/lcromx;
+			pacc = 0;
+			r = Math.random();
+			i = 0;
 			while(i<lcromx){
 				if(r<=pacc) break;
 				pacc+=prob;
@@ -170,7 +172,8 @@ public class Main{
 		return tsel.execute(poblacion);
 	}
 	public static <T> T[] cruce(Cruce<T> tcruce, T[] padres,double prob){
-		return tcruce.execute(padres[0], padres[1]);
+		if(Math.random()<prob) return tcruce.execute(padres[0], padres[1]) ;
+		return padres;
 	}
 	static <T> T[] mutacion(Mutacion<T> tmutacion, T[] hijos, double prob){
 		for(int h=0; h<hijos.length; h++){
