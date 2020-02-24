@@ -12,16 +12,14 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-
-import org.math.plot.Plot2DPanel;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame {
@@ -32,6 +30,8 @@ public class Gui extends JFrame {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	public JPanel panel_6;
+	public JProgressBar progressBar;
 
 	/**
 	 * Launch the application. adsdww 
@@ -85,17 +85,23 @@ public class Gui extends JFrame {
 		
 		JPanel panel_10 = new JPanel();
 		panel_10.setBorder(new TitledBorder(null, "Elitismo", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		
+		JPanel panel_11 = new JPanel();
+		panel_11.setBorder(new EmptyBorder(0, 2, 0, 2));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(1)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
-						.addComponent(panel_10, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-						.addComponent(panel_5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_4, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE))
+						.addComponent(panel_11, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+						.addGroup(gl_panel_1.createSequentialGroup()
+							.addGap(1)
+							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+								.addComponent(panel_10, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(panel_9, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(panel_5, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(panel_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+								.addComponent(panel_4, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE))))
 					.addGap(1))
 		);
 		gl_panel_1.setVerticalGroup(
@@ -109,10 +115,16 @@ public class Gui extends JFrame {
 					.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 					.addGap(1)
 					.addComponent(panel_10, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+					.addComponent(panel_11, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		gl_panel_1.linkSize(SwingConstants.HORIZONTAL, new Component[] {panel_3, panel_4, panel_5, panel_10});
+		panel_11.setLayout(new BorderLayout(0, 0));
+		
+		progressBar = new JProgressBar();
+		panel_11.add(progressBar, BorderLayout.CENTER);
 		
 		JLabel lblNewLabel_7 = new JLabel("porcentaje");
 		
@@ -295,15 +307,10 @@ public class Gui extends JFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		panel_2.add(tabbedPane, BorderLayout.CENTER);
 		
-		JPanel panel_6 = new JPanel();
+		panel_6 = new JPanel();
 		tabbedPane.addTab("Aprendizaje", null, panel_6, null);
-		double[] x = { 1, 2, 3, 4, 5, 6 };
-		double[] y = { 45, 89, 6, 32, 63, 12 };
-		Plot2DPanel plot = new Plot2DPanel();
-		plot.addLegend("SOUTH");
-		plot.addLinePlot("my plot", x, y);
 		panel_6.setLayout(new BorderLayout(0, 0));
-		panel_6.add(plot);
+		
 		
 		JPanel panel_7 = new JPanel();
 		tabbedPane.addTab("Grafico 3D", null, panel_7, null);

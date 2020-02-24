@@ -6,13 +6,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+
+import org.math.plot.Plot2DPanel;
+
 public class Main{
 	@SuppressWarnings("serial")
 	public static void main(String[] args){
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) { System.exit(-1);}
 
-		int nIteraciones=100000;
+		int tamPoblacion=100;
+		int nIteraciones=100;
 		int generacion=0;
-		double probCruce = 0.6;
+		double probCruce = 0.4;
 		double probMutacion = 0.05;
 		double precision=0.001;
 		double xmax = 12.1;
@@ -21,11 +30,21 @@ public class Main{
 		double ymin = 4.1;
 		int lcromx = (int) Math.ceil(Math.log(1+(xmax-xmin)/precision)/Math.log(2));
 		int lcromy = (int) Math.ceil(Math.log(1+(ymax-ymin)/precision)/Math.log(2));
-
 		
-		final ArrayList<Punto> pob = new ArrayList<>();
+		double[] best = new double[nIteraciones];
+		double[] average = new double[nIteraciones];
+		double[] worst = new double[nIteraciones];
+		
+		Gui gui = new Gui();
+		gui.setVisible(true);	
+		gui.progressBar.setMaximum(nIteraciones);
+		Plot2DPanel plot = new Plot2DPanel();
+		plot.addLegend("SOUTH");
+		gui.panel_6.add(plot);
+		
+		ArrayList<Punto> pob = new ArrayList<>();
 		Random rand = new Random();
-		range(0,100).forEach(e->{
+		range(0,tamPoblacion).forEach(e->{
 			pob.add(new Punto(){{
 				x=rand.nextInt((int)Math.pow(2,lcromx)-1);
 				y=rand.nextInt((int)Math.pow(2,lcromy)-1);
@@ -63,13 +82,11 @@ public class Main{
 			}
 			i=0;
 			while (i<p.length){
-				if(pacc>=r1) {
+				if(pacc<=r1) {
 					s[0]=p[i];
-					r1=2;
 				}
-				if(pacc>=r2) {
+				if(pacc<=r2) {
 					s[1]=p[i];
-					r2=2;
 				}
 				double probi = probs[i];
 				pacc+= probi/fitnessTotal;
@@ -80,7 +97,7 @@ public class Main{
 		Cruce<Punto> tc = (p1, p2)->{//monopunto
 			double prob, pacc, r;
 			int i;
-			prob = 1f/lcromx;
+			prob = 1f/(lcromx-1);
 			pacc = 0;
 			r = Math.random();
 			i = 0;
@@ -96,7 +113,7 @@ public class Main{
 			Integer a = Integer.parseInt(h1,2);
 			Integer b = Integer.parseInt(h2,2);
 
-			prob = 1f/lcromy;
+			prob = 1f/(lcromy-1);
 			pacc=0;
 			r = Math.random();
 			i = 0;
@@ -158,17 +175,29 @@ public class Main{
 			pob.clear();
 			pob.addAll(npob);
 			npob.clear();
+			
+			Double w, avg, b;
+			w=b=tf.fitness(pob.get(0));
+			avg=0d;
+			for(Punto p:pob) {
+				double f = tf.fitness(p);
+				if(f<w) w = f;
+				if(f>b) b = f;
+				avg += f/tamPoblacion;
+			};
+			best[generacion]=b;
+			worst[generacion]=w;
+			average[generacion]=avg;
+			final int g = generacion;
+			gui.progressBar.setValue(generacion);
 			generacion++;
 		}
 		
-		pob.forEach(p->{
-			double cx = xmin + p.x*(xmax-xmin)/(Math.pow(2,lcromx)-1);
-			double cy = ymin + p.y*(ymax-ymin)/(Math.pow(2,lcromy)-1);
-			System.out.println("x:"+cx+",y:"+cy+";\tfitness:"+tf.fitness(p));
+		SwingUtilities.invokeLater(()->{
+			plot.addLinePlot("best", best);
+			plot.addLinePlot("worst", worst);
+			plot.addLinePlot("average", average);
 		});
-		
-		Gui gui = new Gui();
-
 	}
 	public static <T> T[] seleccion(Seleccion<T> tsel, T[] poblacion){
 		return tsel.execute(poblacion);
@@ -219,3 +248,6 @@ class Punto{
 		return "x:"+x+", y:"+y;
 	}
 }
+
+//double cx = xmin + p.x*(xmax-xmin)/(Math.pow(2,lcromx)-1);
+//double cy = ymin + p.y*(ymax-ymin)/(Math.pow(2,lcromy)-1);
