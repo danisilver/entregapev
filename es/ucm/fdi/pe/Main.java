@@ -123,8 +123,8 @@ public class Main{
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
 				if(r<probMutacion) {
-					if(c=='0') sb.append('0');
-					else sb.append('1');
+					if(c=='0') sb.append('1');
+					else sb.append('0');
 				} else {
 					sb.append(c);
 				}
@@ -136,8 +136,8 @@ public class Main{
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
 				if(r<probMutacion) {
-					if(c=='0') sb.append('0');
-					else sb.append('1');
+					if(c=='0') sb.append('1');
+					else sb.append('0');
 				} else {
 					sb.append(c);
 				}
@@ -166,6 +166,8 @@ public class Main{
 			double cy = ymin + p.y*(ymax-ymin)/(Math.pow(2,lcromy)-1);
 			System.out.println("x:"+cx+",y:"+cy+";\tfitness:"+tf.fitness(p));
 		});
+		
+		Gui gui = new Gui();
 
 	}
 	public static <T> T[] seleccion(Seleccion<T> tsel, T[] poblacion){
