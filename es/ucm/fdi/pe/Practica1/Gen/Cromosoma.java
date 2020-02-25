@@ -1,7 +1,5 @@
 package Gen;
 
-import Gen.*;
-
 public abstract class Cromosoma {
 	
 	protected double fitness;
