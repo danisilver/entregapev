@@ -9,3 +9,5 @@ funcion michalewicz
 funcion michalewicz con genes reales  
 cruce monopunto, discreto uniforme, SBX
 
+
+`javac .\es\ucm\fdi\pe\Main.java`
