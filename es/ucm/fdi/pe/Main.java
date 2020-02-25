@@ -188,7 +188,6 @@ public class Main{
 			best[generacion]=b;
 			worst[generacion]=w;
 			average[generacion]=avg;
-			final int g = generacion;
 			gui.progressBar.setValue(generacion);
 			generacion++;
 		}
@@ -200,15 +199,15 @@ public class Main{
 		});
 	}
 	public static <T> T[] seleccion(Seleccion<T> tsel, T[] poblacion){
-		return tsel.execute(poblacion);
+		return tsel.seleccion(poblacion);
 	}
 	public static <T> T[] cruce(Cruce<T> tcruce, T[] padres,double prob){
-		if(Math.random()<prob) return tcruce.execute(padres[0], padres[1]) ;
+		if(Math.random()<prob) return tcruce.cruce(padres[0], padres[1]) ;
 		return padres;
 	}
 	static <T> T[] mutacion(Mutacion<T> tmutacion, T[] hijos, double prob){
 		for(int h=0; h<hijos.length; h++){
-			hijos[h] = tmutacion.execute(hijos[h]);
+			hijos[h] = tmutacion.mutacion(hijos[h]);
 		}
 		return Arrays.copyOf(hijos, hijos.length);
 	}
@@ -224,13 +223,13 @@ public class Main{
 }
 
 interface Seleccion<T>{
-	T[] execute(T[] poblacion);
+	T[] seleccion(T[] poblacion);
 }
 interface Cruce<T>{
-	T[] execute(T p1, T p2);
+	T[] cruce(T p1, T p2);
 }
 interface Mutacion<T>{
-	T execute(T p);
+	T mutacion(T p);
 }
 interface Genotipo<G,F>{
 	F fenotipo();
