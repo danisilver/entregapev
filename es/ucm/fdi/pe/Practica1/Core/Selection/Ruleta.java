@@ -12,6 +12,10 @@ public class Ruleta extends Seleccion {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Ruleta() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Cromosoma[] selecciona(Cromosoma[] poblacion, int tamPob){
 		int[] sel_super = new int[tamPob];
 		double prob;

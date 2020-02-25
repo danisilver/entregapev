@@ -10,6 +10,10 @@ public class Estocastico extends Seleccion {
 		super(func);
 	}
 
+	public Estocastico() {
+		super();
+	}
+
 	public Cromosoma[] selecciona(Cromosoma[] poblacion, int tamPob) {
 		int[] sel_super = new int[tamPob];
 		marca = 1.0 / tamPob;

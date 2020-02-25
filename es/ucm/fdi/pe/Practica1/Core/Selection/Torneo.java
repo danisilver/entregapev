@@ -6,11 +6,14 @@ import Gen.Cromosoma;
 
 public class Torneo extends Seleccion {
 	private static final double P = 0.75;
-	private int tipo_torneo;
 	
 	public Torneo(int func, int tipo) {
 		super(func);
-		tipo_torneo = tipo;
+		this.tipo = tipo;
+	}
+
+	public Torneo() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public Cromosoma[] selecciona(Cromosoma[] poblacion, int tamPob) {
@@ -27,7 +30,7 @@ public class Torneo extends Seleccion {
 				subpoblacion[i] = poblacion[posElegida].copia();
 			}
 			
-			if(tipo_torneo == 2){
+			if(tipo == 2){
 				poblacionAux[j] = getMejorSubpoblacion(subpoblacion);
 			}else{
 				prob = rnd.nextDouble();

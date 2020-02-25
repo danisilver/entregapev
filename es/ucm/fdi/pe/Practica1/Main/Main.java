@@ -10,51 +10,34 @@ import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 import org.math.plot.Plot2DPanel;
-
+import Parameters.Parameters;
 public class Main{
 	@SuppressWarnings("serial")
 	public static void main(String[] args){
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) { System.exit(-1);}
-
-		int tamPoblacion=100;
-		int nIteraciones=100;
-		int generacion=0;
-		double probCruce = 0.4;
-		double probMutacion = 0.05;
-		double precision=0.001;
-		double xmax = 12.1;
-		double xmin = -3;
-		double ymax = 5.8;
-		double ymin = 4.1;
-		int lcromx = (int) Math.ceil(Math.log(1+(xmax-xmin)/precision)/Math.log(2));
-		int lcromy = (int) Math.ceil(Math.log(1+(ymax-ymin)/precision)/Math.log(2));
-		
-		double[] best = new double[nIteraciones];
-		double[] average = new double[nIteraciones];
-		double[] worst = new double[nIteraciones];
 		
 		Gui gui = new Gui();
 		gui.setVisible(true);	
-		gui.progressBar.setMaximum(nIteraciones);
+		gui.progressBar.setMaximum(Parameters.nIteraciones);
 		Plot2DPanel plot = new Plot2DPanel();
 		plot.addLegend("SOUTH");
 		gui.panel_6.add(plot);
 		
 		ArrayList<Punto> pob = new ArrayList<>();
 		Random rand = new Random();
-		range(0,tamPoblacion).forEach(e->{
+		range(0,Parameters.tamPoblacion).forEach(e->{
 			pob.add(new Punto(){{
-				x=rand.nextInt((int)Math.pow(2,lcromx)-1);
-				y=rand.nextInt((int)Math.pow(2,lcromy)-1);
+				x=rand.nextInt((int)Math.pow(2,Parameters.lcromx)-1);
+				y=rand.nextInt((int)Math.pow(2,Parameters.lcromy)-1);
 			}});
 		});
 
 		ArrayList<Punto> npob = new ArrayList<>();
 		Fitness<Punto> tf = i->{
-			double cx = xmin + i.x*(xmax-xmin)/(Math.pow(2,lcromx)-1);
-			double cy = ymin + i.y*(ymax-ymin)/(Math.pow(2,lcromy)-1);
+			double cx = Parameters.xmin + i.x*(Parameters.xmax-Parameters.xmin)/(Math.pow(2,Parameters.lcromx)-1);
+			double cy = Parameters.ymin + i.y*(Parameters.ymax-Parameters.ymin)/(Math.pow(2,Parameters.lcromy)-1);
 			double res = 21.5 + cx*Math.sin(4*PI*cx)+cy*Math.sin(20*PI*cy);
 			return res;
 		};
@@ -97,35 +80,35 @@ public class Main{
 		Cruce<Punto> tc = (p1, p2)->{//monopunto
 			double prob, pacc, r;
 			int i;
-			prob = 1f/(lcromx-1);
+			prob = 1f/(Parameters.lcromx-1);
 			pacc = 0;
 			r = Math.random();
 			i = 0;
-			while(i<lcromx){
+			while(i<Parameters.lcromx){
 				if(r<=pacc) break;
 				pacc+=prob;
 				i++;
 			}
-			String h1rep = fillZeros(Integer.toBinaryString(p1.x), lcromx);
-			String h2rep = fillZeros(Integer.toBinaryString(p2.x), lcromx);
-			String h1 = h1rep.substring(0,i).concat(h2rep.substring(i,lcromx));
-			String h2 = h2rep.substring(0,i).concat(h1rep.substring(i,lcromx));
+			String h1rep = fillZeros(Integer.toBinaryString(p1.x), Parameters.lcromx);
+			String h2rep = fillZeros(Integer.toBinaryString(p2.x), Parameters.lcromx);
+			String h1 = h1rep.substring(0,i).concat(h2rep.substring(i,Parameters.lcromx));
+			String h2 = h2rep.substring(0,i).concat(h1rep.substring(i,Parameters.lcromx));
 			Integer a = Integer.parseInt(h1,2);
 			Integer b = Integer.parseInt(h2,2);
 
-			prob = 1f/(lcromy-1);
+			prob = 1f/(Parameters.lcromy-1);
 			pacc=0;
 			r = Math.random();
 			i = 0;
-			while(i<lcromy){
+			while(i<Parameters.lcromy){
 				if(r<=pacc) break;
 				pacc+=prob;
 				i++;
 			}
-			h1rep = fillZeros(Integer.toBinaryString(p1.y), lcromy);
-			h2rep = fillZeros(Integer.toBinaryString(p2.y), lcromy);
-			h1 = h1rep.substring(0,i).concat(h2rep.substring(i,lcromy));
-			h2 = h2rep.substring(0,i).concat(h1rep.substring(i,lcromy));
+			h1rep = fillZeros(Integer.toBinaryString(p1.y), Parameters.lcromy);
+			h2rep = fillZeros(Integer.toBinaryString(p2.y), Parameters.lcromy);
+			h1 = h1rep.substring(0,i).concat(h2rep.substring(i,Parameters.lcromy));
+			h2 = h2rep.substring(0,i).concat(h1rep.substring(i,Parameters.lcromy));
 			Integer c = Integer.parseInt(h1,2);
 			Integer d = Integer.parseInt(h2,2);
 
@@ -135,11 +118,11 @@ public class Main{
 			};
 		};
 		Mutacion<Punto> tm = h->{//mutacion basica
-			String brep = fillZeros(Integer.toBinaryString(h.x), lcromx);
+			String brep = fillZeros(Integer.toBinaryString(h.x), Parameters.lcromx);
 			StringBuffer sb = new StringBuffer();
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
-				if(r<probMutacion) {
+				if(r<Parameters.probMutacion) {
 					if(c=='0') sb.append('1');
 					else sb.append('0');
 				} else {
@@ -148,11 +131,11 @@ public class Main{
 			}
 			Integer nx = Integer.parseInt(sb.toString(),2);
 
-			brep = fillZeros(Integer.toBinaryString(h.y), lcromy);
+			brep = fillZeros(Integer.toBinaryString(h.y), Parameters.lcromy);
 			sb = new StringBuffer();
 			for(char c:brep.toCharArray()){
 				double r = Math.random();
-				if(r<probMutacion) {
+				if(r<Parameters.probMutacion) {
 					if(c=='0') sb.append('1');
 					else sb.append('0');
 				} else {
@@ -163,12 +146,12 @@ public class Main{
 			return new Punto(){{x=nx;y=ny;}};
 		};
 
-		while(generacion<nIteraciones){
+		while(Parameters.generacion<Parameters.nIteraciones){
 			for(int i=0; i<(pob.size()/2); i++){
 				Punto[] sel, hijos, mutados;
 				sel = seleccion(ts, pob.toArray(new Punto[]{}));
-				hijos = cruce(tc, sel, probCruce);
-				mutados = mutacion(tm, hijos, probMutacion);
+				hijos = cruce(tc, sel, Parameters.probCruce);
+				mutados = mutacion(tm, hijos, Parameters.probMutacion);
 				npob.add(mutados[0]);
 				npob.add(mutados[1]);
 			}
@@ -183,20 +166,20 @@ public class Main{
 				double f = tf.fitness(p);
 				if(f<w) w = f;
 				if(f>b) b = f;
-				avg += f/tamPoblacion;
+				avg += f/Parameters.tamPoblacion;
 			};
-			best[generacion]=b;
-			worst[generacion]=w;
-			average[generacion]=avg;
-			final int g = generacion;
-			gui.progressBar.setValue(generacion);
-			generacion++;
+			Parameters.best[Parameters.generacion]=b;
+			Parameters.worst[Parameters.generacion]=w;
+			Parameters.average[Parameters.generacion]=avg;
+			final int g = Parameters.generacion;
+			gui.progressBar.setValue(Parameters.generacion);
+			Parameters.generacion++;
 		}
 		
 		SwingUtilities.invokeLater(()->{
-			plot.addLinePlot("best", best);
-			plot.addLinePlot("worst", worst);
-			plot.addLinePlot("average", average);
+			plot.addLinePlot("best", Parameters.best);
+			plot.addLinePlot("worst", Parameters.worst);
+			plot.addLinePlot("average", Parameters.average);
 		});
 	}
 	public static <T> T[] seleccion(Seleccion<T> tsel, T[] poblacion){
