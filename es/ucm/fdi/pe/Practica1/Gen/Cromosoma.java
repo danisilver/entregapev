@@ -1,81 +1,38 @@
 package Gen;
 
-public abstract class Cromosoma {
+public abstract class Cromosoma{
+	private double tolerancia;
+	private double puntuacion;
+	private double puntAcc;
+	public abstract Object getGen(int i);
+	public abstract void setGen(int i, Object g);
+	public abstract Object getFenotipo();
+	public abstract Object[] getGenes();
+	public abstract Cromosoma clonar();
 	
-	protected double fitness;
-	protected double fitness_bruto; //Aptitud antes de transformarla
-	protected double punt;
-	protected double puntAcum;
-	protected Gen[] genes;
-	protected double fenotipo;
-	private int longitud;
-	protected static int N_GENES;
-	
-	public double getFitness() {
-		return fitness;
+	public static String fillZeros(String ind, int nbits) {
+		StringBuffer pad = new StringBuffer(nbits);
+		nbits -= ind.length();
+		for(int i=0; i<nbits; i++) pad.append('0');
+		return pad.append(ind).toString();
 	}
-	public void setFitness(double fitness) {
-		this.fitness = fitness;
+	public double getPuntuacion() {
+		return puntuacion;
 	}
-	public double getPunt() {
-		return punt;
+	public void setPuntuacion(double puntuacion) {
+		this.puntuacion = puntuacion;
 	}
-	public void setPunt(double d) {
-		this.punt = d;
+	public double getPuntAcc() {
+		return puntAcc;
 	}
-	public double getPuntAcum() {
-		return puntAcum;
+	public void setPuntAcc(double puntAcc) {
+		this.puntAcc = puntAcc;
 	}
-	public void setPuntAcum(double puntAcum) {
-		this.puntAcum = puntAcum;
+	public double getTolerancia() {
+		return tolerancia;
 	}
-	public Gen[] getGenes() {
-		return genes;
+	public void setTolerancia(double tolerancia) {
+		this.tolerancia = tolerancia;
 	}
-	public void setGenes(Gen[] genes) {
-		this.genes = genes;
-	}
-	
-	public int getNGenes(){
-		return N_GENES;
-	
-	}
-	public double getFitness_bruto() {
-		return fitness_bruto;
-	}
-	public void setFitness_bruto(double fitness_bruto) {
-		this.fitness_bruto = fitness_bruto;
-	}
-	
-	/**
-	 * Convierte el contenido de la cadena binaria que lleva el gen en su valor decimal
-	 * @param gen Gen que se traducirá a decimal
-	 * @return Valor decimal de la cadena binaria
-	 */
-	public double bin_dec(Gen gen) {
-		int longGen = gen.getLongAlelo();
-		int pos = 0;
-		double valor = 0;
-		
-		for(int i = longGen-1; i >= 0; i--){
-			if(gen.getPosAlelo(i)){
-				double num = (float)Math.pow(2, pos);
-				valor += num;
-			}
-			pos++;
-		}
-		
-		return valor;
-	}
-	
-	public abstract double fenotipo(int pos);
-	public abstract double evalua();
-	public abstract String toString();
-	public abstract Cromosoma copia();
-	public int getLongitud() {
-		return longitud;
-	}
-	public void setLongitud(int longitud) {
-		this.longitud = longitud;
-	}
+
 }
