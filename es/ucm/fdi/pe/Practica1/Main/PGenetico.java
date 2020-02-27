@@ -1,7 +1,10 @@
-package facil;
+package Main;
 
 import java.util.Arrays;
 import java.util.Comparator;
+
+import Gen.Cromosoma;
+import Core.*;
 
 public class PGenetico {
 	private int tamPoblacion;
