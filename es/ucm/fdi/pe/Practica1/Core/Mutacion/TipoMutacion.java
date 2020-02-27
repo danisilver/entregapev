@@ -2,6 +2,6 @@ package Core.Mutacion;
 
 import Gen.Cromosoma;
 
-interface TipoMutacion{
+public interface TipoMutacion{
 	Cromosoma[] mutacion(Cromosoma[] ind, double probMutacion);
 }

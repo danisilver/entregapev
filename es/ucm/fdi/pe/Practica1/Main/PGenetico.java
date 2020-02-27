@@ -5,6 +5,9 @@ import java.util.Comparator;
 
 import Gen.Cromosoma;
 import Core.*;
+import Core.Cruce.TipoCruce;
+import Core.Mutacion.TipoMutacion;
+import Core.Selection.TipoSeleccion;
 
 public class PGenetico {
 	private int tamPoblacion;
