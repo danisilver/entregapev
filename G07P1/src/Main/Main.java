@@ -9,7 +9,6 @@ import java.util.Random;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-import org.math.plot.Plot2DPanel;
 import Parameters.Parameters;
 public class Main{
 	@SuppressWarnings("serial")
