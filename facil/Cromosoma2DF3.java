@@ -28,11 +28,15 @@ public class Cromosoma2DF3 extends Cromosoma2D{
 	public Object getFenotipo() {
 		double cx = xmin + x*(xmax-xmin)/(Math.pow(2,lgenx)-1);
 		double cy = ymin + y*(ymax-ymin)/(Math.pow(2,lgeny)-1);
-		double res=0;
-		for (int i = 0; i < 5 ; i++) {
-			res+=i*Math.cos(((i+1)*cx)+i)*i*Math.cos(((i+1)*cy)+i);
+		double a=0;
+		for (int i = 1; i < 6 ; i++) {
+			a+=i*Math.cos(((i+1)*cx)+i);
 		}
-		return res;
+		double b=0;
+		for (int i = 1; i < 6; i++) {
+			b+=i*Math.cos(((i+1)*cy)+i);
+		}
+		return a*b;
 	}
 
 	@Override

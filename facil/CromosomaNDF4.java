@@ -20,7 +20,7 @@ public class CromosomaNDF4 extends CromosomaND {
 			double xi = xmin + x*(xmax-xmin)/(Math.pow(2,getGenLen(i))-1);
 			res -= Math.sin(xi)*Math.pow(
 									Math.sin(
-											((i+1)*xi*xi)/Math.PI), 20);
+											((i+2)*xi*xi)/Math.PI), 20);
 		}
 		return res;
 	}
