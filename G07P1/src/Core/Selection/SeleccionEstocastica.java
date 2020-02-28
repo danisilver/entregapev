@@ -30,7 +30,7 @@ private double marca;
 			suma += marca;
 		}
 		
-		//Se genera la población intermedia
+		//Se genera la poblaciï¿½n intermedia
 		Cromosoma[] nuevaPob = new Cromosoma[poblacion.length];
 		for(int i = 0; i < poblacion.length; i++){
 			nuevaPob[i] = poblacion[sel_super[i]].clonar();

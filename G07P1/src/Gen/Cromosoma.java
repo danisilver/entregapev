@@ -1,7 +1,7 @@
 package Gen;
 
 public abstract class Cromosoma{
-	private double tolerancia;
+	public static double tolerancia;
 	private double puntuacion;
 	private double puntAcc;
 	public abstract Object getGen(int i);
@@ -34,5 +34,6 @@ public abstract class Cromosoma{
 	public void setTolerancia(double tolerancia) {
 		this.tolerancia = tolerancia;
 	}
+	public abstract int getGenLen(int i);
 
 }

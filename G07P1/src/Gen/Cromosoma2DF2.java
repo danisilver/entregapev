@@ -6,13 +6,14 @@ public class Cromosoma2DF2 extends Cromosoma2D{
 		xmin =-10;
 		ymax = 10;
 		ymin =-10;
-		setTolerancia(0.001d);
+		setLgenx((int) Math.ceil(Math.log(1+(xmax-xmin)/getTolerancia())/Math.log(2)));
+		setLgeny((int) Math.ceil(Math.log(1+(ymax-ymin)/getTolerancia())/Math.log(2)));
 	}
 
 	@Override
 	public Object getFenotipo() {
-		double cx = xmin + x*(xmax-xmin)/(Math.pow(2,lgenx)-1);
-		double cy = ymin + y*(ymax-ymin)/(Math.pow(2,lgeny)-1);
+		double cx = xmin + x*(xmax-xmin)/(Math.pow(2,getLgenx())-1);
+		double cy = ymin + y*(ymax-ymin)/(Math.pow(2,getLgeny())-1);
 		
 		double res=0;
 		res -= (Math.abs(
@@ -30,5 +31,12 @@ public class Cromosoma2DF2 extends Cromosoma2D{
 	@Override
 	public Cromosoma clonar() {
 		return new Cromosoma2DF2();
+	}
+	
+	@Override
+	public int getGenLen(int i) {
+		if(i==0) return getLgenx();
+		if(i==1) return getLgeny();
+		return 0;
 	}
 }

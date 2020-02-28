@@ -3,87 +3,110 @@ package Main;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import Gen.Cromosoma;
-import Core.*;
 import Core.Cruce.TipoCruce;
 import Core.Mutacion.TipoMutacion;
+import Core.Selection.TipoFitness;
 import Core.Selection.TipoSeleccion;
+import Gen.Cromosoma;
 
 public class PGenetico {
 	private int tamPoblacion;
 	private int nIteraciones;
 	private double probC;
 	private double probM;
-	private double tol;
 	private Cromosoma[] poblacion;
 	private TipoSeleccion ts;
 	private TipoCruce tc;
 	private TipoMutacion tm;
+	private TipoFitness tf;
 	private double elitismo;
+	private int generacionActual;
+	private int cuentaAtras;
+	private Cromosoma mejorIndividuo;
 
-	public PGenetico(int tamPoblacion, int nIteraciones, double probC, double probM, double tol, double elitismo, Cromosoma[] poblacion) {
-		this.tamPoblacion = tamPoblacion;
-		this.nIteraciones = nIteraciones;
-		this.probC = probC;
-		this.probM = probM;
-		this.tol = tol;
-		this.elitismo = elitismo;
+	public PGenetico(int tamPoblacion, int nIteraciones, double probC, double probM, double elitismo, Cromosoma[] poblacion) {
+		this.setTamPoblacion(tamPoblacion);
+		this.setNumIteraciones(nIteraciones);
+		this.setProbCruce(probC);
+		this.setProbMutacion(probM);
+		this.setPctjElitismo(elitismo);
 		this.setPoblacion(poblacion);
-		evaluarPoblacion(poblacion);
+		Cromosoma.tolerancia = 0.001;
+		generacionActual = 0;
+		cuentaAtras=0;
+		this.setTipoFitness(TipoFitness.MAXIMIZAR);
+	}
+	
+	public void reiniciarBusqueda() {
+		generacionActual = 0;
+		cuentaAtras=0;
+	}
+	
+	public void buscarNiter(int iter) {
+		cuentaAtras=iter;
+		buscar();
 	}
 	
 	public void buscar() {
-		int generacionActual = 0;
-		while(nIteraciones<generacionActual ) {
-			Cromosoma[] nueva = new Cromosoma[tamPoblacion];
+		while(generacionActual<nIteraciones && --cuentaAtras>=0) {
+			Cromosoma[] nueva = new Cromosoma[getTamPoblacion()];
 			Cromosoma[] elite = seleccionarElite(); 
 			for(int i=0; i<poblacion.length/2; i++){
 				Cromosoma[] sel,cruz, mut;
-				sel = ts.seleccion(getPoblacion());
-				cruz = tc.cruce(sel, probC);
-				mut = tm.mutacion(cruz, probM);
+				sel = getTipoSeleccion().seleccion(getPoblacion());
+				cruz = getTipoCruce().cruce(sel, getProbCruce());
+				mut = getTipoMutacion().mutacion(cruz, getProbMutacion());
 				nueva[i]=mut[0];
 				nueva[poblacion.length-i-1]=mut[1];
 			}
-			evaluarPoblacion(nueva);
 			setPoblacion(nueva);
+			evaluarPoblacion(poblacion);
+			mejorIndividuo = poblacion[tamPoblacion-1];
 			agregarElite(elite);
+			generacionActual++;
 		}
 	}
 	
 	private void agregarElite(Cromosoma[] elite) {
-		// TODO 
+		for (int i = 0; i < elite.length; i++) {
+			poblacion[i]=elite[i];
+		}
+		evaluarPoblacion(poblacion);
 	}
 
 	private Cromosoma[] seleccionarElite() {
-		int nElite = (int) (poblacion.length * elitismo);
-		if(nElite > 0) {
-			
+		int numElite = Math.min((int) (poblacion.length * getPctjElitismo()), getTamPoblacion());
+		Cromosoma[] elite = new Cromosoma[numElite];
+		if(numElite > 0) {
+			for (int i = 0; i < numElite; i++) {
+				elite[i]=poblacion[poblacion.length-i-1]; 
+			}
 		}
-		return null;
+		return elite;
 	}
 
 	public Cromosoma getMejorPoblacion() {
-		return poblacion[0];
+		return mejorIndividuo;
 	}
 
 	private void evaluarPoblacion(Cromosoma[] nueva) {
 		double peor, mejor;
-		mejor = peor = (double) poblacion[0].getFenotipo();
+		mejor = peor = (double) nueva[0].getFenotipo();
 		for(Cromosoma c:nueva) {
 			double actual = (double) c.getFenotipo();
 			if(actual< peor) peor = actual;
 			else if(mejor< actual) mejor = actual;
-			c.setTolerancia(tol);
 		}
-		double puntAcc = 0;
+		if(tf==TipoFitness.MINIMIZAR) {
+			double aux = mejor;
+			mejor = peor;
+			peor = aux;
+		}
 		for(Cromosoma c:nueva) {
 			c.setPuntuacion(normalize((double)c.getFenotipo(), peor, mejor));
-			puntAcc += c.getPuntuacion() / nueva.length;
-			c.setPuntAcc(puntAcc);
 		}
 		
-		Arrays.sort(poblacion, new Comparator<Cromosoma>() {
+		Arrays.sort(nueva, new Comparator<Cromosoma>() {
 			@Override
 			public int compare(Cromosoma o1, Cromosoma o2) {
 				if(o1.getPuntuacion()<o2.getPuntuacion())
@@ -93,17 +116,100 @@ public class PGenetico {
 				else return 0;
 			}
 		});
+		
+		double puntAcc = 0;
+		for (Cromosoma c:nueva) {
+			puntAcc += c.getPuntuacion() / nueva.length;
+			c.setPuntAcc(puntAcc);
+		}
 	}
 	
 	static double normalize(double value, double min, double max) {
-	    return 1 - ((value - min) / (max - min));
+	    return ((value - min) / (max - min));
 	}
 
 	public Cromosoma[] getPoblacion() {
 		return poblacion;
 	}
-
+	
 	public void setPoblacion(Cromosoma[] poblacion) {
 		this.poblacion = poblacion;
+		if(poblacion!=null) evaluarPoblacion(poblacion);
+	}
+
+	public int getTamPoblacion() {
+		return tamPoblacion;
+	}
+
+	public void setTamPoblacion(int tamPoblacion) {
+		this.tamPoblacion = tamPoblacion;
+	}
+
+	public int getNumIteraciones() {
+		return nIteraciones;
+	}
+
+	public void setNumIteraciones(int nIteraciones) {
+		this.nIteraciones = nIteraciones;
+	}
+
+	public double getProbCruce() {
+		return probC;
+	}
+
+	public void setProbCruce(double probC) {
+		this.probC = probC;
+	}
+
+	public double getProbMutacion() {
+		return probM;
+	}
+
+	public void setProbMutacion(double probM) {
+		this.probM = probM;
+	}
+
+	public TipoSeleccion getTipoSeleccion() {
+		return ts;
+	}
+
+	public void setTipoSeleccion(TipoSeleccion ts) {
+		this.ts = ts;
+	}
+
+	public TipoCruce getTipoCruce() {
+		return tc;
+	}
+
+	public void setTipoCruce(TipoCruce tc) {
+		this.tc = tc;
+	}
+
+	public TipoMutacion getTipoMutacion() {
+		return tm;
+	}
+
+	public void setTipoMutacion(TipoMutacion tm) {
+		this.tm = tm;
+	}
+
+	public double getPctjElitismo() {
+		return elitismo;
+	}
+
+	public void setPctjElitismo(double elitismo) {
+		this.elitismo = elitismo;
+	}
+
+	public int getGeneracionActual() {
+		return generacionActual;
+	}
+
+	public TipoFitness getTipoFitness() {
+		return tf;
+	}
+
+	public void setTipoFitness(TipoFitness tf) {
+		this.tf = tf;
 	}
 }

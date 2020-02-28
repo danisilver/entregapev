@@ -16,10 +16,11 @@ public class CromosomaNDF4 extends CromosomaND {
 	public Object getFenotipo() {
 		double res = 0;
 		for (int i = 0; i < genes.length; i++) {
-			double xi = (double)getGen(i);
+			Integer x = (Integer)getGen(i);
+			double xi = xmin + x*(xmax-xmin)/(Math.pow(2,getGenLen(i))-1);
 			res -= Math.sin(xi)*Math.pow(
 									Math.sin(
-											((i+1)*xi*xi)/Math.PI), 20);
+											((i+2)*xi*xi)/Math.PI), 20);
 		}
 		return res;
 	}
@@ -32,5 +33,10 @@ public class CromosomaNDF4 extends CromosomaND {
 	@Override
 	public Cromosoma clonar() {
 		return new CromosomaNDF4(numgenes);
+	}
+	
+	@Override
+	public int getGenLen(int i) {
+		return (int) Math.ceil(Math.log(1+(xmax-xmin)/getTolerancia())/Math.log(2));
 	}
 }

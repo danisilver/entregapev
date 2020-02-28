@@ -5,8 +5,8 @@ public abstract class Cromosoma2D extends Cromosoma{
 	double xmin;
 	double ymax;
 	double ymin;
-	public int lgenx;
-	public int lgeny;
+	private int lgenx;
+	private int lgeny;
 	
 	Integer x, y;
 	
@@ -24,4 +24,20 @@ public abstract class Cromosoma2D extends Cromosoma{
 	}
 	
 	public abstract Object getFenotipo();
+
+	public int getLgenx() {
+		return lgenx;
+	}
+
+	public void setLgenx(int lgenx) {
+		this.lgenx = lgenx;
+	}
+
+	public int getLgeny() {
+		return lgeny;
+	}
+
+	public void setLgeny(int lgeny) {
+		this.lgeny = lgeny;
+	}
 }

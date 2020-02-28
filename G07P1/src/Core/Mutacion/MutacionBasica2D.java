@@ -1,7 +1,6 @@
 package Core.Mutacion;
 
-import Gen.Cromosoma;
-import Gen.Cromosoma2DF1;
+import Gen.*;
 
 public class MutacionBasica2D implements TipoMutacion{
 	
@@ -10,7 +9,7 @@ public class MutacionBasica2D implements TipoMutacion{
 		Integer gen1 = (Integer)c2d.getGen(0);
 		Integer gen2 = (Integer)c2d.getGen(1);
 		
-		String brep = Cromosoma.fillZeros(Integer.toBinaryString(gen1), c2d.lgenx);
+		String brep = Cromosoma.fillZeros(Integer.toBinaryString(gen1), c2d.getLgenx());
 		StringBuffer sb = new StringBuffer();
 		for(char c:brep.toCharArray()){
 			double r = Math.random();
@@ -23,7 +22,7 @@ public class MutacionBasica2D implements TipoMutacion{
 		}
 		Integer nx = Integer.parseInt(sb.toString(),2);
 
-		brep = Cromosoma.fillZeros(Integer.toBinaryString(gen2), c2d.lgeny);
+		brep = Cromosoma.fillZeros(Integer.toBinaryString(gen2), c2d.getLgeny());
 		sb = new StringBuffer();
 		for(char c:brep.toCharArray()){
 			double r = Math.random();

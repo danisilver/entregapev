@@ -15,15 +15,15 @@ public class CruceMonoPunto2D implements TipoCruce{
 		Integer c2gen1 = (Integer)cromosoma2.getGen(0);
 		Integer c2gen2 = (Integer)cromosoma2.getGen(1);
 		
-		int lgenx = cromosoma1.lgenx;
-		int lgeny = cromosoma1.lgeny;
+		int lgenx = cromosoma1.getLgenx();
+		int lgeny = cromosoma1.getLgeny();
 		
 		double muta = Math.random();
 		if(muta >= probCruce) return ind;
 		
 		double prob, pacc, r;
 		int i;
-		prob = 1f/(cromosoma1.lgenx-1);
+		prob = 1f/(cromosoma1.getLgenx()-1);
 		pacc = 0;
 		r = Math.random();
 		i = 0;
