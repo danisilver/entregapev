@@ -11,7 +11,7 @@ public class CruceUniforme implements TipoCruce{
 		Object[] genesP2 = cromosoma2.getGenes();
 		h1 = cromosoma1.clonar();
 		h2 = cromosoma2.clonar();
-		for (int i = 0; i < genesP1.length; i++) {
+		for (int i = 0; i < genesP1.length; i++) {//XYXYXXY
 			double rand = Math.random();
 			if(rand < probCruce) {
 				h1.setGen(i, genesP2[i]);
