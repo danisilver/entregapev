@@ -16,6 +16,7 @@ public class Main {
 		
 		Gui gui = new Gui();
 		Plot2DPanel plot = new Plot2DPanel();
+		plot.addLegend("SOUTH");
 		PGenetico pg = new PGenetico(100, 100, 0.6, 0.05, 0, null);
 		gui.panel_6.add(plot);
 		gui.btnPaso.setEnabled(false);
@@ -24,23 +25,30 @@ public class Main {
 			if(a.getActionCommand().equalsIgnoreCase("ejecutar")) {
 				EventQueue.invokeLater(()->{
 					inicializarPGenetico(gui,pg);
+					double[] mejores  = new double[pg.getNumIteraciones()];
+					double[] mejoresAbs = new double[pg.getNumIteraciones()];
+					double[] mediaArr = new double[pg.getNumIteraciones()];
+					double mejorAbs = Double.MIN_VALUE;
 					
 					while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
 						plot.removeAllPlots();
-						double[] valores  = new double[pg.getGeneracionActual()+1];
-						double[] mejorAbs = new double[pg.getGeneracionActual()+1];
-						double[] mediaArr = new double[pg.getGeneracionActual()+1];
 						pg.buscarNiter(1);
+						Cromosoma[] poblacion = pg.getPoblacion();
+						
 						double media = 0;
-						for (int i = 0; i < valores.length; i++) {
-							valores[i] = (double) pg.getPoblacion()[i].getFenotipo();
-							media += valores[i] / pg.getTamPoblacion();
+						for (int i = 0; i < poblacion.length; i++) {
+							media += ((double)poblacion[i].getFenotipo()) / pg.getTamPoblacion();
 						}
-						mejorAbs[pg.getGeneracionActual()-1] = (double) pg.getMejorPoblacion().getFenotipo();
+						double mejor = (double) pg.getMejorPoblacion().getFenotipo();
+						mejores[pg.getGeneracionActual()-1] = mejor;
+						if(mejor>mejorAbs) mejorAbs = mejor;
+						mejoresAbs[pg.getGeneracionActual()-1] = mejorAbs;
 						mediaArr[pg.getGeneracionActual()-1] = media;
-						plot.addLinePlot("fitness", valores);
-						plot.addLinePlot("media", mediaArr);
-						plot.addLinePlot("mejor Abs.", mejorAbs);
+						
+						
+						plot.addLinePlot("mejores gen", mejores);
+						plot.addLinePlot("media gen", mediaArr);
+						plot.addLinePlot("mejor Abs.", mejoresAbs);
 						gui.progressBar.setValue(pg.getGeneracionActual());
 					}
 				});
@@ -84,7 +92,12 @@ public class Main {
 		if(tipoFuncion==1) tipoCromosoma = new Cromosoma2DF2();
 		if(tipoFuncion==2) tipoCromosoma = new Cromosoma2DF3();
 		if(tipoFuncion==3) tipoCromosoma = new CromosomaNDF4(4);
-		Cromosoma[] poblInicial = new Cromosoma[tamPoblacion];
+		inicializaPoblacionInicial(pg, tipoCromosoma);		
+		gui.progressBar.setMaximum(pg.getNumIteraciones());
+	}
+
+	private static void inicializaPoblacionInicial(PGenetico pg, Cromosoma tipoCromosoma) {
+		Cromosoma[] poblInicial = new Cromosoma[pg.getTamPoblacion()];
 		Random r = new Random();
 		for (int i = 0; i < poblInicial.length; i++) {
 			Object[] genes = tipoCromosoma.getGenes();
@@ -95,8 +108,7 @@ public class Main {
 			}
 			poblInicial[i]=nuevo;
 		}
-		pg.setPoblacion(poblInicial);		
-		gui.progressBar.setMaximum(pg.getNumIteraciones());
+		pg.setPoblacion(poblInicial);	
 	}
 	
 }

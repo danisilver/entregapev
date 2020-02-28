@@ -15,6 +15,7 @@ public class PGenetico {
 	private double elitismo;
 	private int generacionActual;
 	private int cuentaAtras;
+	private Cromosoma mejorIndividuo;
 
 	public PGenetico(int tamPoblacion, int nIteraciones, double probC, double probM, double elitismo, Cromosoma[] poblacion) {
 		this.setTamPoblacion(tamPoblacion);
@@ -52,6 +53,7 @@ public class PGenetico {
 			}
 			setPoblacion(nueva);
 			evaluarPoblacion(poblacion);
+			mejorIndividuo = poblacion[tamPoblacion-1];
 			agregarElite(elite);
 			generacionActual++;
 		}
@@ -59,8 +61,9 @@ public class PGenetico {
 	
 	private void agregarElite(Cromosoma[] elite) {
 		for (int i = 0; i < elite.length; i++) {
-			poblacion[getTamPoblacion()-i-1]=elite[i];
+			poblacion[i]=elite[i];
 		}
+		evaluarPoblacion(poblacion);
 	}
 
 	private Cromosoma[] seleccionarElite() {
@@ -68,14 +71,14 @@ public class PGenetico {
 		Cromosoma[] elite = new Cromosoma[numElite];
 		if(numElite > 0) {
 			for (int i = 0; i < numElite; i++) {
-				elite[i]=poblacion[i]; //la poblacion ya esta ordenada
+				elite[i]=poblacion[poblacion.length-i-1]; 
 			}
 		}
 		return elite;
 	}
 
 	public Cromosoma getMejorPoblacion() {
-		return poblacion[poblacion.length-1];
+		return mejorIndividuo;
 	}
 
 	private void evaluarPoblacion(Cromosoma[] nueva) {
