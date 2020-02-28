@@ -22,7 +22,7 @@ public class CromosomaNDF4 extends CromosomaND {
 									Math.sin(
 											((i+1)*xi*xi)/Math.PI), 20);
 		}
-		return -res;
+		return res;
 	}
 
 	@Override

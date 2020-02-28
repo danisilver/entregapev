@@ -32,7 +32,7 @@ public class Cromosoma2DF3 extends Cromosoma2D{
 		for (int i = 0; i < 5 ; i++) {
 			res+=i*Math.cos(((i+1)*cx)+i)*i*Math.cos(((i+1)*cy)+i);
 		}
-		return -res;
+		return res;
 	}
 
 	@Override

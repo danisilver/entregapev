@@ -28,7 +28,12 @@ public class Main {
 					double[] mejores  = new double[pg.getNumIteraciones()];
 					double[] mejoresAbs = new double[pg.getNumIteraciones()];
 					double[] mediaArr = new double[pg.getNumIteraciones()];
-					double mejorAbs = Double.MIN_VALUE;
+					double mejorAbs = 0;
+					if(pg.getTipoFitness()==TipoFitness.MAXIMIZAR) {
+						mejorAbs = Double.MIN_VALUE;
+					} else {
+						mejorAbs = Double.MAX_VALUE;
+					}
 					
 					while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
 						plot.removeAllPlots();
@@ -41,7 +46,12 @@ public class Main {
 						}
 						double mejor = (double) pg.getMejorPoblacion().getFenotipo();
 						mejores[pg.getGeneracionActual()-1] = mejor;
-						if(mejor>mejorAbs) mejorAbs = mejor;
+						
+						if(pg.getTipoFitness()==TipoFitness.MINIMIZAR) {
+							if(mejor<mejorAbs) mejorAbs = mejor;
+						} else {
+							if(mejor>mejorAbs) mejorAbs = mejor;
+						}
 						mejoresAbs[pg.getGeneracionActual()-1] = mejorAbs;
 						mediaArr[pg.getGeneracionActual()-1] = media;
 						
@@ -75,7 +85,7 @@ public class Main {
 		prbCruce = Double.parseDouble(gui.tfProbCruce.getText());
 		prbMutacion = Double.parseDouble(gui.tfProbMutacion.getText());
 		gui.btnEjecutar.setActionCommand("detener");
-		gui.btnEjecutar.setText("Detener");
+		gui.btnEjecutar.setText("Limpiar");
 		pg.setTamPoblacion(tamPoblacion);
 		pg.setNumIteraciones(ngeneraciones);
 		pg.setProbCruce(prbCruce);
@@ -89,9 +99,18 @@ public class Main {
 		if(tipoMutacion == 0) pg.setTipoMutacion(new MutacionBasica());
 		Cromosoma tipoCromosoma = new Cromosoma2DF1();
 		if(tipoFuncion==0) tipoCromosoma = new Cromosoma2DF1();
-		if(tipoFuncion==1) tipoCromosoma = new Cromosoma2DF2();
-		if(tipoFuncion==2) tipoCromosoma = new Cromosoma2DF3();
-		if(tipoFuncion==3) tipoCromosoma = new CromosomaNDF4(4);
+		if(tipoFuncion==1) {
+			tipoCromosoma = new Cromosoma2DF2();
+			pg.setTipoFitness(TipoFitness.MINIMIZAR);
+		}
+		if(tipoFuncion==2) {
+			tipoCromosoma = new Cromosoma2DF3();
+			pg.setTipoFitness(TipoFitness.MINIMIZAR);
+		}
+		if(tipoFuncion==3) {
+			tipoCromosoma = new CromosomaNDF4(4);
+			pg.setTipoFitness(TipoFitness.MINIMIZAR);
+		}
 		inicializaPoblacionInicial(pg, tipoCromosoma);		
 		gui.progressBar.setMaximum(pg.getNumIteraciones());
 	}

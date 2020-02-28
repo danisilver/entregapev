@@ -12,6 +12,7 @@ public class PGenetico {
 	private TipoSeleccion ts;
 	private TipoCruce tc;
 	private TipoMutacion tm;
+	private TipoFitness tf;
 	private double elitismo;
 	private int generacionActual;
 	private int cuentaAtras;
@@ -27,6 +28,7 @@ public class PGenetico {
 		Cromosoma.tolerancia = 0.001;
 		generacionActual = 0;
 		cuentaAtras=0;
+		this.setTipoFitness(TipoFitness.MAXIMIZAR);
 	}
 	
 	public void reiniciarBusqueda() {
@@ -88,6 +90,11 @@ public class PGenetico {
 			double actual = (double) c.getFenotipo();
 			if(actual< peor) peor = actual;
 			else if(mejor< actual) mejor = actual;
+		}
+		if(tf==TipoFitness.MINIMIZAR) {
+			double aux = mejor;
+			mejor = peor;
+			peor = aux;
 		}
 		for(Cromosoma c:nueva) {
 			c.setPuntuacion(normalize((double)c.getFenotipo(), peor, mejor));
@@ -190,5 +197,13 @@ public class PGenetico {
 
 	public int getGeneracionActual() {
 		return generacionActual;
+	}
+
+	public TipoFitness getTipoFitness() {
+		return tf;
+	}
+
+	public void setTipoFitness(TipoFitness tf) {
+		this.tf = tf;
 	}
 }

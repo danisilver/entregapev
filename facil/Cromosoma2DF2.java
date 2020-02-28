@@ -20,7 +20,7 @@ public class Cromosoma2DF2 extends Cromosoma2D{
 					Math.sin(cx)
 					*Math.cos(cy)
 					*Math.exp((Math.abs(1-(Math.sqrt(cx*cx + cy*cy)/Math.PI))))));
-		return -res;
+		return res;
 	}
 
 	@Override
