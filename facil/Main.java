@@ -6,6 +6,7 @@ import java.util.Random;
 import javax.swing.UIManager;
 
 import org.math.plot.Plot2DPanel;
+import org.math.plot.Plot3DPanel;
 
 public class Main {
 	
@@ -16,9 +17,11 @@ public class Main {
 		
 		Gui gui = new Gui();
 		Plot2DPanel plot = new Plot2DPanel();
+		Plot3DPanel plot3d = new Plot3DPanel();
 		plot.addLegend("SOUTH");
 		PGenetico pg = new PGenetico(100, 100, 0.6, 0.05, 0, null);
 		gui.panel_6.add(plot);
+		gui.panel_7.add(plot3d);
 		gui.btnPaso.setEnabled(false);
 		gui.cbFuncionSeleccionada.addActionListener((a)->{
 			int i = gui.cbFuncionSeleccionada.getSelectedIndex();
@@ -84,7 +87,7 @@ public class Main {
 	}
 
 	private static void inicializarPGenetico(Gui gui, PGenetico pg) {
-		int tamPoblacion, ngeneraciones, tipoFuncion, tipoSeleccion, tipoCruce, tipoMutacion;
+		int tamPoblacion, ngeneraciones, tipoFuncion, tipoSeleccion, tipoCruce, tipoMutacion, tipoCromosomaElegido, numVariables;
 		double prcjElitismo, prbCruce, prbMutacion, tolerancia;
 		tamPoblacion = Integer.parseInt(gui.tfTamPoblacion.getText());
 		ngeneraciones = Integer.parseInt(gui.tfNGeneraciones.getText());
@@ -92,10 +95,12 @@ public class Main {
 		tipoSeleccion = gui.cbTipoSeleccion.getSelectedIndex();
 		tipoCruce = gui.cbTipoCruce.getSelectedIndex();
 		tipoMutacion = gui.cbTipoMutacion.getSelectedIndex();
+		tipoCromosomaElegido = gui.cbTipoCromosoma.getSelectedIndex();
 		prcjElitismo = Double.parseDouble(gui.tfPorcntjElitismo.getText());
 		prbCruce = Double.parseDouble(gui.tfProbCruce.getText());
 		prbMutacion = Double.parseDouble(gui.tfProbMutacion.getText());
 		tolerancia = Double.parseDouble(gui.tfTolerancia.getText());
+		numVariables = Integer.parseInt(gui.tfNumVariables.getText());
 		gui.btnEjecutar.setActionCommand("detener");
 		gui.btnEjecutar.setText("Limpiar");
 		pg.setTamPoblacion(tamPoblacion);
@@ -109,9 +114,14 @@ public class Main {
 		if(tipoSeleccion==2) pg.setTipoSeleccion(new SeleccionTorneo());
 		if(tipoCruce == 0) pg.setTipoCruce(new CruceMonoPunto());
 		if(tipoCruce == 1) pg.setTipoCruce(new CruceUniforme());
+		if(tipoCruce == 2) pg.setTipoCruce(new CruceAritmetico());
 		if(tipoMutacion == 0) pg.setTipoMutacion(new MutacionBasica());
+		if(tipoMutacion == 1) pg.setTipoMutacion(new MutacionUniforme());
 		Cromosoma tipoCromosoma = new Cromosoma2DF1();
-		if(tipoFuncion==0) tipoCromosoma = new Cromosoma2DF1();
+		if(tipoFuncion==0) {
+			tipoCromosoma = new Cromosoma2DF1();
+			pg.setTipoFitness(TipoFitness.MAXIMIZAR);
+		}
 		if(tipoFuncion==1) {
 			tipoCromosoma = new Cromosoma2DF2();
 			pg.setTipoFitness(TipoFitness.MINIMIZAR);
@@ -122,6 +132,8 @@ public class Main {
 		}
 		if(tipoFuncion==3) {
 			tipoCromosoma = new CromosomaNDF4(4);
+			if(numVariables<4) numVariables = 4;
+			if(tipoCromosomaElegido==1) tipoCromosoma = new CromosomaRealND(numVariables);
 			pg.setTipoFitness(TipoFitness.MINIMIZAR);
 		}
 		inicializaPoblacionInicial(pg, tipoCromosoma);		
@@ -135,8 +147,14 @@ public class Main {
 			Object[] genes = tipoCromosoma.getGenes();
 			Cromosoma nuevo = tipoCromosoma.clonar();
 			for (int j = 0; j < genes.length; j++) {
-				Integer g = r.nextInt((int)Math.pow(2, tipoCromosoma.getGenLen(j))-1);
-				nuevo.setGen(j, g);
+				Object gen;
+				if(tipoCromosoma.getGenLen(j)>0)//cromosoma binario
+					gen = r.nextInt((int)Math.pow(2, tipoCromosoma.getGenLen(j))-1);
+				else {
+					CromosomaRealND cr = (CromosomaRealND) tipoCromosoma;
+					gen = cr.xmin + Math.random()*(cr.xmax-cr.xmin);
+				}
+				nuevo.setGen(j, gen);
 			}
 			poblInicial[i]=nuevo;
 		}

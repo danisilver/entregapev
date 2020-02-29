@@ -21,6 +21,7 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame {
@@ -43,6 +44,7 @@ public class Gui extends JFrame {
 	public JComboBox<String> cbTipoMutacion;
 	public JComboBox<String> cbTipoCromosoma;
 	public JTextField tfNumVariables;
+	public JPanel panel_7;
 
 	/**
 	 * Launch the application. adsdww 
@@ -67,6 +69,8 @@ public class Gui extends JFrame {
 	 * Create the frame.
 	 */
 	public Gui() {
+		setTitle("Practica 1 Optimizacion funciones");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Gui.class.getResource("/org/math/plot/icons/position.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 703, 526);
 		contentPane = new JPanel();
@@ -200,7 +204,7 @@ public class Gui extends JFrame {
 		panel_13.add(lblNewLabel_6);
 		
 		cbTipoCruce = new JComboBox<>();
-		cbTipoCruce.setModel(new DefaultComboBoxModel<String>(new String[] {"Monopunto", "Uniforme"}));
+		cbTipoCruce.setModel(new DefaultComboBoxModel<>(new String[] {"Monopunto", "Uniforme", "Aritmetico"}));
 		panel_13.add(cbTipoCruce);
 		
 		JLabel lblNewLabel_7 = new JLabel("probabilidad");
@@ -230,7 +234,7 @@ public class Gui extends JFrame {
 		panel_15.add(lblNewLabel_8);
 		
 		cbTipoMutacion = new JComboBox<>();
-		cbTipoMutacion.setModel(new DefaultComboBoxModel<String>(new String[] {"B\u00E1sica"}));
+		cbTipoMutacion.setModel(new DefaultComboBoxModel<String>(new String[] {"B\u00E1sica", "Uniforme"}));
 		panel_15.add(cbTipoMutacion);
 		
 		JLabel lblNewLabel_9 = new JLabel("probabilidad");
@@ -287,8 +291,9 @@ public class Gui extends JFrame {
 		panel_6.setLayout(new BorderLayout(0, 0));
 		
 		
-		JPanel panel_7 = new JPanel();
+		panel_7 = new JPanel();
 		tabbedPane.addTab("Grafico 3D", null, panel_7, null);
+		panel_7.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panel_8 = new JPanel();
 		tabbedPane.addTab("Log", null, panel_8, null);

@@ -14,6 +14,7 @@ public class SeleccionTorneo implements TipoSeleccion{
 		Cromosoma[] ret = new Cromosoma[numSeleccionados];
 		while(i < numSeleccionados) {
 			ret[i] = torneo(poblacion); 
+			i++;
 		}
 		
 		return ret;
@@ -28,10 +29,14 @@ public class SeleccionTorneo implements TipoSeleccion{
 		peorPunt = 1;
 		while(i < tamMuestra) {
 			int indice = r.nextInt(poblacion.length);
-			if(poblacion[indice].getPuntuacion()>mejorPunt) 
+			if(poblacion[indice].getPuntuacion()>mejorPunt) {
 				mejor = poblacion[indice];
-			if(poblacion[indice].getPuntuacion()<peorPunt) 
+				mejorPunt = mejor.getPuntuacion();
+			}
+			if(poblacion[indice].getPuntuacion()<peorPunt) {
 				peor = poblacion[indice];
+				peorPunt = peor.getPuntuacion();
+			}
 			i++;
 		}
 		// cuando umbral < 1 el torneo es probabilistico

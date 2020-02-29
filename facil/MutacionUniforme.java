@@ -7,7 +7,7 @@ public class MutacionUniforme implements TipoMutacion{
 		Cromosoma[] ret = new Cromosoma[2];
 		ret[0] = mutacion(ind[0], probMutacion);
 		ret[1] = mutacion(ind[1], probMutacion);
-		return null;
+		return ret;
 	}
 
 	private Cromosoma mutacion(Cromosoma cromosoma, double probMutacion) {
@@ -18,7 +18,7 @@ public class MutacionUniforme implements TipoMutacion{
 			if(r < probMutacion) {
 				Double gen = crom.xmin + (crom.xmax - crom.xmin) * Math.random();
 				crom.setGen(i, gen);
-			}
+			} 
 		}
 		return crom;
 	}
