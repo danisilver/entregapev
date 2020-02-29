@@ -2,7 +2,7 @@ package facil;
 
 public class CromosomaNDF4 extends CromosomaND {
 	double xmax;
-	int xmin;
+	double xmin;
 	private int numgenes;
 
 	public CromosomaNDF4(int ngenes) {

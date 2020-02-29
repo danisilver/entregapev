@@ -20,6 +20,16 @@ public class Main {
 		PGenetico pg = new PGenetico(100, 100, 0.6, 0.05, 0, null);
 		gui.panel_6.add(plot);
 		gui.btnPaso.setEnabled(false);
+		gui.cbFuncionSeleccionada.addActionListener((a)->{
+			int i = gui.cbFuncionSeleccionada.getSelectedIndex();
+			if(i==3) {
+				gui.tfNumVariables.setEnabled(true);
+				gui.cbTipoCromosoma.setEnabled(true);
+			} else {
+				gui.tfNumVariables.setEnabled(false);
+				gui.cbTipoCromosoma.setEnabled(false);
+			}
+		});
 		gui.btnEjecutar.addActionListener((a)->{
 			
 			if(a.getActionCommand().equalsIgnoreCase("ejecutar")) {
@@ -65,6 +75,7 @@ public class Main {
 			} else if(a.getActionCommand().equalsIgnoreCase("detener")){
 				gui.btnEjecutar.setActionCommand("ejecutar");
 				gui.btnEjecutar.setText("Ejecutar");
+				gui.progressBar.setValue(0);
 				pg.reiniciarBusqueda();
 				plot.removeAllPlots();
 			}
@@ -74,7 +85,7 @@ public class Main {
 
 	private static void inicializarPGenetico(Gui gui, PGenetico pg) {
 		int tamPoblacion, ngeneraciones, tipoFuncion, tipoSeleccion, tipoCruce, tipoMutacion;
-		double prcjElitismo, prbCruce, prbMutacion;
+		double prcjElitismo, prbCruce, prbMutacion, tolerancia;
 		tamPoblacion = Integer.parseInt(gui.tfTamPoblacion.getText());
 		ngeneraciones = Integer.parseInt(gui.tfNGeneraciones.getText());
 		tipoFuncion = gui.cbFuncionSeleccionada.getSelectedIndex();
@@ -84,6 +95,7 @@ public class Main {
 		prcjElitismo = Double.parseDouble(gui.tfPorcntjElitismo.getText());
 		prbCruce = Double.parseDouble(gui.tfProbCruce.getText());
 		prbMutacion = Double.parseDouble(gui.tfProbMutacion.getText());
+		tolerancia = Double.parseDouble(gui.tfTolerancia.getText());
 		gui.btnEjecutar.setActionCommand("detener");
 		gui.btnEjecutar.setText("Limpiar");
 		pg.setTamPoblacion(tamPoblacion);
@@ -91,9 +103,10 @@ public class Main {
 		pg.setProbCruce(prbCruce);
 		pg.setProbMutacion(prbMutacion);
 		pg.setPctjElitismo(prcjElitismo);
+		Cromosoma.tolerancia = tolerancia;
 		if(tipoSeleccion==0) pg.setTipoSeleccion(new SeleccionRuleta());
-		if(tipoSeleccion==1) pg.setTipoSeleccion(new SeleccionTorneo());
-		if(tipoSeleccion==2) pg.setTipoSeleccion(new SeleccionEstocastica());
+		if(tipoSeleccion==1) pg.setTipoSeleccion(new SeleccionEstocastica());
+		if(tipoSeleccion==2) pg.setTipoSeleccion(new SeleccionTorneo());
 		if(tipoCruce == 0) pg.setTipoCruce(new CruceMonoPunto());
 		if(tipoCruce == 1) pg.setTipoCruce(new CruceUniforme());
 		if(tipoMutacion == 0) pg.setTipoMutacion(new MutacionBasica());
