@@ -7,8 +7,8 @@ public class Cromosoma2DF3 extends Cromosoma2D{
 		xmin =-10;
 		ymax = 10;
 		ymin =-10;
-		setLgenx((int) Math.ceil(Math.log(1+(xmax-xmin)/getTolerancia())/Math.log(2)));
-		setLgeny((int) Math.ceil(Math.log(1+(ymax-ymin)/getTolerancia())/Math.log(2)));
+		setLgenx((int) Math.ceil(Math.log(1+(xmax-xmin)/tolerancia)/Math.log(2)));
+		setLgeny((int) Math.ceil(Math.log(1+(ymax-ymin)/tolerancia)/Math.log(2)));
 	}
 	
 	@Override

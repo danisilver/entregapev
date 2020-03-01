@@ -1,11 +1,13 @@
 
 package Core.Cruce;
 
-import Gen.*;
 
+import Gen.*;
 public class CruceMonoPunto implements TipoCruce{
 	@Override
 	public Cromosoma[] cruce(Cromosoma[] ind, double probCruce) {
+		double cruce = Math.random();
+		if(cruce >= probCruce) return ind;
 		double r = Math.random();
 		double prob = 1d/(ind[0].getGenes().length); //numero de puntos de cruce
 		double probacc = 0;

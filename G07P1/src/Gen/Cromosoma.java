@@ -9,6 +9,7 @@ public abstract class Cromosoma{
 	public abstract Object getFenotipo();
 	public abstract Object[] getGenes();
 	public abstract Cromosoma clonar();
+	public abstract int getGenLen(int i);
 	
 	public static String fillZeros(String ind, int nbits) {
 		StringBuffer pad = new StringBuffer(nbits);
@@ -28,12 +29,5 @@ public abstract class Cromosoma{
 	public void setPuntAcc(double puntAcc) {
 		this.puntAcc = puntAcc;
 	}
-	public double getTolerancia() {
-		return tolerancia;
-	}
-	public void setTolerancia(double tolerancia) {
-		this.tolerancia = tolerancia;
-	}
-	public abstract int getGenLen(int i);
 
 }

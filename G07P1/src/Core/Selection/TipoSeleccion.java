@@ -1,6 +1,6 @@
 package Core.Selection;
 
-import Gen.Cromosoma;
+import Gen.*;
 
 public interface TipoSeleccion{
 	Cromosoma[] seleccion(Cromosoma[] poblacion);

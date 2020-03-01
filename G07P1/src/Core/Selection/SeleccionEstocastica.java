@@ -1,44 +1,27 @@
 package Core.Selection;
 
-import Gen.Cromosoma;
+import Gen.*;
 
-public class SeleccionEstocastica implements TipoSeleccion {
-private double marca;
+public class SeleccionEstocastica implements TipoSeleccion{
+
+	int kindividuos = 2;
 	
-	private double getRandom(int tamPob) {
-		double n = Math.random();
-		
-		while(n > marca){
-			n = Math.random();
-		}
-		
-		return n;
-	}
-
 	@Override
 	public Cromosoma[] seleccion(Cromosoma[] poblacion) {
-		int[] sel_super = new int[poblacion.length];
-		marca = 1.0 / poblacion.length;
-		double suma = getRandom(poblacion.length);
-		int pos_super = 0;
+		Cromosoma[] ret = new Cromosoma[kindividuos];
+		double r = Math.random();
 		
-		for(int i = 0; i < poblacion.length; i++){
-			while((suma > poblacion[pos_super].getPuntAcc()) && (pos_super < poblacion.length)){
-				pos_super++;
-				sel_super[i] = pos_super;
-			}
-			suma += marca;
+		double dist = 1d / kindividuos;
+		double prob = r*dist;
+		int i, j;
+		i = j = 0;
+		while (i < kindividuos) {
+			while(prob < poblacion[j].getPuntAcc()) 
+				j++;
+			prob+=dist;
+			ret[i] = poblacion[j];
+			i++;
 		}
-		
-		//Se genera la poblaci�n intermedia
-		Cromosoma[] nuevaPob = new Cromosoma[poblacion.length];
-		for(int i = 0; i < poblacion.length; i++){
-			nuevaPob[i] = poblacion[sel_super[i]].clonar();
-		}
-		
-		for(int i = 0; i <poblacion.length; i++){
-			poblacion[i] = nuevaPob[i].clonar();
-		}
-		return poblacion;
+		return ret;
 	}
 }

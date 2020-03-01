@@ -2,7 +2,7 @@ package Gen;
 
 public class CromosomaNDF4 extends CromosomaND {
 	double xmax;
-	int xmin;
+	double xmin;
 	private int numgenes;
 
 	public CromosomaNDF4(int ngenes) {
@@ -37,6 +37,6 @@ public class CromosomaNDF4 extends CromosomaND {
 	
 	@Override
 	public int getGenLen(int i) {
-		return (int) Math.ceil(Math.log(1+(xmax-xmin)/getTolerancia())/Math.log(2));
+		return (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerancia)/Math.log(2));
 	}
 }

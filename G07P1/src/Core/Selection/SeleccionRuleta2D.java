@@ -1,6 +1,6 @@
 package Core.Selection;
 
-import Gen.Cromosoma;
+import Gen.*;
 
 public class SeleccionRuleta2D implements TipoSeleccion {
 	@Override

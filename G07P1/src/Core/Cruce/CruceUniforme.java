@@ -6,6 +6,9 @@ public class CruceUniforme implements TipoCruce{
 
 	@Override
 	public Cromosoma[] cruce(Cromosoma[] ind, double probCruce) {
+		double cruce = Math.random();
+		if(cruce >= probCruce) return ind;
+		
 		Cromosoma cromosoma1 = ind[0];
 		Cromosoma cromosoma2 = ind[1];
 		Cromosoma h1, h2;

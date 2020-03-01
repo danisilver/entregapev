@@ -1,6 +1,6 @@
 package Core.Cruce;
 
-import Gen.Cromosoma;
+import Gen.*;
 
 public interface TipoCruce{
 	Cromosoma[] cruce(Cromosoma[] ind, double probCruce);

@@ -8,8 +8,8 @@ public class Cromosoma2DF1 extends Cromosoma2D {
 		xmin = -3.0;
 		ymax = 5.8d;
 		ymin = 4.1d;
-		setLgenx((int) Math.ceil(Math.log(1+(xmax-xmin)/getTolerancia())/Math.log(2)));
-		setLgeny((int) Math.ceil(Math.log(1+(ymax-ymin)/getTolerancia())/Math.log(2)));
+		setLgenx((int) Math.ceil(Math.log(1+(xmax-xmin)/tolerancia)/Math.log(2)));
+		setLgeny((int) Math.ceil(Math.log(1+(ymax-ymin)/tolerancia)/Math.log(2)));
 	}
 
 	@Override
@@ -30,6 +30,7 @@ public class Cromosoma2DF1 extends Cromosoma2D {
 		return new Cromosoma2DF1();
 	}
 
+	@Override
 	public int getGenLen(int i) {
 		if(i==0) return getLgenx();
 		if(i==1) return getLgeny();

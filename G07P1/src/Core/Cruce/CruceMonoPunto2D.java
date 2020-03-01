@@ -2,7 +2,6 @@
 package Core.Cruce;
 
 import Gen.*;
-
 public class CruceMonoPunto2D implements TipoCruce{
 	@Override
 	public Cromosoma[] cruce(Cromosoma[] ind, double probCruce) {

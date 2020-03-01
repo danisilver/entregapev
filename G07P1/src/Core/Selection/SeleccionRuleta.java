@@ -1,6 +1,6 @@
 package Core.Selection;
 
-import Gen.Cromosoma;
+import Gen.*;
 
 public class SeleccionRuleta implements TipoSeleccion {
 	@Override
@@ -10,8 +10,9 @@ public class SeleccionRuleta implements TipoSeleccion {
 		i = j = 0;
 		while (i < 2) {
 			double r = Math.random();
-			while(r < poblacion.length) 
+			while(r < poblacion[j].getPuntAcc()) 
 				j++;
+			j=0;
 			ret[i] = poblacion[j];
 			i++;
 		}
