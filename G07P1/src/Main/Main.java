@@ -1,6 +1,8 @@
 package Main;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.UIManager;
@@ -52,7 +54,8 @@ public class Main {
 					} else {
 						mejorAbs = Double.MAX_VALUE;
 					}
-					
+					gui.progressBar.setVisible(true);
+					gui.progressBar.setMaximum(pg.getNumIteraciones());
 					while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
 						plot.removeAllPlots();
 						pg.buscarNiter(1);
@@ -78,6 +81,7 @@ public class Main {
 						plot.addLinePlot("media gen", mediaArr);
 						plot.addLinePlot("mejor Abs.", mejoresAbs);
 						gui.progressBar.setValue(pg.getGeneracionActual());
+						gui.progressBar.update(gui.progressBar.getGraphics());
 					}
 				});
 			} else if(a.getActionCommand().equalsIgnoreCase("detener")){
@@ -136,13 +140,12 @@ public class Main {
 			pg.setTipoFitness(TipoFitness.MINIMIZAR);
 		}
 		if(tipoFuncion==3) {
-			tipoCromosoma = new CromosomaNDF4(4);
-			if(numVariables<4) numVariables = 4;
+			tipoCromosoma = new CromosomaNDF4(numVariables);
+			//if(numVariables<4) numVariables = 4;
 			if(tipoCromosomaElegido==1) tipoCromosoma = new CromosomaRealND(numVariables);
 			pg.setTipoFitness(TipoFitness.MINIMIZAR);
 		}
 		inicializaPoblacionInicial(pg, tipoCromosoma);		
-		gui.progressBar.setMaximum(pg.getNumIteraciones());
 	}
 
 	private static void inicializaPoblacionInicial(PGenetico pg, Cromosoma tipoCromosoma) {
