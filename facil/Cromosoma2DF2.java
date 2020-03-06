@@ -39,4 +39,17 @@ public class Cromosoma2DF2 extends Cromosoma2D{
 		if(i==1) return lgeny;
 		return 0;
 	}
+	
+	@Override
+	public String toString() {
+		double cx = xmin + x*(xmax-xmin)/(Math.pow(2,lgenx)-1);
+		double cy = ymin + y*(ymax-ymin)/(Math.pow(2,lgeny)-1);
+		
+		double res=0;
+		res -= (Math.abs(
+					Math.sin(cx)
+					*Math.cos(cy)
+					*Math.exp((Math.abs(1-(Math.sqrt(cx*cx + cy*cy)/Math.PI))))));
+		return "x:"+cx+" , y:"+cy+"; fx:"+res;
+	}
 }

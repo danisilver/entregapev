@@ -37,4 +37,11 @@ public class Cromosoma2DF1 extends Cromosoma2D {
 		return 0;
 	}
 
+	@Override
+	public String toString() {
+		double cx = xmin + x*(xmax-xmin)/(Math.pow(2,lgenx)-1);
+		double cy = ymin + y*(ymax-ymin)/(Math.pow(2,lgeny)-1);
+		double res = 21.5 + cx*Math.sin(4*PI*cx)+cy*Math.sin(20*PI*cy);
+		return "x:"+cx+" , y:"+cy+"; fx:"+res;
+	}
 }

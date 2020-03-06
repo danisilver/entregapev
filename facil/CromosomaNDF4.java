@@ -39,4 +39,20 @@ public class CromosomaNDF4 extends CromosomaND {
 	public int getGenLen(int i) {
 		return (int) Math.ceil(Math.log(1+(xmax-xmin)/tolerancia)/Math.log(2));
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		double res = 0;
+		for (int i = 0; i < genes.length; i++) {
+			Integer x = (Integer)getGen(i);
+			double xi = xmin + x*(xmax-xmin)/(Math.pow(2,getGenLen(i))-1);
+			res -= Math.sin(xi)*Math.pow(
+									Math.sin(
+											((i+2)*xi*xi)/Math.PI), 20);
+			sb.append("x"+i+":"+xi+", ");
+		}
+		sb.append("res:"+res);
+		return sb.toString();
+	}
 }

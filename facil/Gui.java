@@ -22,6 +22,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Toolkit;
+import javax.swing.JTextArea;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class Gui extends JFrame {
@@ -45,6 +47,7 @@ public class Gui extends JFrame {
 	public JComboBox<String> cbTipoCromosoma;
 	public JTextField tfNumVariables;
 	public JPanel panel_7;
+	public JTextArea jtaLog;
 
 	/**
 	 * Launch the application. adsdww 
@@ -297,6 +300,13 @@ public class Gui extends JFrame {
 		
 		JPanel panel_8 = new JPanel();
 		tabbedPane.addTab("Log", null, panel_8, null);
+		panel_8.setLayout(new BorderLayout(0, 0));
+		
+		JScrollPane scrollPane = new JScrollPane();
+		panel_8.add(scrollPane, BorderLayout.CENTER);
+		
+		jtaLog = new JTextArea();
+		scrollPane.setViewportView(jtaLog);
 		tabbedPane.setSelectedIndex(0);
 	}
 }
