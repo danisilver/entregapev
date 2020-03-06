@@ -61,8 +61,8 @@ public class PGenetico {
 			}
 			setPoblacion(nueva);
 			evaluarPoblacion(poblacion);
-			mejorIndividuo = poblacion[tamPoblacion-1];
 			agregarElite(elite);
+			mejorIndividuo = poblacion[tamPoblacion-1];
 			generacionActual++;
 		}
 	}
