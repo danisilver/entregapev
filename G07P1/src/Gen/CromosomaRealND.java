@@ -1,8 +1,8 @@
 package Gen;
 
 public class CromosomaRealND extends CromosomaReal {
-	private double xmax;
-	private int xmin;
+	public double xmax;
+	public int xmin;
 	private int numgenes;
 	
 	public CromosomaRealND(int ngenes) {

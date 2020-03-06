@@ -31,10 +31,13 @@ public class PGenetico {
 		this.setProbMutacion(probM);
 		this.setPctjElitismo(elitismo);
 		this.setPoblacion(poblacion);
+		if(this.tamPoblacion%2==1) {
+			this.tamPoblacion--;
+			this.poblacion = Arrays.copyOf(poblacion, this.tamPoblacion);
+		}
 		Cromosoma.tolerancia = 0.001;
 		generacionActual = 0;
 		cuentaAtras=0;
-		this.setTipoFitness(TipoFitness.MAXIMIZAR);
 	}
 	
 	public void reiniciarBusqueda() {
@@ -48,6 +51,7 @@ public class PGenetico {
 	}
 	
 	public void buscar() {
+		evaluarPoblacion(this.poblacion);
 		while(generacionActual<nIteraciones && --cuentaAtras>=0) {
 			Cromosoma[] nueva = new Cromosoma[getTamPoblacion()];
 			Cromosoma[] elite = seleccionarElite(); 
@@ -60,9 +64,8 @@ public class PGenetico {
 				nueva[poblacion.length-i-1]=mut[1];
 			}
 			setPoblacion(nueva);
-			evaluarPoblacion(poblacion);
-			mejorIndividuo = poblacion[tamPoblacion-1];
 			agregarElite(elite);
+			mejorIndividuo = poblacion[tamPoblacion-1];
 			generacionActual++;
 		}
 	}
