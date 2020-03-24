@@ -1,3 +1,8 @@
+.classpath
+.project
+*.swp
+*.class
+
 /.metadata/
 G07P1.zip
 G07P1/.gitignore
