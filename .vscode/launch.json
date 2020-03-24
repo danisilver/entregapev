@@ -1,0 +1,238 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MagicSquareExample<G07P1>",
+            "request": "launch",
+            "mainClass": "Jama.examples.MagicSquareExample",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestMatrix<G07P1>",
+            "request": "launch",
+            "mainClass": "Jama.test.TestMatrix",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Gui<G07P1>",
+            "request": "launch",
+            "mainClass": "Main.Gui",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<G07P1>",
+            "request": "launch",
+            "mainClass": "Main.Main",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainWindow<G07P1>",
+            "request": "launch",
+            "mainClass": "Main.MainWindow",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RandomApp<G07P1>",
+            "request": "launch",
+            "mainClass": "edu.cornell.lassp.houle.RngPack.RandomApp",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DoubleArray<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.array.DoubleArray",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Slicing<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.array.util.Slicing",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Sorting<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.array.util.Sorting",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ASCIIFile<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.io.files.ASCIIFile",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BinaryFile<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.io.files.BinaryFile",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DataSelectPanel<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.DataSelectPanel",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DataSelectTable<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.DataSelectTable",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PlotPanel<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.PlotPanel",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Plot2DCanvas<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.canvas.Plot2DCanvas",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Axis<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plotObjects.Axis",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BaseLabel<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plotObjects.BaseLabel",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RasterImage<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plotObjects.RasterImage",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BarPlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.BarPlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BoxPlot3D<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.BoxPlot3D",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CloudPlot2D<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.CloudPlot2D",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CloudPlot3D<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.CloudPlot3D",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DensityLayerPlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.DensityLayerPlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GaussianDensityLayerPlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.GaussianDensityLayerPlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GridPlot3D<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.GridPlot3D",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistogramPlot2D<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.HistogramPlot2D",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistogramPlot3D<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.HistogramPlot3D",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LinePlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.LinePlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-QuantileLayerPlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.QuantileLayerPlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScatterPlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.ScatterPlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StaircasePlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.StaircasePlot",
+            "projectName": "G07P1"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VectorLayerPlot<G07P1>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.VectorLayerPlot",
+            "projectName": "G07P1"
+        }
+    ]
+}
