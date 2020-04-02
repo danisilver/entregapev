@@ -1,0 +1,1329 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Java",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ]
+        },
+        {
+            "name": "Java Console App",
+            "type": "java",
+            "request": "launch",
+            "stopOnEntry": true,
+            "jdkPath": "${env:JAVA_HOME}/bin",
+            "cwd": "${fileDirname}",
+            "startupClass": "${fileBasenameNoExtension}",
+            "classpath": [
+                ".",
+                "${fileDirname}"
+            ],
+            "externalConsole": true
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MagicSquareExample<P2G07>",
+            "request": "launch",
+            "mainClass": "Jama.examples.MagicSquareExample",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestMatrix<P2G07>",
+            "request": "launch",
+            "mainClass": "Jama.test.TestMatrix",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Gui<P2G07>",
+            "request": "launch",
+            "mainClass": "Main.Gui",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<P2G07>",
+            "request": "launch",
+            "mainClass": "Main.Main",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainWindow<P2G07>",
+            "request": "launch",
+            "mainClass": "Main.MainWindow",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GlueGenVersion<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.common.GlueGenVersion",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NativeWindowVersion<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.nativewindow.NativeWindowVersion",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-NewtVersion<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.newt.NewtVersion",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GLWindow<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.newt.opengl.GLWindow",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MainThread<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.newt.util.MainThread",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JoglVersion<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.opengl.JoglVersion",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GLCanvas<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.opengl.awt.GLCanvas",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GLCanvas<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "com.jogamp.opengl.swt.GLCanvas",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CompileShaderNVidia<P2G07>",
+            "request": "launch",
+            "mainClass": "com.jogamp.opengl.util.glsl.sdk.CompileShaderNVidia",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RandomApp<P2G07>",
+            "request": "launch",
+            "mainClass": "edu.cornell.lassp.houle.RngPack.RandomApp",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ResourceFile<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.graph.font.typecast.ot.mac.ResourceFile",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LinuxEventDeviceTracker<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.newt.driver.linux.LinuxEventDeviceTracker",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-X11UnderlayTracker<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.newt.driver.x11.X11UnderlayTracker",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VersionApplet<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.opengl.awt.VersionApplet",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Type_Widget<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.opengl.glu.mipmap.Type_Widget",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ALDummyUsage<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.opengl.openal.av.ALDummyUsage",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PngDeinterlacer<P2G07>",
+            "request": "launch",
+            "mainClass": "jogamp.opengl.util.pngj.PngDeinterlacer",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CallbackDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.demo.CallbackDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HiDPISimulator<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.demo.HiDPISimulator",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwingDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.demo.SwingDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwtDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.demo.SwtDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BugTestApp<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.BugTestApp",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Example<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.Example",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Example01<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.Example01",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Example02<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.Example02",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExampleGood<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.ExampleGood",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JavaOneShrink<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.JavaOneShrink",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SwtTest<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.SwtTest",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestGap<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.TestGap",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestMigLayout<P2G07>",
+            "request": "launch",
+            "mainClass": "net.miginfocom.examples.TestMigLayout",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.chainsaw.Main",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyPrinter<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.config.PropertyPrinter",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LF5Appender<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.lf5.LF5Appender",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StartLogFactor5<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.lf5.StartLogFactor5",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JMSSink<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.JMSSink",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleSocketServer<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.SimpleSocketServer",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SocketServer<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.SocketServer",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Roller<P2G07>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.varia.Roller",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookAxeLayout<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookAxeLayout",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookBigSurface<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookBigSurface",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookCanvasLayout<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookCanvasLayout",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookColorbars<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookColorbars",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookContour<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookContour",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookDelaunay<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookDelaunay",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookHistogram<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookHistogram",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookInteractivePickable<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookInteractivePickable",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookInteractiveSelectable<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookInteractiveSelectable",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookLight<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookLight",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookMaximizedOff<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookMaximizedOff",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookMaximizedOn<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookMaximizedOn",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookPeeling<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookPeeling",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookPerspective<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookPerspective",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookScatter<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookScatter",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookSquaredFalse<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookSquaredFalse",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookSquaredTrue<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookSquaredTrue",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookTesselationRing<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookTesselationRing",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookTexture<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookTexture",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookViewProfile<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookViewProfile",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BookViewTop<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.book.BookViewTop",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Application<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.ellipsoid.Application",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EllipsoidDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.ellipsoid.EllipsoidDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.joglwarning.SurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BugMouse2dTo3d<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.mouseclick.BugMouse2dTo3d",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WireSurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.perspectivepb.WireSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScreenShotTestAWT<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.screenshot.ScreenShotTestAWT",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScreenShotTestNewt<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.screenshot.ScreenShotTestNewt",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MatlabVBOPerspective<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.bugs.vbo.matlab.perspective.MatlabVBOPerspective",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WatchedChartDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.chart.watch.WatchedChartDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Concave<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.concave.Concave",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AddRemoveElementsDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.animation.AddRemoveElementsDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AnimatedSurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.animation.AnimatedSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ShowBarycenterDistance<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.annotations.ShowBarycenterDistance",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-AxeRendererDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.axelayout.AxeRendererDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BackgroundDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.background.BackgroundDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DemoBrowser<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.browser.DemoBrowser",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Histogram2dAddDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.chart2d.histogram.Histogram2dAddDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Histogram2dPredefinedDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.chart2d.histogram.Histogram2dPredefinedDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Chart2dDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.chart2d.lines.Chart2dDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CompositeDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.composites.CompositeDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Contour3DDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.contour.Contour3DDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ContourPlotsDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.contour.ContourPlotsDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FilledContoursDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.contour.FilledContoursDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HeightMapDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.contour.HeightMapDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-UserChosenContoursDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.contour.UserChosenContoursDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledCubesDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.ddp.PeeledCubesDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledDragonDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.ddp.PeeledDragonDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledStackDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.ddp.PeeledStackDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledWireSurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.ddp.PeeledWireSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EventsDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.events.EventsDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DefaultGraphDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.graphs.DefaultGraphDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PickableGraphDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.graphs.PickableGraphDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TextureGraphDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.graphs.TextureGraphDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BarChartDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.histogram.barchart.BarChartDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistogramDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.histogram.simplebarchart.HistogramDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-InterpolationDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.interpolation.InterpolationDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistogramLightDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.light.HistogramLightDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SphereLightDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.light.SphereLightDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MatlabDisplayList<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.matlab.MatlabDisplayList",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BigSurfaceOffscreenDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.offscreen.BigSurfaceOffscreenDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WireSurfaceOffscreenDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.offscreen.WireSurfaceOffscreenDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OverlayDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.overlay.OverlayDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HelixDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.parametric.HelixDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ParamEq2dDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.parametric.ParamEq2dDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Parametric2dDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.parametric.Parametric2dDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Parametric3dDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.parametric.Parametric3dDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TorusDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.parametric.TorusDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultiColorScatterDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.scatter.MultiColorScatterDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Scatter4D<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.scatter.Scatter4D",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScatterDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.scatter.ScatterDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScatterDemoFromFile<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.scatter.ScatterDemoFromFile",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScatterSphereDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.scatter.ScatterSphereDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SelectableScatterDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.selectable.SelectableScatterDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SelectableSphereDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.selectable.SelectableSphereDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ShaderColoredDragon<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.shaders.ShaderColoredDragon",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ShaderDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.shaders.ShaderDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ShaderMandelbrotDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.shaders.ShaderMandelbrotDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BuildSurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.BuildSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ColorWaveDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.ColorWaveDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WireSurfaceDemo<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.WireSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-WireSurfaceDemo2<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.WireSurfaceDemo2",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ChromatogramDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.big.ChromatogramDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DelaunayTubes<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.delaunay.DelaunayTubes",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GeneratedDelaunaySurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.delaunay.GeneratedDelaunaySurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-IncrementalDelaunayDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.delaunay.IncrementalDelaunayDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SphericDelaunaySurfaceDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.surface.delaunay.SphericDelaunaySurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TextureDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.textures.TextureDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MatlabVBODemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.vbo.matlab.MatlabVBODemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ObjFileVBODemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.vbo.objfile.ObjFileVBODemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScatterVBODemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.demos.vbo.scatter.ScatterVBODemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrialLogCharts<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.evols.logcharts.TrialLogCharts",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrialLogScatter<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.evols.logcharts.TrialLogScatter",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EventReplayDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.junit.replay.EventReplayDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DelaunayTest<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.matfile.DelaunayTest",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BuildSurfaceDemo<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.jzy3d.notshowing.BuildSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PickableGraphDemo<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.jzy3d.picking.PickableGraphDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FaceOrderingProblemSnippet<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.sandbox.annotation.FaceOrderingProblemSnippet",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BezmeshDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.sandbox.bezier.BezmeshDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TripleViewWork<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.sandbox.tripleview.TripleViewWork",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ViewportDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.sandbox.viewport.ViewportDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Version<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.utils.Version",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LineSegmentTrial<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.chart2d.LineSegmentTrial",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultiPitchLegendDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.chart2d.MultiPitchLegendDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PitchAmpliLegendDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.chart2d.PitchAmpliLegendDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MultiplePanelsDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.multiview.MultiplePanelsDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledDragonDemo<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.peeling.PeeledDragonDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledStackDemo<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.peeling.PeeledStackDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PeeledWireSurfaceDemo<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.peeling.PeeledWireSurfaceDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TextCellsDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.text.TextCellsDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TextDemo<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.text.TextDemo",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrialFaceOrdering<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.various.TrialFaceOrdering",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrialFaceOrdering1<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.various.TrialFaceOrdering1",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrialManualBounds<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.various.TrialManualBounds",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TrialRotationTextTest<P2G07>",
+            "request": "launch",
+            "mainClass": "org.jzy3d.works.various.TrialRotationTextTest",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DoubleArray<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.array.DoubleArray",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Slicing<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.array.util.Slicing",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Sorting<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.array.util.Sorting",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ASCIIFile<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.io.files.ASCIIFile",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BinaryFile<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.io.files.BinaryFile",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DataSelectPanel<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.DataSelectPanel",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DataSelectTable<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.DataSelectTable",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PlotPanel<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.PlotPanel",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Plot2DCanvas<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.canvas.Plot2DCanvas",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Axis<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plotObjects.Axis",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BaseLabel<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plotObjects.BaseLabel",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RasterImage<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plotObjects.RasterImage",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BarPlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.BarPlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CloudPlot2D<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.CloudPlot2D",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CloudPlot3D<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.CloudPlot3D",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DensityLayerPlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.DensityLayerPlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GaussianDensityLayerPlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.GaussianDensityLayerPlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GridPlot3D<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.GridPlot3D",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistogramPlot2D<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.HistogramPlot2D",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HistogramPlot3D<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.HistogramPlot3D",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LinePlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.LinePlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-QuantileLayerPlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.QuantileLayerPlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ScatterPlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.ScatterPlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StaircasePlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.StaircasePlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VectorLayerPlot<P2G07>",
+            "request": "launch",
+            "mainClass": "org.math.plot.plots.VectorLayerPlot",
+            "projectName": "P2G07"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Example<P2G07>(1)",
+            "request": "launch",
+            "mainClass": "org.sf.surfaceplot.Example",
+            "projectName": "P2G07"
+        }
+    ]
+}

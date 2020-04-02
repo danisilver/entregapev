@@ -6,10 +6,49 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/lib">
+	<classpathentry kind="lib" path="src/swing2swt.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="src/swt.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/jama-1.0.3.jar"/>
+	<classpathentry kind="lib" path="src/JMathArray-1.0.jar"/>
+	<classpathentry kind="lib" path="src/JMathIO-1.0.jar"/>
+	<classpathentry kind="lib" path="src/JMathPlot-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-linux-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-solaris-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-solaris-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/gluegen-rt-2.3.2-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jmathplot.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jmatio-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-linux-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-linux-armv6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-linux-armv6hf.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-linux-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-macosx-universal.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-solaris-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-solaris-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-windows-amd64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jogl-all-2.3.2-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jzy3d-api-1.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jzy3d-depthpeeling-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jzy3d-guide-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/jzy3d-jdt-core-1.0.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/miglayout-3.7.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/opencsv-2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/daniel/Downloads/eclipse/ws/facil/lib/SurfacePlot.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
