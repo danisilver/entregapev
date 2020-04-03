@@ -2,21 +2,24 @@ package Gen;
 
 public class CromosomaNDP5 extends CromosomaND {
 	
-	private Double[][] distancias;
-	private Double[][] flujo;
+	private int[][] distancias;
+	private int[][] flujo;
 
-	public CromosomaNDP5(int ngenes, Double[][] distancias, Double[][] flujo) {
+	public CromosomaNDP5(int ngenes, int[][] distancias, int[][] flujo) {
 		super(ngenes);
 		this.distancias = distancias;
 		this.flujo = flujo;
+		for(int i = 0;i< ngenes;++i){
+			this.genes[i] = i;
+		}
 	}
 
 	@Override
 	public Object getFenotipo() {
 		Double costo = 0d;
-		for (int i = 0; i < distancias.length; i++) {
-			for (int j = 0; j < distancias[0].length; j++) {
-				costo += distancias[i][j] + flujo[(Integer) getGen(i)][(Integer)getGen(j)];
+		for (int i = 0; i < this.getNumGenes(); ++i) {
+			for (int j = 0; j < this.getNumGenes(); ++j) {
+				costo += distancias[i][j] + flujo[genes[i]][genes[j]];
 			}
 		}
 		return costo;
