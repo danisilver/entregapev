@@ -10,6 +10,7 @@ public abstract class Cromosoma{
 	public abstract Object[] getGenes();
 	public abstract Cromosoma clonar();
 	public abstract int getGenLen(int i);
+	public abstract int getNumGenes();
 	
 	public static String fillZeros(String ind, int nbits) {
 		StringBuffer pad = new StringBuffer(nbits);

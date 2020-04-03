@@ -17,6 +17,11 @@ public abstract class CromosomaND extends Cromosoma {
 	}
 
 	@Override
+	public int getNumGenes() {
+		return genes.length;
+	}
+	
+	@Override
 	public abstract Object getFenotipo();
 	
 }

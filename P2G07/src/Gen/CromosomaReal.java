@@ -17,6 +17,11 @@ public abstract class CromosomaReal extends Cromosoma{
 	public Object[] getGenes() {
 		return genes;
 	}
+	
+	@Override
+	public int getNumGenes() {
+		return genes.length;
+	}
 
 	public abstract Cromosoma clonar();
 

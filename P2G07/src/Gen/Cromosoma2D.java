@@ -23,6 +23,11 @@ public abstract class Cromosoma2D extends Cromosoma{
 		if(i==1) y = (Integer)g;
 	}
 	
+	@Override
+	public int getNumGenes() {
+		return 2;
+	}
+	
 	public abstract Object getFenotipo();
 
 	public int getLgenx() {

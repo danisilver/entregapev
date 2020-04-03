@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import Core.Cruce.TipoCruce;
+import Core.Fitness.TipoFitness;
 import Core.Mutacion.TipoMutacion;
-import Core.Selection.TipoFitness;
 import Core.Selection.TipoSeleccion;
 import Gen.Cromosoma;
 
