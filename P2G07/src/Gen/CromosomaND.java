@@ -1,27 +1,34 @@
 package Gen;
 
+import java.util.ArrayList;
+
 public abstract class CromosomaND extends Cromosoma {
-	Integer[] genes;
+	ArrayList<Object> genes;
+
 	public CromosomaND(int ngenes) {
-		genes = new Integer[ngenes];
+		genes = new ArrayList<Object>();
 	}
-	
+
 	@Override
 	public Object getGen(int i) {
-		return genes[i];
+		return genes.get(i);
 	}
 
 	@Override
 	public void setGen(int i, Object g) {
-		genes[i]=(Integer)g;
+		if (genes.size() >= i) {
+			genes.set(i, g);
+		} else {
+			genes.add(i, g);
+		}
 	}
 
 	@Override
 	public int getNumGenes() {
-		return genes.length;
+		return genes.size();
 	}
-	
+
 	@Override
 	public abstract Object getFenotipo();
-	
+
 }

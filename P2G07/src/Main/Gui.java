@@ -198,7 +198,7 @@ public class Gui extends JFrame {
 		panel_13.add(lblNewLabel_6);
 
 		cbTipoCruce = new JComboBox<>();
-		cbTipoCruce.setModel(new DefaultComboBoxModel<>(new String[] { "Monopunto", "Uniforme", "Aritmetico" }));
+		cbTipoCruce.setModel(new DefaultComboBoxModel<>(new String[] { "PMX", "OX", "VOX","CX","ERX","CO" }));
 		panel_13.add(cbTipoCruce);
 
 		JLabel lblNewLabel_7 = new JLabel("probabilidad");
@@ -228,7 +228,7 @@ public class Gui extends JFrame {
 		panel_15.add(lblNewLabel_8);
 
 		cbTipoMutacion = new JComboBox<>();
-		cbTipoMutacion.setModel(new DefaultComboBoxModel<String>(new String[] { "B\u00E1sica", "Uniforme","Heuristica","Inserccion","Intercambio","Inversion" }));
+		cbTipoMutacion.setModel(new DefaultComboBoxModel<String>(new String[] {"Heuristica","Inserccion","Intercambio","Inversion" }));
 		panel_15.add(cbTipoMutacion);
 
 		JLabel lblNewLabel_9 = new JLabel("probabilidad");

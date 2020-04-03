@@ -36,10 +36,10 @@ public class CruceERX implements TipoCruce{
 	}
 
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
-		Integer[] genesp1 = (Integer[])ind[0].getGenes();
-		Integer[] genesp2 = (Integer[])ind[0].getGenes();
+		ArrayList<Object> genesp1 = ind[0].getGenes();
+		ArrayList<Object> genesp2 = ind[0].getGenes();
 		
-		int numgenes = ind[0].getGenes().length;
+		int numgenes = ind[0].getGenes().size();
 		
 		Integer[][] adjMatrix = new Integer[numgenes][];
 		
@@ -47,10 +47,10 @@ public class CruceERX implements TipoCruce{
 			HashSet<Integer> setI = new HashSet<>();
 			int anterior  = (i+numgenes-1)%numgenes;
 			int siguiente = (i+numgenes+1)%numgenes;
-			setI.add(genesp1[anterior]);
-			setI.add(genesp1[siguiente]);
-			setI.add(genesp2[anterior]);
-			setI.add(genesp2[siguiente]);
+			setI.add((Integer)genesp1.get(anterior));
+			setI.add((Integer)genesp1.get(siguiente));
+			setI.add((Integer)genesp2.get(anterior));
+			setI.add((Integer)genesp2.get(siguiente));
 			adjMatrix[i] = setI.toArray(new Integer[1]);
 		}
 		
@@ -84,7 +84,7 @@ public class CruceERX implements TipoCruce{
 					.stream()
 					.map(indice->adjMatrix[indice-1].length).collect(Collectors.toSet());
 			int min = Collections.min(set);
-			List<Integer> minimos = Arrays.asList(adjMatrix[primerGen-1])//hijos numAdjacentes de tamaño min
+			List<Integer> minimos = Arrays.asList(adjMatrix[primerGen-1])//hijos numAdjacentes de tamaï¿½o min
 					.stream()
 					.filter(indice->(adjMatrix[indice-1].length==min))
 					.collect(Collectors.toList());

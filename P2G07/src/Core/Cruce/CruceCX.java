@@ -31,8 +31,8 @@ public class CruceCX implements TipoCruce{
 	}
 
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
-		CromosomaNDP5[] crPadres = (CromosomaNDP5[])ind;
-		int numgenes = crPadres[0].getGenes().length;
+		Cromosoma[] crPadres = ind;
+		int numgenes = crPadres[0].getGenes().size();
 		
 		ArrayList<Integer> child1 = new ArrayList<Integer>();
 		ArrayList<Integer> child2 = new ArrayList<Integer>();
@@ -40,16 +40,16 @@ public class CruceCX implements TipoCruce{
 			child1.add(-1);child2.add(-1);
 		}
 		
-		ponerHomologos((Integer[])crPadres[0].getGenes(), 
-				(Integer[])crPadres[1].getGenes(),
+		ponerHomologos(crPadres[0].getGenes(), 
+				crPadres[1].getGenes(),
 				child1);
-		ponerHomologos((Integer[])crPadres[1].getGenes(), 
-				(Integer[])crPadres[0].getGenes(), 
+		ponerHomologos(crPadres[1].getGenes(), 
+				crPadres[0].getGenes(), 
 				child2);
 		
 		for (int i = 0; i < numgenes; i++) {
-			if(child1.get(i)==-1) child1.add((Integer)crPadres[1].getGen(i));
-			if(child2.get(i)==-1) child2.add((Integer)crPadres[0].getGen(i));
+			if(child1.get(i)==-1) child1.set(i,(Integer)crPadres[1].getGen(i));
+			if(child2.get(i)==-1) child2.set(i,(Integer)crPadres[0].getGen(i));
 		}
 		
 		Cromosoma ret1 = ind[0].clonar();
@@ -62,24 +62,22 @@ public class CruceCX implements TipoCruce{
 		return new Cromosoma[] {ret1,ret2};
 	}
 
-	private void ponerHomologos(Integer[] genesp1, Integer[] genesp2, ArrayList<Integer> child1) {
+	private void ponerHomologos(ArrayList<Object> genesp1, ArrayList<Object> genesp2, ArrayList<Integer> child1) {
 		Integer genHomologo, homologo;
 		boolean continuar = true;
 		homologo = 0;
 		while(continuar){
-			genHomologo = genesp1[homologo];
+			genHomologo = (Integer) genesp1.get(homologo);
 			if(!child1.contains(genHomologo)) {
-				child1.add(homologo, genHomologo);
+				child1.set(homologo, genHomologo);
 			} else { continuar = false; }
 			homologo = getPosOfGen(genHomologo, genesp2) ;
 		};
 	}
 	
-	private Integer getPosOfGen(Integer g, Integer[] genes) {
-		for (int i = 0; i < genes.length; i++) {
-			if(genes[i]==g) return i;
-		}
-		return 0;
+	private Integer getPosOfGen(Integer g, ArrayList<Object> genes) {
+		
+		return genes.indexOf(g);
 	}
 
 }

@@ -34,7 +34,7 @@ public class CruceOXPP implements TipoCruce{
 	}
 
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
-		int numgenes = ind[0].getGenes().length;
+		int numgenes = ind[0].getGenes().size();
 		
 		ArrayList<Integer> genesc1 = new ArrayList<>();
 		ArrayList<Integer> genesc2 = new ArrayList<>();
@@ -49,8 +49,8 @@ public class CruceOXPP implements TipoCruce{
 		}
 		
 		for(Integer i4e:indExchange) {
-			genesc1.add(i4e, (Integer)ind[1].getGen(i4e));
-			genesc2.add(i4e, (Integer)ind[0].getGen(i4e));
+			genesc1.set(i4e, (Integer)ind[1].getGen(i4e));
+			genesc2.set(i4e, (Integer)ind[0].getGen(i4e));
 		}
 		
 		int sig = Collections.max(indExchange)+1;

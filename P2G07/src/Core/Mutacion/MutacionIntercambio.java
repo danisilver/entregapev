@@ -22,6 +22,7 @@ public class MutacionIntercambio implements TipoMutacion{
 				ret[tam] = mutarConIntercambio(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam].clonar();
+			tam++;
 		}
 		
 		return ret;

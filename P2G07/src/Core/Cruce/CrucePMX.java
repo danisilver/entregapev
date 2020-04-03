@@ -31,12 +31,12 @@ public class CrucePMX implements TipoCruce{
 	}
 
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
-		CromosomaNDP5[] cromosomas = (CromosomaNDP5[]) ind;
-		CromosomaNDP5 c1 = cromosomas[0]; 
-		CromosomaNDP5 c2 = cromosomas[1];
-		Integer[] genesp1 = (Integer[])c1.getGenes(); 
-		Integer[] genesp2 = (Integer[])c2.getGenes();
-		int numgenes = c1.getGenes().length;
+		Cromosoma[] cromosomas = ind;
+		Cromosoma c1 = cromosomas[0]; 
+		Cromosoma c2 = cromosomas[1];
+		ArrayList<Object> genesp1 = c1.getGenes(); 
+		ArrayList<Object> genesp2 = c2.getGenes();
+		int numgenes = c1.getGenes().size();
 		
 		int pto1 = random.nextInt(numgenes-1); 
 		int pto2 = pto1 + random.nextInt(numgenes-pto1);
@@ -44,21 +44,21 @@ public class CrucePMX implements TipoCruce{
 		ArrayList<Integer> genes1 = new ArrayList<Integer>(numgenes);
 		ArrayList<Integer> genes2 = new ArrayList<Integer>(numgenes);
 		
-		for (int i = 0; i < genes1.size(); i++) { genes1.add(-1); genes2.add(-1);}
+		for (int i = 0; i < numgenes; i++) { genes1.add(-1); genes2.add(-1);}
 		
 		for(int i=pto1;i<=pto2;i++) {
-			genes1.add(i, (Integer)genesp2[i]); 
-			genes2.add(i, (Integer)genesp1[i]);
+			genes1.set(i, (Integer)genesp2.get(i));
+			genes2.set(i, (Integer)genesp1.get(i));
 		}
 		
 		for(int i=0;i<numgenes;i++){
 			if(genes1.get(i)==-1) {
-				if(!genes1.contains(genesp1[i])) genes1.add(i, (Integer)genesp1[i]);
-				else genes1.add(i, getGenHomologo(genesp1, genesp2, genes1, i));
+				if(!genes1.contains(genesp1.get(i))) genes1.add(i, (Integer)genesp1.get(i));
+				else genes1.set(i, getGenHomologo(genesp1, genesp2, genes1, i));
 			}
 			if(genes2.get(i)==-1) {
-				if(!genes2.contains(genesp2[i])) genes2.add(i, (Integer)genesp2[i]); 
-				else genes2.add(i, getGenHomologo(genesp2, genesp1, genes2, i));
+				if(!genes2.contains(genesp2.get(i))) genes2.add(i, (Integer)genesp2.get(i)); 
+				else genes2.set(i, getGenHomologo(genesp2, genesp1, genes2, i));
 			}
 		};
 		
@@ -72,23 +72,20 @@ public class CrucePMX implements TipoCruce{
 		return new Cromosoma[] {child1, child2};
 	}
 
-	private Integer getGenHomologo(Integer[] genesp1, Integer[] genesp2, ArrayList<Integer> genes1, int i) {
+	private Integer getGenHomologo(ArrayList<Object> genesp1, ArrayList<Object> genesp2, ArrayList<Integer> genes1, int i) {
 		Integer homologo, genHomologo;
 		homologo = i;
-		genHomologo=genesp1[homologo];
+		genHomologo=(Integer)genesp1.get(homologo);
 		
 		while(genes1.contains(genHomologo)) {
 			homologo=getPosOfGen(genHomologo, genesp2);	
-			genHomologo=genesp1[homologo];
+			genHomologo=(Integer)genesp1.get(homologo);
 		}
 		return genHomologo;
 	}
 	
-	private Integer getPosOfGen(Integer g, Integer[] genes) {
-		for (int i = 0; i < genes.length; i++) {
-			if(genes[i]==g) return i;
-		}
-		return 0;
+	private Integer getPosOfGen(Integer g, ArrayList<Object> genes) {
+		return genes.indexOf(g);
 	}
 
 }

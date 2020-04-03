@@ -34,8 +34,8 @@ public class CruceCO implements TipoCruce{//codificacion ordinal
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
 		Cromosoma p1 = ind[0]; 
 		Cromosoma p2 = ind[1];
-		Integer[] genesp1 = (Integer[])p1.getGenes();
-		Integer[] genesp2 = (Integer[])p2.getGenes();
+		ArrayList<Object> genesp1 = p1.getGenes();
+		ArrayList<Object> genesp2 = p2.getGenes();
 		int numgenes = p1.getNumGenes();
 		
 		List<Integer> genesp1Cod = new ArrayList<>();
@@ -54,13 +54,13 @@ public class CruceCO implements TipoCruce{//codificacion ordinal
 		return new CruceMonoPunto().cruce(new Cromosoma[] {h1,h2}, 1);
 	}
 
-	private void codificar(Integer[] genesp1, int numgenes, List<Integer> genesp1Cod) {
+	private void codificar(ArrayList<Object> genesp1, int numgenes, List<Integer> genesp1Cod) {
 		ArrayList<Integer> indices = new ArrayList<Integer>();
 		for (int i = 1; i <= numgenes; i++) { 
 			indices.add(i);
 		}
 		
-		for(Integer gen:genesp1) {
+		for(var gen: genesp1) {
 			genesp1Cod.add(indices.indexOf(gen));
 			indices.remove((Object)gen);
 		}

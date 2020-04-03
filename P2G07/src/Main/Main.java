@@ -4,12 +4,8 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -32,27 +28,29 @@ import org.jzy3d.plot3d.primitives.Shape;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.math.plot.Plot2DPanel;
 
-import Core.Cruce.CruceAritmetico;
-import Core.Cruce.CruceMonoPunto;
-import Core.Cruce.CruceUniforme;
+import Core.Cruce.CruceCO;
+import Core.Cruce.CruceCX;
+import Core.Cruce.CruceERX;
+import Core.Cruce.CruceOX;
+import Core.Cruce.CruceOXPP;
+import Core.Cruce.CrucePMX;
 import Core.Fitness.TipoFitness;
-import Core.Mutacion.MutacionBasica;
 import Core.Mutacion.MutacionHeuristica;
 import Core.Mutacion.MutacionInsercion;
 import Core.Mutacion.MutacionIntercambio;
 import Core.Mutacion.MutacionInversion;
-import Core.Mutacion.MutacionUniforme;
 import Core.Selection.SeleccionEstocastica;
 import Core.Selection.SeleccionRanking;
 import Core.Selection.SeleccionRuleta;
 import Core.Selection.SeleccionTorneo;
 import Core.Selection.SeleccionTruncamiento;
-import Gen.*;
+import Gen.Cromosoma;
+import Gen.CromosomaNDP5;
 
 public class Main {
 
-	static int[][] N;
-	static int[][] M;
+	static Integer[][] N;
+	static Integer[][] M;
 	static int numValues;
 	static Gui gui;
 
@@ -221,7 +219,7 @@ public class Main {
 			BufferedReader br = new BufferedReader(new FileReader(selectedFile));
 			String st = "";
 			numValues = Integer.valueOf(br.readLine());
-			N = new int[numValues][numValues];
+			N = new Integer[numValues][numValues];
 			st = br.readLine();
 			st = br.readLine();
 			for (int i = 0; i < numValues; st = br.readLine(), ++i) {
@@ -230,7 +228,7 @@ public class Main {
 				for (int j = 0; j < numValues; ++j)
 					N[i][j] = Integer.valueOf(vals[j]);
 			}
-			M = new int[numValues][numValues];
+			M = new Integer[numValues][numValues];
 			st = br.readLine();
 			for (int i = 0; i < numValues; st = br.readLine(), ++i) {
 				var vals = new String[numValues];
@@ -276,22 +274,24 @@ public class Main {
 			if (tipoSeleccion == 4)
 				pg.setTipoSeleccion(new SeleccionTruncamiento());
 			if (tipoCruce == 0)
-				pg.setTipoCruce(new CruceMonoPunto());
+				pg.setTipoCruce(new CrucePMX());
 			if (tipoCruce == 1)
-				pg.setTipoCruce(new CruceUniforme());
+				pg.setTipoCruce(new CruceOX());
 			if (tipoCruce == 2)
-				pg.setTipoCruce(new CruceAritmetico());
+				pg.setTipoCruce(new CruceOXPP());
+			if (tipoCruce == 3)
+				pg.setTipoCruce(new CruceCX());
+			if (tipoCruce == 4)
+				pg.setTipoCruce(new CruceERX());
+			if (tipoCruce == 5)
+				pg.setTipoCruce(new CruceCO());
 			if (tipoMutacion == 0)
-				pg.setTipoMutacion(new MutacionBasica());
-			if (tipoMutacion == 1)
-				pg.setTipoMutacion(new MutacionUniforme());
-			if (tipoMutacion == 2)
 				pg.setTipoMutacion(new MutacionHeuristica());
-			if (tipoMutacion == 3)
+			if (tipoMutacion == 1)
 				pg.setTipoMutacion(new MutacionInsercion());
-			if (tipoMutacion == 4)
+			if (tipoMutacion == 2)
 				pg.setTipoMutacion(new MutacionIntercambio());
-			if (tipoMutacion == 5)
+			if (tipoMutacion == 3)
 				pg.setTipoMutacion(new MutacionInversion());
 			Cromosoma tipoCromosoma = new CromosomaNDP5(numValues, N, M);
 			inicializaPoblacionInicial(pg, tipoCromosoma);
@@ -306,16 +306,12 @@ public class Main {
 	private static void inicializaPoblacionInicial(PGenetico pg, Cromosoma tipoCromosoma) {
 		Cromosoma[] poblInicial = new Cromosoma[pg.getTamPoblacion()];
 		Random r = new Random();
+		ArrayList<Object> genes = tipoCromosoma.getGenes();
 		for (int i = 0; i < poblInicial.length; i++) {
-			Object[] genes = tipoCromosoma.getGenes();
 			Cromosoma nuevo = tipoCromosoma.clonar();
-			List<Integer> list = new ArrayList<Integer>();
-			for (int j = 0; j < genes.length; j++) {
-				list.add(j);
-			}
-			Collections.shuffle(list);
+			Collections.shuffle(genes,r);
 			int j = 0;
-			for(Object ob : list){
+			for(Object ob : genes){
 				nuevo.setGen(j, ob);
 				++j;
 			}

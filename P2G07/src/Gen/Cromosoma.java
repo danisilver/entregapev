@@ -1,15 +1,16 @@
 package Gen;
 
-public abstract class Cromosoma{
+import java.util.ArrayList;
+
+public abstract class Cromosoma {
 	public static double tolerancia;
 	private double puntuacion;
 	private double puntAcc;
 	public abstract Object getGen(int i);
 	public abstract void setGen(int i, Object g);
 	public abstract Object getFenotipo();
-	public abstract Object[] getGenes();
+	public abstract ArrayList<Object> getGenes();
 	public abstract Cromosoma clonar();
-	public abstract int getGenLen(int i);
 	public abstract int getNumGenes();
 	
 	public static String fillZeros(String ind, int nbits) {

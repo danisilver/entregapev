@@ -31,12 +31,12 @@ public class CruceOX implements TipoCruce{
 	}
 
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
-		CromosomaNDP5[] cromosomas = (CromosomaNDP5[]) ind;
-		CromosomaNDP5 c1 = cromosomas[0]; 
-		CromosomaNDP5 c2 = cromosomas[1];
-		Object[] genesp1 = c1.getGenes(); 
-		Object[] genesp2 = c2.getGenes();
-		int numgenes = c1.getGenes().length;
+		Cromosoma[] cromosomas = ind;
+		Cromosoma c1 = cromosomas[0]; 
+		Cromosoma c2 = cromosomas[1];
+		ArrayList<Object> genesp1 = c1.getGenes();
+		ArrayList<Object> genesp2 = c2.getGenes();
+		int numgenes = c1.getGenes().size();
 		
 		int pto1 = random.nextInt(numgenes-1); 
 		int pto2 = pto1 + random.nextInt(numgenes-pto1);
@@ -44,26 +44,30 @@ public class CruceOX implements TipoCruce{
 		ArrayList<Integer> genes1 = new ArrayList<Integer>(numgenes);
 		ArrayList<Integer> genes2 = new ArrayList<Integer>(numgenes);
 		
-		for (int i = 0; i < genes1.size(); i++) { 
+		for (int i = 0; i < numgenes; i++) { 
 			genes1.add(-1); 
 			genes2.add(-1);
 		}
 		
 		for(int i=pto1;i<=pto2;i++) {
-			genes1.add(i, (Integer)genesp2[i]); 
-			genes2.add(i, (Integer)genesp1[i]);
+			genes1.set(i, (Integer)genesp1.get(i)); 
+			genes2.set(i, (Integer)genesp2.get(i));
 		}
 		
 		int sig = pto2+1;
 		for(int j=sig; j<(sig+numgenes); j++){
 			int i = j%numgenes;
 			if(genes1.get(i)==-1) {
-				if(!genes1.contains(genesp1[i])) genes1.add(i, (Integer)genesp1[i]);
-				else genes1.add(i, getGenHomologo(genesp1, genesp2, genes1, i));
+				if(!genes1.contains(genesp1.get(i)))
+					genes1.set(i, (Integer)genesp1.get(i));
+				else 
+					genes1.set(i, getGenHomologo(genesp1, genesp2, genes1, i));
 			}
 			if(genes2.get(i)==-1) {
-				if(!genes2.contains(genesp2[i])) genes2.add(i, (Integer)genesp2[i]); 
-				else genes2.add(i, getGenHomologo(genesp2, genesp1, genes2, i));
+				if(!genes2.contains(genesp2.get(i))) 
+					genes2.add(i, (Integer)genesp2.get(i)); 
+				else 
+					genes2.add(i, getGenHomologo(genesp2, genesp1, genes2, i));
 			}
 		};
 		
@@ -77,11 +81,13 @@ public class CruceOX implements TipoCruce{
 		return new Cromosoma[] {child1, child2};
 	}
 
-	private Integer getGenHomologo(Object[] genesp1, Object[] genesp2, ArrayList<Integer> genes1, int i) {
+	private Integer getGenHomologo(ArrayList<Object> genesp1, ArrayList<Object> genesp2, ArrayList<Integer> genes1, int i) {
 		Integer homologo, genPadre;
 		do {
-			homologo = (Integer)genesp2[i++];
-			genPadre = (Integer)genesp1[homologo];
+			i = i%genes1.size();
+			homologo = (Integer)genesp2.get(i);
+			genPadre = (Integer)genesp1.get(homologo);
+			i++;
 		} while(genes1.contains(genPadre));
 		return genPadre;
 	}
