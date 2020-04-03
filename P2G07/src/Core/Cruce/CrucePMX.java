@@ -53,11 +53,11 @@ public class CrucePMX implements TipoCruce{
 		
 		for(int i=0;i<numgenes;i++){
 			if(genes1.get(i)==-1) {
-				if(!genes1.contains(genesp1.get(i))) genes1.add(i, (Integer)genesp1.get(i));
+				if(!genes1.contains(genesp1.get(i))) genes1.set(i, (Integer)genesp1.get(i));
 				else genes1.set(i, getGenHomologo(genesp1, genesp2, genes1, i));
 			}
 			if(genes2.get(i)==-1) {
-				if(!genes2.contains(genesp2.get(i))) genes2.add(i, (Integer)genesp2.get(i)); 
+				if(!genes2.contains(genesp2.get(i))) genes2.set(i, (Integer)genesp2.get(i)); 
 				else genes2.set(i, getGenHomologo(genesp2, genesp1, genes2, i));
 			}
 		};

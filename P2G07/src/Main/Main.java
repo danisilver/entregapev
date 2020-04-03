@@ -294,6 +294,7 @@ public class Main {
 			if (tipoMutacion == 3)
 				pg.setTipoMutacion(new MutacionInversion());
 			Cromosoma tipoCromosoma = new CromosomaNDP5(numValues, N, M);
+			pg.setTipoFitness(TipoFitness.MINIMIZAR);
 			inicializaPoblacionInicial(pg, tipoCromosoma);
 			gui.progressBar.setMaximum(pg.getNumIteraciones());
 		} catch (Exception e) {

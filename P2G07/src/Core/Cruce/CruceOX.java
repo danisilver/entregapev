@@ -65,9 +65,9 @@ public class CruceOX implements TipoCruce{
 			}
 			if(genes2.get(i)==-1) {
 				if(!genes2.contains(genesp2.get(i))) 
-					genes2.add(i, (Integer)genesp2.get(i)); 
+					genes2.set(i, (Integer)genesp2.get(i)); 
 				else 
-					genes2.add(i, getGenHomologo(genesp2, genesp1, genes2, i));
+					genes2.set(i, getGenHomologo(genesp2, genesp1, genes2, i));
 			}
 		};
 		
