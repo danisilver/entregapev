@@ -218,7 +218,7 @@ public class Main {
 			File selectedFile = gui.filechooser.getSelectedFile();
 			BufferedReader br = new BufferedReader(new FileReader(selectedFile));
 			String st = "";
-			numValues = Integer.valueOf(br.readLine());
+			numValues = Integer.valueOf(br.readLine().replace(" ", ""));
 			N = new Integer[numValues][numValues];
 			st = br.readLine();
 			st = br.readLine();
