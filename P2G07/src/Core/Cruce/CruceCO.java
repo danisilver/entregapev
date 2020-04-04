@@ -56,7 +56,7 @@ public class CruceCO implements TipoCruce{//codificacion ordinal
 
 	private void codificar(ArrayList<Object> genesp1, int numgenes, List<Integer> genesp1Cod) {
 		ArrayList<Integer> indices = new ArrayList<Integer>();
-		for (int i = 1; i <= numgenes; i++) { 
+		for (int i = 0; i < numgenes; i++) { 
 			indices.add(i);
 		}
 		

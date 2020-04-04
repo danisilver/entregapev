@@ -37,7 +37,7 @@ public class CruceERX implements TipoCruce{
 
 	private Cromosoma[] crossPair(Cromosoma[] ind) {
 		ArrayList<Object> genesp1 = ind[0].getGenes();
-		ArrayList<Object> genesp2 = ind[0].getGenes();
+		ArrayList<Object> genesp2 = ind[1].getGenes();
 		
 		int numgenes = ind[0].getGenes().size();
 		

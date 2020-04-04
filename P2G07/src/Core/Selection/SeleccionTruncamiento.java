@@ -25,7 +25,8 @@ public class SeleccionTruncamiento implements TipoSeleccion{
 		while(next<tamPoblacion) {
 			Cromosoma nextC = poblacion[next];
 			for (int i = 0; i < copias; i++)
-				ret[next++] = nextC.clonar();
+				if(next<tamPoblacion)
+					ret[next++] = nextC.clonar();
 		}
 		while(backup>=0)
 			ret[backup--] = poblacion[tamPoblacion-1].clonar();

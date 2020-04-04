@@ -55,66 +55,11 @@ public class Main {
 	static Gui gui;
 
 	public static void main(String[] args) {
-		try {
+		/*try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			System.exit(-1);
-		}
-
-		// Define a function to plot
-		Mapper mapper = new Mapper() {
-			public double f(double x, double y) {
-				return (21.5 + x * Math.sin(4 * Math.PI * x) + y * Math.sin(4 * Math.PI * y));
-			}
-		};
-		Mapper mapper2 = new Mapper() {
-			public double f(double x, double y) {
-
-				double res = 0;
-				res -= (Math.abs(
-						Math.sin(x) * Math.cos(y) * Math.exp((Math.abs(1 - (Math.sqrt(x * x + y * y) / Math.PI))))));
-				return res;
-			}
-		};
-		Mapper mapper3 = new Mapper() {
-			public double f(double x, double y) {
-				double a, b;
-				a = b = 0;
-				for (int i = 1; i < 6; i++) {
-					a += i * Math.cos(((i + 1) * x) + 1);
-				}
-				for (int i = 1; i < 6; i++) {
-					b += i * Math.cos(((i + 1) * y) + 1);
-				}
-				return a * b;
-			}
-		};
-		Mapper mapper4 = new Mapper() {
-			public double f(double x, double y) {
-				double res = -Math.sin(x) * Math.pow(Math.sin(((2) * x * x) / Math.PI), 20)
-						- Math.sin(x) * Math.pow(Math.sin(((3) * x * x) / Math.PI), 20);
-				return res;
-			}
-		};
-
-		// Define range and precision for the function to plot
-		int steps = 150;
-
-		// Create a surface drawing that function
-		Shape surface = Builder.buildOrthonormal(
-				new OrthonormalGrid(new Range(-3.0f, 12f), steps, new Range(4.1f, 5.8f), steps), mapper);
-
-		surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZRange()));
-		surface.setFaceDisplayed(true);
-		surface.setWireframeDisplayed(false);
-		surface.setWireframeColor(Color.BLACK);
-
-		// Create a chart and add the surface
-		Chart chart = new SwingChart(Quality.Advanced);
-		chart.add(surface);
-
-		chart.addMouseCameraController();
-		chart.addMousePickingController(1);
+		}*/
 
 		/*
 		 * Coord3d[] points = new Coord3d[1]; Color[] colors = new Color[1]; points[0] =
@@ -127,15 +72,9 @@ public class Main {
 		plot.addLegend("SOUTH");
 		PGenetico pg = new PGenetico(100, 100, 0.6, 0.05, 0, null);
 		gui.filechooserbutton.addActionListener((a) -> {
-			if (surface.isDisplayed()) {
-				surface.clear();
-				surface.dispose();
-				chart.removeDrawable(surface);
-			}
 			readFile();
 		});
 		gui.panel_6.add(plot);
-		gui.panel_7.add((Component) chart.getCanvas());
 		gui.btnPaso.setEnabled(false);
 		/*
 		 * gui.cbFuncionSeleccionada.addActionListener((a)->{ int i =

@@ -52,7 +52,6 @@ public class PGenetico {
 	
 	public void buscar() {
 		evaluarPoblacion(this.poblacion);
-		while(generacionActual<nIteraciones && --cuentaAtras>=0) {
 			Cromosoma[] nueva = new Cromosoma[getTamPoblacion()];
 			Cromosoma[] elite = seleccionarElite(); 
 			for(int i=0; i<poblacion.length/2; i++){
@@ -67,7 +66,6 @@ public class PGenetico {
 			agregarElite(elite);
 			mejorIndividuo = poblacion[tamPoblacion-1];
 			generacionActual++;
-		}
 	}
 	
 	private void agregarElite(Cromosoma[] elite) {
@@ -119,12 +117,15 @@ public class PGenetico {
 				else return 0;
 			}
 		});
-		
-		double puntAcc = 0;
-		for (Cromosoma c:nueva) {
-			puntAcc += c.getPuntuacion() / nueva.length;
-			c.setPuntAcc(puntAcc);
-		}
+		double total = 0d;
+        for(Cromosoma c:nueva)
+            total+=c.getPuntuacion();
+
+        double puntAcc = 0;
+        for (Cromosoma c:nueva) {
+            puntAcc += c.getPuntuacion() / total;
+            c.setPuntAcc(puntAcc);
+        }
 	}
 	
 	static double normalize(double value, double min, double max) {
