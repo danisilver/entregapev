@@ -12,8 +12,9 @@ public class SeleccionRuleta implements TipoSeleccion {
 			double r = Math.random();
 			while(r > poblacion[j].getPuntuacion()) 
 				j++;
-			j=0;
+				
 			ret[i] = poblacion[j];
+			j=0;
 			i++;
 		}
 		return ret;

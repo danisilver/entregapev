@@ -19,7 +19,7 @@ public class CruceOXPP implements TipoCruce{
 		Cromosoma ret[] = new Cromosoma[tamPoblacion];
 		int tam = 0;
 		
-		while(tam < tamPoblacion) {
+		while(tam < tamPoblacion-1) {
 			if(random.nextDouble()<probCruce) {
 				Cromosoma[] crossed = crossPair(new Cromosoma[] {poblacion[tam], poblacion[tam+1]});
 				ret[tam] = crossed[0];
@@ -71,9 +71,11 @@ public class CruceOXPP implements TipoCruce{
 
 	private void fillWithParentGens(Cromosoma parent, ArrayList<Integer> genesc1, int sig) {
 		while(genesc1.contains(-1)) {
+			if(sig >= genesc1.size())
+				sig = sig%genesc1.size();
 			Integer gen = (Integer)parent.getGen(sig);
-			if(!genesc1.contains(gen)) genesc1.add(sig, gen);
-			sig=(sig+1)%genesc1.size();
+			if(!genesc1.contains(gen)) genesc1.set(sig, gen);
+			sig++;
 		}
 	}
 
