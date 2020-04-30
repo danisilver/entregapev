@@ -10,13 +10,15 @@ import gen.Cromosoma;
 import view.View;
 
 public interface ProblemFactory {
-	public Cromosoma createCromosoma(String tipo, HashMap<String,Object> props);
-	public Cruce     createCruce(String tipo, HashMap<String,Object> props);
-	public Seleccion createSeleccion(String tipo, HashMap<String,Object> props);
-	public Mutacion  createMutacion(String tipo, HashMap<String,Object> props);
-	public Fitness   createFitness(String tipo, HashMap<String,Object> props);
-	public View      createView(HashMap<String,Object> props);
-	public default Cromosoma[] createPoblacionInicial(String tipo, HashMap<String,Object> props, int tam) {
+	public Cromosoma createCromosoma (String tipo, HashMap<String,Object> props);
+	public Cruce     createCruce     (String tipo, HashMap<String,Object> props);
+	public Seleccion createSeleccion (String tipo, HashMap<String,Object> props);
+	public Mutacion  createMutacion  (String tipo, HashMap<String,Object> props);
+	public Fitness   createFitness   (String tipo, HashMap<String,Object> props);
+	public View      createView      (HashMap<String,Object> props);
+	public default Cromosoma[] createPoblacionInicial(
+			String tipo, HashMap<String,Object> props, int tam) {
+		
 		String crom = props.get("tipoCromosoma").toString();
 		Cromosoma tipoCromosoma = createCromosoma(crom, props);
 		if(tipoCromosoma==null) return null;

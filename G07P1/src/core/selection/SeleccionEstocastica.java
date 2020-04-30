@@ -36,13 +36,13 @@ public class SeleccionEstocastica implements Seleccion{
 		double r = random.nextDouble();
 		
 		double dist = 1d / getKindividuos();
-		double prob = r*dist;
+		double prob = 1 - (r*dist);
 		int i, j;
 		i = j = 0;
 		while (i < getKindividuos()) {
 			while(prob > poblacion[j].getPuntAcc()) 
 				j++;
-			prob+=dist;
+			prob-=(i*dist);
 			ret[i] = poblacion[tamPoblacion-1-j];
 			i++;
 		}

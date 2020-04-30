@@ -1,0 +1,13 @@
+PROGRAM ::= (OP0) ;
+OP0     ::= if(OP1) OUT (OP0) | OP1 ;
+OP1     ::= and IN OP2 | or IN OP2| OP2;
+OP2     ::= not IN | IN;
+OUT     ::= d0 | d1 | d2 | d3 | d4 ;
+IN      ::= a0 | a1 ;
+
+
+PROGRAM ::= OP0 | OP1 ;
+OP0     ::= if OP1 OUT OP0;
+OP1     ::= and IN OP1 | or IN OP1 | not IN | IN;
+OUT     ::= d0 | d1 | d2 | d3 | d4 ;
+IN      ::= a0 | a1 ;

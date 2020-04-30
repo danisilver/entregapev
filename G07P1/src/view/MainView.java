@@ -68,6 +68,11 @@ public class MainView extends JPanel implements View{
 	public JComboBox<Object> cbTipoCruce;
 	public JComboBox<Object> cbTipoMutacion;
 	public JComboBox<Object> cbTipoCromosoma;
+	public JComboBox<Object> cbDatosOptimizar;
+	public JComboBox<Object> cbGramaticaInit;
+	public JCheckBox checkboxInstrIF;
+	public JSpinner spinnerMaxDepth;
+	public JSpinner spinnerNaddrInputs;
 	public JSpinner spinnerNumVariables;
 	public JTextArea jtaLog;
 	public JSpinner spinnerMinX;
@@ -105,16 +110,22 @@ public class MainView extends JPanel implements View{
 	private JLabel lblNumGens2Ins;
 	private JLabel lblNumG2Inv;
 	private JLabel lblNumVariables;
+	private JLabel lblDatosOptimizar;
+	private JLabel lblMaxDepth;
+	private JLabel lblNaddrInputs;
+	private JLabel lblcbGramaticaInit;
 	private DefaultComboBoxModel<Object> modelCromosomas;
 	private DefaultComboBoxModel<Object> modelSelecciones;
 	private DefaultComboBoxModel<Object> modelCruces;
 	private DefaultComboBoxModel<Object> modelMutaciones;
 	private DefaultComboBoxModel<Object> modelFunciones;
-	private JLabel lblDatosOptimizar;
-	private JComboBox<Object> cbDatosOptimizar;
 	private JTabbedPane tabbedPane;
 	private Plot2DPanel p2d;
 	private JEditorPane jEditorPane;
+	private DefaultComboBoxModel<Object> modelGramaticaInit;
+	private JLabel lblcbBloating;
+	private JComboBox<Object> cbBloating;
+	private DefaultComboBoxModel<Object> modelBloating;
 
 	public MainView(MainModel model) {
 		this.model = model;
@@ -163,6 +174,7 @@ public class MainView extends JPanel implements View{
 //		checkboxRandomSeed.setMnemonic('d');
 		refreshFuncionFields(self);
 	}
+	
 
 	public void updateCromosomaPanel() {
 		List<Object> cblist 	= model.getPropValues("tipoCromosoma");
@@ -228,28 +240,44 @@ public class MainView extends JPanel implements View{
 		JComponent[] comps = new JComponent[] {
 				lblNumVariables, spinnerNumVariables,
 				lblMinX, spinnerMinX, lblMaxX, spinnerMaxX, 
-				lblMinY, spinnerMinY, lblMaxY, spinnerMaxY
+				lblMinY, spinnerMinY, lblMaxY, spinnerMaxY,
+				lblMaxDepth, spinnerMaxDepth, 
+				lblNaddrInputs, spinnerNaddrInputs, 
+				lblcbGramaticaInit, cbGramaticaInit,
+				checkboxInstrIF,
+				lblcbBloating, cbBloating
+				
 		};
 		Arrays.asList(comps).forEach(cmp->cmp.setVisible(false));
 		if(c.indexOf("numVariables")!=-1) {
-			lblNumVariables.setVisible(true);
-			spinnerNumVariables.setVisible(true);
+			lblNumVariables.setVisible(true); spinnerNumVariables.setVisible(true);
 		}
 		if(c.indexOf("minX")!=-1) {
-			lblMinX.setVisible(true);
-			spinnerMinX.setVisible(true);
+			lblMinX.setVisible(true); spinnerMinX.setVisible(true);
 		}
 		if(c.indexOf("maxX")!=-1) {
-			lblMaxX.setVisible(true);
-			spinnerMaxX.setVisible(true);
+			lblMaxX.setVisible(true); spinnerMaxX.setVisible(true);
 		}
 		if(c.indexOf("minY")!=-1) {
-			lblMinY.setVisible(true);
-			spinnerMinY.setVisible(true);
+			lblMinY.setVisible(true); spinnerMinY.setVisible(true);
 		}
 		if(c.indexOf("maxY")!=-1) {
-			lblMaxY.setVisible(true);
-			spinnerMaxY.setVisible(true);
+			lblMaxY.setVisible(true); spinnerMaxY.setVisible(true);
+		}
+		if(c.indexOf("maxDepth")!=-1) {
+			lblMaxDepth.setVisible(true); spinnerMaxDepth.setVisible(true);
+		}
+		if(c.indexOf("nAddrInputs")!=-1) {
+			lblNaddrInputs.setVisible(true); spinnerNaddrInputs.setVisible(true);
+		}
+		if(c.indexOf("cbGramaticaInit")!=-1) {
+			lblcbGramaticaInit.setVisible(true); cbGramaticaInit.setVisible(true);
+		}
+		if(c.indexOf("instrIF")!=-1){
+			checkboxInstrIF.setVisible(true);
+		}
+		if(c.indexOf("bloating")!=-1) {
+			lblcbBloating.setVisible(true); cbBloating.setVisible(true);
 		}
 	}
 
@@ -387,6 +415,16 @@ public class MainView extends JPanel implements View{
 		model.setPropValue("numGens2Ins", (Integer) spinnerNumGens2Ins.getValue()));
 		spinnerNumG2Inv.addChangeListener(e->
 		model.setPropValue("numG2Inv", (Integer) spinnerNumG2Inv.getValue()));
+		spinnerMaxDepth.addChangeListener(e->
+		model.setPropValue("profundidad", spinnerMaxDepth.getValue()));
+		spinnerNaddrInputs.addChangeListener(e->
+		model.setPropValue("nAddrInputs", spinnerNaddrInputs.getValue()));
+		cbGramaticaInit.addActionListener(e->
+		model.setPropValue("tipoCreacion", cbGramaticaInit.getSelectedIndex()));
+		checkboxInstrIF.addActionListener(e->
+		model.setPropValue("useIF", checkboxInstrIF.isSelected()));
+		cbBloating.addActionListener(e->
+		model.setPropValue("bloating", cbBloating.getSelectedItem()));
 		//tabbedPane.addChangeListener(e->update3dPlot());
 	}
 	
@@ -444,6 +482,10 @@ public class MainView extends JPanel implements View{
 		else if(mut.equalsIgnoreCase("Intercambio")) updateMutacionUI("numG2Inv");
 		else if(mut.equalsIgnoreCase("Inversion")) updateMutacionUI("");
 		else if(mut.equalsIgnoreCase("Heuristica")) updateMutacionUI("numGen2Perm");
+		else if(mut.equalsIgnoreCase("TerminalSimple")) updateMutacionUI("");
+		else if(mut.equalsIgnoreCase("FuncionalSimple")) updateMutacionUI("");
+		else if(mut.equalsIgnoreCase("NodeRestart")) updateMutacionUI("");
+		else if(mut.equalsIgnoreCase("PermutarArgs")) updateMutacionUI("");
 	}
 
 	public void refreshCruceFields(String cruc) {
@@ -463,6 +505,7 @@ public class MainView extends JPanel implements View{
 		if(crom.equalsIgnoreCase("Binario")) updateCromosomaUI("minX, maxX, minY, maxY");
 		else if(crom.equalsIgnoreCase("Real")) updateCromosomaUI("numVariables, minX, maxX");
 		else if(crom.equalsIgnoreCase("Permutacion")) updateCromosomaUI("");
+		else if(crom.equalsIgnoreCase("Gramatica")) updateCromosomaUI("maxDepth, nAddrInputs, cbGramaticaInit, instrIF, bloating");
 	}
 
 	public void refreshSelectionFields(String sel) {
@@ -495,6 +538,8 @@ public class MainView extends JPanel implements View{
 			spinnerMaxX.setValue(model.getPropValue("maxX"));
 			spinnerMinY.setValue(model.getPropValue("minY")); 
 			spinnerMaxY.setValue(model.getPropValue("maxY"));
+		} else if(selF.equalsIgnoreCase("Multiplexor")) {
+			//TODO: updateCromosomaProps
 		}
 	}
 	
@@ -563,7 +608,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel.setDisplayedMnemonic('t');
 		panel_4.add(lblNewLabel);
 		
-		spinnerTamPoblacion = new JSpinner(new SpinnerNumberModel(10,10,10000000,2)); 
+		spinnerTamPoblacion = new JSpinner(new SpinnerNumberModel(100,10,10000000,2)); 
 		lblNewLabel.setLabelFor(spinnerTamPoblacion);
 		spinnerTamPoblacion.setAlignmentY(Component.TOP_ALIGNMENT);
 		panel_4.add(spinnerTamPoblacion);
@@ -573,7 +618,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel_1.setDisplayedMnemonic('n');
 		panel_4.add(lblNewLabel_1);
 		
-		spinnerNGeneraciones = new JSpinner(new SpinnerNumberModel(100,100,10000000,1)); 
+		spinnerNGeneraciones = new JSpinner(new SpinnerNumberModel(100,20,10000000,1)); 
 		lblNewLabel_1.setLabelFor(spinnerNGeneraciones);
 		spinnerNGeneraciones.setAlignmentY(Component.TOP_ALIGNMENT);
 		panel_4.add(spinnerNGeneraciones);
@@ -613,7 +658,13 @@ public class MainView extends JPanel implements View{
 		
 		cbFuncionSeleccionada = new JComboBox<>(); lblNewLabel_3.setLabelFor(cbFuncionSeleccionada);
 		cbFuncionSeleccionada.setAlignmentY(Component.TOP_ALIGNMENT);
-		modelFunciones = new DefaultComboBoxModel<>(new Object[] {"funcion 1", "Holder table", "Schubert", "Michalewicz", "Problema5"});
+		modelFunciones = new DefaultComboBoxModel<>(new Object[] {
+				"funcion 1", 
+				"Holder table", 
+				"Schubert", 
+				"Michalewicz", 
+				"Problema5",
+				"Multiplexor"});
 		cbFuncionSeleccionada.setModel(modelFunciones);
 		panel_4.add(cbFuncionSeleccionada);
 		
@@ -692,6 +743,50 @@ public class MainView extends JPanel implements View{
 		spinnerMaxY = new JSpinner(new SpinnerNumberModel(0.0,-100000000.0 ,100000000.0,0.01)); 
 		lblMaxY.setLabelFor(spinnerMaxY);
 		panel_17.add(spinnerMaxY);
+		
+		checkboxInstrIF = new JCheckBox("instruccion IF");
+		checkboxInstrIF.setSelected(true);
+		checkboxInstrIF.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_17.add(checkboxInstrIF);
+		
+		lblMaxDepth = new JLabel("max start depth");
+		lblMaxDepth.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_17.add(lblMaxDepth);
+		
+		spinnerMaxDepth = new JSpinner(new SpinnerNumberModel(4, 4, 100000, 1)); 
+		lblMaxDepth.setLabelFor(spinnerMaxDepth);
+		panel_17.add(spinnerMaxDepth);
+		
+		lblNaddrInputs = new JLabel("nInputs Multiplexor");
+		lblNaddrInputs.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_17.add(lblNaddrInputs);
+		
+		spinnerNaddrInputs = new JSpinner(new SpinnerNumberModel(2, 2, 12, 1)); 
+		lblNaddrInputs.setLabelFor(spinnerNaddrInputs);
+		panel_17.add(spinnerNaddrInputs);
+		
+		lblcbGramaticaInit = new JLabel("tipo cromosoma");
+		lblcbGramaticaInit.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblcbGramaticaInit.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_17.add(lblcbGramaticaInit);
+		
+		cbGramaticaInit = new JComboBox<>(); lblcbGramaticaInit.setLabelFor(cbGramaticaInit);
+		cbGramaticaInit.setAlignmentY(Component.TOP_ALIGNMENT);
+		modelGramaticaInit = new DefaultComboBoxModel<Object>(new Object[] {"Creciente", "Completa", "Ramped"});
+		cbGramaticaInit.setModel(modelGramaticaInit);
+		panel_17.add(cbGramaticaInit);
+		
+		lblcbBloating = new JLabel("bloating");//
+		lblcbBloating.setDisplayedMnemonic('g');
+		lblcbBloating.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblcbBloating.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_17.add(lblcbBloating);
+		
+		cbBloating = new JComboBox<>(); lblcbBloating.setLabelFor(cbBloating);
+		cbBloating.setAlignmentY(Component.TOP_ALIGNMENT);
+		modelBloating = new DefaultComboBoxModel<Object>(new Object[] {"ninguno", "Tarpeian", "PoliMcPhee"});
+		cbBloating.setModel(modelBloating);
+		panel_17.add(cbBloating);
 		
 		JPanel panelSeleccion = new JPanel();
 		panelSeleccion.setBorder(new TitledBorder(null, "Seleccion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -901,7 +996,7 @@ public class MainView extends JPanel implements View{
 		
 		JPanel panel_8 = new JPanel();
 		tabbedPane.addTab("Log", null, panel_8, null);
-		tabbedPane.setMnemonicAt(2, KeyEvent.VK_G);
+//		tabbedPane.setMnemonicAt(2, KeyEvent.VK_G);
 		panel_8.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();

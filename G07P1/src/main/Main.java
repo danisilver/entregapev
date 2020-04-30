@@ -19,8 +19,8 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		MainModel mainModel = new MainModel();
-		MainView mainView = new MainView(mainModel);
+		MainModel  mainModel   = new MainModel();
+		MainView   mainView    = new MainView(mainModel);
 		Controller controlador = new MainController(mainView, mainModel);
 		controlador.restart();
 	}

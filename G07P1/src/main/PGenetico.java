@@ -1,5 +1,7 @@
 package main;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -12,21 +14,21 @@ import gen.Cromosoma;
 import utils.Utils;
 
 public class PGenetico {
-	private static double fevalMedia;
-	private int tamPoblacion;
-	private int nIteraciones;
+	private int    generacionActual;
+	private int    cuentaAtras;
+	private int    nIteraciones;
+	private int    tamPoblacion;
 	private double probC;
 	private double probM;
-	private Cromosoma[] poblacion;
-	private Seleccion ts;
-	private Cruce tc;
-	private Mutacion tm;
-	private Fitness tf;
 	private double elitismo;
-	private int generacionActual;
-	private int cuentaAtras;
-	private Cromosoma mejorIndividuoIteracion;
-	private Cromosoma mejorIndividuoGlobal;
+	private double fevalMedia;
+	private Seleccion ts;
+	private Cruce     tc;
+	private Mutacion  tm;
+	private Fitness   tf;
+	private Cromosoma[] poblacion;
+	private Cromosoma   mejorIndividuoIteracion;
+	private Cromosoma   mejorIndividuoGlobal;
 
 	public PGenetico(int nIteraciones, 
 			double probC, double probM, double elitismo, Cromosoma[] poblacion) {
@@ -50,15 +52,33 @@ public class PGenetico {
 	}
 	
 	public void buscar() {
+		Instant ini, end;
 		if(mejorIndividuoGlobal==null) mejorIndividuoGlobal = poblacion[0];
 		evaluarPoblacion(this.poblacion, tf);
 		while(generacionActual<nIteraciones && --cuentaAtras>=0) {
+			System.out.println("generacion: "+generacionActual);
 			Cromosoma[] elite = seleccionarElite(); 
-			Cromosoma[] sel,xsel, mut;
-			sel = getTipoSeleccion().seleccion(getPoblacion());
+			Cromosoma[] sel, xsel, mut;
+			ini = Instant.now();
+			sel  = getTipoSeleccion().seleccion(getPoblacion());
+			end = Instant.now();
+			System.out.println("seleccion: "
+					+ Duration.between(ini, end).toMillis()
+					+ "ms");
+			ini = Instant.now();
 			xsel = getTipoCruce().cruce(sel, getProbCruce());
+			end = Instant.now();
+			System.out.println("cruce: "
+					+ Duration.between(ini, end).toMillis()
+					+ "ms");
 			evaluarPoblacion(xsel, tf);
-			mut = getTipoMutacion().mutacion(xsel, getProbMutacion());
+			ini = Instant.now();
+			mut  = getTipoMutacion().mutacion(xsel, getProbMutacion());
+			end = Instant.now();
+			System.out.println("mutacion: "
+					+ Duration.between(ini, end).toMillis()
+					+ "ms");
+
 			setPoblacion(mut);
 			agregarElite(elite);
 			mejorIndividuoIteracion = poblacion[tamPoblacion-1];
@@ -78,7 +98,7 @@ public class PGenetico {
 
 	private Cromosoma[] seleccionarElite() {
 		int _numElite = (int) (poblacion.length * getPctjElitismo());
-		int numElite = _numElite % getTamPoblacion();
+		int numElite  = _numElite % getTamPoblacion();
 		Cromosoma[] elite = new Cromosoma[numElite];
 		if(numElite > 0) {
 			for (int i = 0; i < numElite; i++) {
@@ -136,87 +156,25 @@ public class PGenetico {
 		}
 	}
 
-	public int getTamPoblacion() {
-		return tamPoblacion;
-	}
-
-	public int getNumIteraciones() {
-		return nIteraciones;
-	}
-
-	public void setNumIteraciones(int nIteraciones) {
-		this.nIteraciones = nIteraciones;
-	}
-
-	public double getProbCruce() {
-		return probC;
-	}
-
-	public void setProbCruce(double probC) {
-		this.probC = probC;
-	}
-
-	public double getProbMutacion() {
-		return probM;
-	}
-
-	public void setProbMutacion(double probM) {
-		this.probM = probM;
-	}
-
-	public Seleccion getTipoSeleccion() {
-		return ts;
-	}
-
-	public void setTipoSeleccion(Seleccion ts) {
-		this.ts = ts;
-	}
-
-	public Cruce getTipoCruce() {
-		return tc;
-	}
-
-	public void setTipoCruce(Cruce tc) {
-		this.tc = tc;
-	}
-
-	public Mutacion getTipoMutacion() {
-		return tm;
-	}
-
-	public void setTipoMutacion(Mutacion tm) {
-		this.tm = tm;
-	}
-
-	public double getPctjElitismo() {
-		return elitismo;
-	}
-
-	public void setPctjElitismo(double elitismo) {
-		this.elitismo = elitismo;
-	}
-
-	public int getGeneracionActual() {
-		return generacionActual;
-	}
-
-	public Fitness getTipoFitness() {
-		return tf;
-	}
-
-	public void setTipoFitness(Fitness tf) {
-		this.tf = tf;
-	}
-
-	public Double getMaxFound() {
-		return mejorIndividuoGlobal.value2optimize();
-	}
-
-	public Double getMaxIter() {
-		return mejorIndividuoIteracion.value2optimize();
-	}
-
-	public Double getAverage() {
-		return fevalMedia;
-	}
+	public int    getTamPoblacion()     { return tamPoblacion; }
+	public int    getNumIteraciones()   { return nIteraciones; }
+	public int    getGeneracionActual() { return generacionActual; }
+	public double getProbCruce()        { return probC; }
+	public double getPctjElitismo()     { return elitismo; }
+	public double getProbMutacion()     { return probM; }
+	public Double getMaxFound()         { return mejorIndividuoGlobal.value2optimize(); }
+	public Double getMaxIter()          { return mejorIndividuoIteracion.value2optimize(); }
+	public Double getAverage()          { return fevalMedia; }
+	public Cruce  getTipoCruce()        { return tc; }
+	public Seleccion getTipoSeleccion() { return ts; }
+	public Mutacion  getTipoMutacion()  { return tm; }
+	public Fitness   getTipoFitness()   { return tf; }
+	public void setNumIteraciones(int nIteraciones) { this.nIteraciones = nIteraciones; }
+	public void setProbCruce     (double probC)     { this.probC = probC; }
+	public void setProbMutacion  (double probM)     { this.probM = probM; }
+	public void setPctjElitismo  (double elitismo)  { this.elitismo = elitismo; }
+	public void setTipoFitness(Fitness tf)          { this.tf = tf; }
+	public void setTipoSeleccion(Seleccion ts)      { this.ts = ts; }
+	public void setTipoCruce(Cruce tc)              { this.tc = tc; }
+	public void setTipoMutacion(Mutacion tm)        { this.tm = tm; }
 }

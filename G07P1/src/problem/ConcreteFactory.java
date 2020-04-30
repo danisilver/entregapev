@@ -18,6 +18,7 @@ public class ConcreteFactory implements ProblemFactory {
 		put("Schubert"		, new P3Factory());
 		put("Michalewicz"	, new P4Factory());
 		put("Problema5"		, new P5Factory());
+		put("Multiplexor"	, new P6Factory());
 	}};
 	
 	ProblemFactory selectedF;

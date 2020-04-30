@@ -49,17 +49,9 @@ public class SeleccionTorneo implements Seleccion{
 		if(random.nextDouble() < getUmbral()) return mejor;
 		else return peor;
 	}
-	public int getTamMuestra() {
-		return tamMuestra;
-	}
-	public void setTamMuestra(int tamMuestra) {
-		this.tamMuestra = tamMuestra;
-	}
-	public double getUmbral() {
-		return umbral;
-	}
-	public void setUmbral(double umbral) {
-		this.umbral = umbral;
-	}
+	public int getTamMuestra() { return tamMuestra; }
+	public double getUmbral()  { return umbral; }
+	public void setTamMuestra(int tamMuestra) { this.tamMuestra = tamMuestra; }
+	public void setUmbral(double umbral)      { this.umbral = umbral; }
 
 }
