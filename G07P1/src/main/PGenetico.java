@@ -1,7 +1,5 @@
 package main;
 
-import java.time.Duration;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -52,32 +50,32 @@ public class PGenetico {
 	}
 	
 	public void buscar() {
-		Instant ini, end;
+//		Instant ini, end;
 		if(mejorIndividuoGlobal==null) mejorIndividuoGlobal = poblacion[0];
 		evaluarPoblacion(this.poblacion, tf);
 		while(generacionActual<nIteraciones && --cuentaAtras>=0) {
-			System.out.println("generacion: "+generacionActual);
+//			System.out.println("generacion: "+generacionActual);
 			Cromosoma[] elite = seleccionarElite(); 
 			Cromosoma[] sel, xsel, mut;
-			ini = Instant.now();
+//			ini = Instant.now();
 			sel  = getTipoSeleccion().seleccion(getPoblacion());
-			end = Instant.now();
-			System.out.println("seleccion: "
-					+ Duration.between(ini, end).toMillis()
-					+ "ms");
-			ini = Instant.now();
+//			end = Instant.now();
+//			System.out.println("seleccion: "
+//					+ Duration.between(ini, end).toMillis()
+//					+ "ms");
+//			ini = Instant.now();
 			xsel = getTipoCruce().cruce(sel, getProbCruce());
-			end = Instant.now();
-			System.out.println("cruce: "
-					+ Duration.between(ini, end).toMillis()
-					+ "ms");
-			evaluarPoblacion(xsel, tf);
-			ini = Instant.now();
+//			end = Instant.now();
+//			System.out.println("cruce: "
+//					+ Duration.between(ini, end).toMillis()
+//					+ "ms");
+//			evaluarPoblacion(xsel, tf);
+//			ini = Instant.now();
 			mut  = getTipoMutacion().mutacion(xsel, getProbMutacion());
-			end = Instant.now();
-			System.out.println("mutacion: "
-					+ Duration.between(ini, end).toMillis()
-					+ "ms");
+//			end = Instant.now();
+//			System.out.println("mutacion: "
+//					+ Duration.between(ini, end).toMillis()
+//					+ "ms");
 
 			setPoblacion(mut);
 			agregarElite(elite);

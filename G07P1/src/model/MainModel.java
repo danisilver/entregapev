@@ -254,6 +254,14 @@ public class MainModel {
                         propObservers.put(prop, new Event()); 
                 propObservers.get(prop).addObserver(obs);
         }
+        public void addPropsObserver(String[] props, Observer obs) {
+        	for(String p:props) 
+        		addPropObserver(p, obs);
+        }
+        public void addPropObservers(String prop, Observer... obs) {
+        	for(Observer o:obs) 
+        		addPropObserver(prop, o);
+        }
         public void remProp(String prop) {
                 getPropsMap().remove(prop);
                 posibleValues.remove(prop);
@@ -288,7 +296,9 @@ public class MainModel {
         }
 
         public void setSearchProgress(int searchProgress) {
-                this.searchProgress = searchProgress;
+        	Integer max = (Integer) props.get("maxIteraciones");
+        	if(this.searchProgress>=max) this.searchProgress = 0;
+        	this.searchProgress = searchProgress;
         }
 
         public HashMap<String, Object> getPropsMap() {

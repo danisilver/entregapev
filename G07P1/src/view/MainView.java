@@ -8,7 +8,6 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,6 +39,7 @@ import javax.swing.text.html.StyleSheet;
 import org.math.plot.Plot2DPanel;
 
 import model.MainModel;
+import problem.ConcreteFactory;
 import utils.CustomHyperLinkListener;
 import utils.ModernScrollPane;
 import utils.Utils.TitleClickAdapter;
@@ -120,7 +120,7 @@ public class MainView extends JPanel implements View{
 	private DefaultComboBoxModel<Object> modelMutaciones;
 	private DefaultComboBoxModel<Object> modelFunciones;
 	private JTabbedPane tabbedPane;
-	private Plot2DPanel p2d;
+	public Plot2DPanel p2d;
 	private JEditorPane jEditorPane;
 	private DefaultComboBoxModel<Object> modelGramaticaInit;
 	private JLabel lblcbBloating;
@@ -150,8 +150,19 @@ public class MainView extends JPanel implements View{
 		updateCrucePanel();
 		updateMutacionPanel();
 	}
-
+	
 	public void updateGeneralPanel() {
+		Integer tamP			= (Integer) model.getPropValue("tamPoblacion");
+		spinnerTamPoblacion.setValue(tamP);
+		
+		Integer niters		  	= (Integer) model.getPropValue("maxIteraciones");
+		SpinnerNumberModel sngm = (SpinnerNumberModel) spinnerNGeneraciones.getModel();
+		spinnerNGeneraciones.setModel(
+				new SpinnerNumberModel(niters, sngm.getMinimum(), sngm.getMaximum(), sngm.getStepSize()));
+		
+		Double tol				= (Double) model.getPropValue("tolerancia");
+		tfTolerancia.setText(String.valueOf(tol));
+		
 		String self				= model.getPropValue("funcion").toString();
 		List<Object> cblist		= model.getPropValues("funcion");
 		modelFunciones = new DefaultComboBoxModel<>(cblist.toArray());
@@ -167,11 +178,6 @@ public class MainView extends JPanel implements View{
 		String selDatosFich 	= model.getPropValue("fichero").toString();
 		cbDatosOptimizar.setSelectedItem(selDatosFich);
 		
-//		JToggleButton.ToggleButtonModel chkModel = new JToggleButton.ToggleButtonModel();
-//		tfTolerancia.setDocument(new PlainDocument());
-//		chkModel.setSelected(randEnabled);
-//		checkboxRandomSeed.setModel(chkModel);
-//		checkboxRandomSeed.setMnemonic('d');
 		refreshFuncionFields(self);
 	}
 	
@@ -425,7 +431,7 @@ public class MainView extends JPanel implements View{
 		model.setPropValue("useIF", checkboxInstrIF.isSelected()));
 		cbBloating.addActionListener(e->
 		model.setPropValue("bloating", cbBloating.getSelectedItem()));
-		//tabbedPane.addChangeListener(e->update3dPlot());
+		tabbedPane.addChangeListener(e->updateProblemView());
 	}
 	
 	public void updateProgressBar() {
@@ -436,30 +442,13 @@ public class MainView extends JPanel implements View{
 		model.setSearchProgress(searchProgress);
 	}
 	
-	@SuppressWarnings("unchecked")
-	public void update2dPlot() {
-		if(model.containsProp("values")) {
-			double[] maxValues = ((ArrayList<Double>)model.getPropValue("maxValues"))
-					.stream().mapToDouble(Double::doubleValue).toArray();
-			double[] values = ((ArrayList<Double>)model.getPropValue("values"))
-					.stream().mapToDouble(Double::doubleValue).toArray();
-			double[] media = ((ArrayList<Double>)model.getPropValue("media"))
-					.stream().mapToDouble(Double::doubleValue).toArray();
-			p2d.removeAllPlots();
-			p2d.addLinePlot("globales", maxValues);
-			p2d.addLinePlot("locales", values);
-			p2d.addLinePlot("media", media);
-		}
-	}
-	
-	public void update3dPlot() {
-		//TODO: adapt 2 render every problem view
-		if(model.containsProp("p3d") && tabbedPane.getSelectedIndex() == 1) {
-			panel_7.removeAll();
-			Component propValue = (Component) model.getPropValue("p3d");
-			panel_7.add(propValue);
-			panel_7.revalidate();
-		}
+	public void updateProblemView() {
+		String funcion          = model.getPropValue("funcion").toString();
+		ConcreteFactory factory = new ConcreteFactory(funcion);
+        Component pv = factory.createView(model.getPropsMap()).getComponent();
+        panel_7.removeAll();
+        panel_7.add(pv);
+        panel_7.revalidate();
 	}
 
 	@Override
@@ -473,6 +462,7 @@ public class MainView extends JPanel implements View{
 		else if(fun.equalsIgnoreCase("Schubert")) updateFuncionUI("");
 		else if(fun.equalsIgnoreCase("Michalewicz")) updateFuncionUI("");
 		else if(fun.equalsIgnoreCase("Problema5")) updateFuncionUI("datosOptimizar"); 
+		else if(fun.equalsIgnoreCase("Multiplexor")) updateFuncionUI(""); 
 	}
 	
 	public void refreshMutacionFields(String mut) {

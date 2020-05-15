@@ -1,10 +1,10 @@
 package controller;
 
-import java.awt.Component;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
+import javax.swing.SwingWorker;
 
 import core.cruce.Cruce;
 import core.fitness.TipoFitness;
@@ -20,66 +20,46 @@ import view.MainView;
 
 public class MainController implements Controller{
         
-        private MainView  view;
+		private MainView  view;
         private MainModel model;
         private PGenetico pg;
         private ProblemFactory    factory;
-        private ArrayList<Double> maxValues = new ArrayList<>();
-        private ArrayList<Double> values    = new ArrayList<>();
-        private ArrayList<Double> media     = new ArrayList<>();
+        double[] maxValues, values, media;
 
         public MainController(MainView view, MainModel model) {
                 this.setPg(pg);
                 this.setView(view);
                 this.setModel(model);
                 configViewEvents();
-                configInitialState();
         }
 
         private void configViewEvents() {
-                model.addPropObserver("randomSeed",     view::updateGeneralPanel);
-                model.addPropObserver("seed",           view::updateGeneralPanel);
-                model.addPropObserver("tipoCromosoma",  view::updateCromosomaPanel);
-                model.addPropObserver("numVariables",   view::updateCromosomaPanel);
-                model.addPropObserver("tipoSeleccion",  view::updateSeleccionPanel);
-                model.addPropObserver("tipoCruce",      view::updateCrucePanel);
-                model.addPropObserver("tipoMutacion",   view::updateMutacionPanel);
-                model.addPropObserver("funcion",        view::updateGeneralPanel);
-                model.addPropObserver("funcion",        view::updateCromosomaProps);
-                model.addPropObserver("p3d",            view::update3dPlot);
-                model.addPropObserver("funcion",        this::replaceProblemView);
-                model.addPropObserver("fichero",        this::loadDataFromFile);
-                view.btnEjecutar.addActionListener(e->run());
+        	String[] props4GP = "funcion, randomSeed, seed, tolerancia".split(",");
+        	String[] props4CP = "tipoCromosoma, numVariables".split(",");
+        	model.addPropsObserver(props4GP, 		view::updateGeneralPanel);
+        	model.addPropsObserver(props4CP, 		view::updateCromosomaPanel);
+        	model.addPropObservers("funcion", 		view::updateCromosomaProps,
+        											view::updateProblemView);
+        	model.addPropObserver("tipoSeleccion",  view::updateSeleccionPanel);
+        	model.addPropObserver("tipoCruce",      view::updateCrucePanel);
+        	model.addPropObserver("tipoMutacion",   view::updateMutacionPanel);
+        	model.addPropObserver("fichero",        this::loadDataFromFile);
+        	view.btnEjecutar.addActionListener(e->new Thread(this::run).start());
+        	view.updateView();
         }
 
-        private void configInitialState() {
-                model.setPropValue("maxValues", maxValues);
-                model.setPropValue("values", values);
-                model.setPropValue("media", media);     
-                view.updateView();
-        }
-        
         @Override
         public void run() {
                 inicializarProblema();
-                maxValues.clear(); values.clear(); media.clear();
+                new SwingWorkerProgress().execute();
                 while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
                         pg.buscarNiter(1);
                         
-                        maxValues.add(pg.getMaxFound());
-                        values.add(pg.getMaxIter());
-                        media.add(pg.getAverage());
-                        
-                        SwingUtilities.invokeLater(view::update2dPlot);
-                        SwingUtilities.invokeLater(view::updateProgressBar);
+                        int it = pg.getGeneracionActual()-1;
+						maxValues[it] = pg.getMaxFound();
+    					values   [it] = pg.getMaxIter();
+    					media    [it] = pg.getAverage();
                 }
-        }
-        
-        private void replaceProblemView() {
-                String funcion          = model.getPropValue("funcion").toString();
-                factory = new ConcreteFactory(funcion);
-                Component pv = factory.createView(model.getPropsMap()).getComponent();
-                model.setPropValue("p3d", pv);
         }
 
         private void inicializarProblema() {
@@ -113,6 +93,9 @@ public class MainController implements Controller{
                 pg.setTipoCruce(tc);
                 pg.setTipoMutacion(tm);
                 
+    			maxValues = new double[maxIteraciones];
+    			values    = new double[maxIteraciones];
+    			media     = new double[maxIteraciones];
         }
         
         private void loadDataFromFile() {
@@ -136,9 +119,42 @@ public class MainController implements Controller{
                 model.setPropValue("tamMatrixFichero", Integer.valueOf(tam));
                 
         }
+        
+		private final class SwingWorkerProgress extends SwingWorker<Integer, Integer> {
+			Integer maxIteraciones 	= (Integer) model.getPropValue("maxIteraciones");
+			
+			@Override
+			protected Integer doInBackground() throws Exception {
+				SwingUtilities.invokeLater(()->{
+					view.p2d.removeAllPlots();
+					view.p2d.setFixedBounds(1, 0, maxIteraciones);
+					view.progressBar.setMaximum(maxIteraciones);
+				});
+				Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+				while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
+					publish(pg.getGeneracionActual());
+					model.setSearchProgress(pg.getGeneracionActual());
+					Thread.yield();
+				}
+				publish(maxIteraciones);
+				return maxIteraciones;
+			}
+
+			@Override
+			protected void process(List<Integer> chunks) {
+				Integer prog = chunks.get(chunks.size()-1);
+				System.out.println("progreso: "+prog);
+				view.progressBar.setValue(prog);
+				view.p2d.removeAllPlots();
+				view.p2d.addLinePlot("globales", maxValues);
+				view.p2d.addLinePlot("locales", values);
+				view.p2d.addLinePlot("media", media);
+				super.process(chunks);
+			}
+		}
 
         @Override
-        public void      restart()                 { maxValues.clear(); values.clear(); media.clear(); }
+        public void      restart()                 { /*maxValues.clear(); values.clear(); media.clear();*/ }
         public PGenetico getPg()                   { return pg; }
         public MainView  getView()                 { return view; }
         public MainModel getModel()                { return model; }

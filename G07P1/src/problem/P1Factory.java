@@ -147,7 +147,7 @@ public class P1Factory implements ProblemFactory{
 		chart.addMouseCameraController();
 		chart.add(surface);
 		chart.getView().setAxe(cab);
-//		org.jzy3d.plot3d.primitives.axes.layout.renderers.ITickRenderer
+
 		
 		return new View() {
 			@Override
