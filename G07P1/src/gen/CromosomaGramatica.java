@@ -39,18 +39,27 @@ public class CromosomaGramatica extends Cromosoma {
 		initAs = (tipoCreacion==0)? inicCreciente : inicCompleta;
 		initAs.apply(arbol).accept(0);
 		
+//		System.out.println(arbol);
+		
 		evalua();
 	}
 
 	public double evalua() {
 		ArrayList<String> func = getArbol().toArray();
 		int fallos = getnOutputs();
+//		System.out.println("func: "+func);
 		for (int i = 0; i < getnOutputs(); i++) {
+//			System.out.println("input:" + i + "\tbinary:"+Integer.toBinaryString(i));
 			int _selInput = i >> (1 << nAddrInputs);
 			int nDataInputs = nInputs - nAddrInputs;
 			int _muxData  = ((i << (nAddrInputs)) & (getnOutputs()-1)) >> nAddrInputs;
 			int muxOut_i  = ((_muxData & (1<<nDataInputs-1-_selInput)) > 0)? 1:0;
-			if(muxOut_i == evaluar(func, 0, i)) fallos--;
+			int evaluar = evaluar(func, 0, i);
+//			System.out.println("sel:"+_selInput
+//					+ " data:"+_muxData
+//					+ " expected:"+muxOut_i
+//					+ " result:"+evaluar);
+			if(muxOut_i == evaluar) fallos--;
 		}
 		fitness_bruto = fallos;
 		fitness = fallos;
@@ -70,12 +79,20 @@ public class CromosomaGramatica extends Cromosoma {
 		case "NOT":
 			return (evaluar(func, index+1, input) == 1)? 0:1;
 		default://traducir A0..n o D0..n a 1 o 0 del input
-			String terminalstr = func.get(index).substring(1);
+			String string = func.get(index);
+			String terminalstr = string.substring(1);
 			int terminal = Integer.parseInt(terminalstr);
-			if(func.get(index).startsWith("D")) terminal += nAddrInputs;
+			if(func.get(index).startsWith("D")) {
+				terminal += nAddrInputs; //desplazar D
+			} else {
+				terminal = (nAddrInputs-1)-terminal;//invertir A
+			}
 			int leftMostT = nInputs - 1;
 			terminal = leftMostT - terminal;
-			return (input & (1<<terminal))>>terminal;
+			int retu = (input & (1<<terminal))>>terminal;
+//			System.out.println("terminal: "+string
+//					+" \tret:" + retu);
+			return retu;
 		}
 	}
 	

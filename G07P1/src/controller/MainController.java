@@ -131,9 +131,13 @@ public class MainController implements Controller{
 					view.progressBar.setMaximum(maxIteraciones);
 				});
 				Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+				int generacionActual = pg.getGeneracionActual();
 				while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
-					publish(pg.getGeneracionActual());
-					model.setSearchProgress(pg.getGeneracionActual());
+					if(generacionActual<pg.getGeneracionActual()) {
+						publish(pg.getGeneracionActual());
+						generacionActual = pg.getGeneracionActual();
+						model.setSearchProgress(pg.getGeneracionActual());
+					}
 					Thread.yield();
 				}
 				publish(maxIteraciones);

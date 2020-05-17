@@ -79,6 +79,13 @@ public class CruceNodeXchng implements Cruce{
 		hijo1.evalua();
 		hijo2.evalua();
 		
+//		System.out.println(padre1.getArbol());
+//		System.out.println(hijo1.getArbol());
+//		System.out.println(padre2.getArbol());
+//		System.out.println(hijo2.getArbol());
+//		
+//		System.out.println("???????????'");
+		
 		mutaciones.add(new PadresHijos() {{
 			p1 = padre1;
 			p2 = padre2;

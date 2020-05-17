@@ -131,7 +131,7 @@ public class MainView extends JPanel implements View{
 		this.model = model;
 		window = new JFrame(model.getTitle());
 		window.setVisible(true);
-		window.setTitle("Practica 1 Optimizacion funciones");
+		window.setTitle("Programación evolutiva");
 		window.setIconImage(Toolkit.getDefaultToolkit().getImage(MainView.class.getResource("/org/math/plot/icons/position.png")));
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setBounds(100, 100, 703, 526);
