@@ -44,12 +44,15 @@ public class PoliMcPheeBloating implements Seleccion{
 		for (int i = 0; i < poblacion.length; i++) {
 			CromosomaGramatica cromI = (CromosomaGramatica) poblacion[i];
 			if(cromI.getArbol().getNumNodos() > mediaNodos) {
-				double nPunt = cromI.evalua() + c*cromI.getArbol().getNumNodos();
-				nPunt = normalize(max(0, nPunt), 0, cromI.getnOutputs());
-				cromI.setPuntuacion(nPunt);
+				//F = fallos, con covarianza negativa sumamos fallos
+				double fallos = cromI.evalua() - c*cromI.getArbol().getNumNodos();
+				//la puntuacion es mas alta si hay 0 fallos
+				double puntuacion = normalize(max(0, fallos), cromI.getnOutputs(), 0);
+				cromI.setPuntuacion(puntuacion);
 			}
 		}
 		recalcularPuntuaciones(poblacion);
+//		System.out.println("c::"+c);
 		return tipoSeleccion.seleccion(poblacion);
 	}
 

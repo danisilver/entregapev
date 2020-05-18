@@ -52,6 +52,9 @@ public class MutacionNodeRestart implements Mutacion {
 		CromosomaGramatica c = (CromosomaGramatica)ind.clonar();
 		Arbol arbolCromosoma = c.getArbol().copia();
 
+//		JFrame t1 = Utils.showTree(arbolCromosoma);
+//		t1.setLocation(0, 0);
+		
 		ArrayList<Arbol> funciones  = new ArrayList<Arbol>();
 		ArrayList<Arbol> terminales = new ArrayList<Arbol>();
 		arbolCromosoma.getFunciones (arbolCromosoma.getHijos(), funciones);
@@ -67,7 +70,7 @@ public class MutacionNodeRestart implements Mutacion {
 			
 			initAs = (random.nextDouble() < 0.5)? inicCreciente : inicCompleta;
 			initAs.apply(nuevoNodo)
-				  .accept(node2mut.getMax_prof()-node2mut.getProfundidad());
+				  .accept(node2mut.getProfundidad());
 			
 			insertAs = node2mut.isEsRaiz()? insertF : insertT;
 			insertAs.apply(arbolCromosoma)
@@ -82,6 +85,14 @@ public class MutacionNodeRestart implements Mutacion {
 			c.evalua();
 		}
 
+		
+//		JFrame t2 = Utils.showTree(arbolCromosoma);
+//		t2.setLocation(0, 400);
+//		
+//		t2=t2;
+//		
+//		t1.dispose();t2.dispose();
+		
 		return c;
 	}
 }

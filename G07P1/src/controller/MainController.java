@@ -34,8 +34,8 @@ public class MainController implements Controller{
         }
 
         private void configViewEvents() {
-        	String[] props4GP = "funcion, randomSeed, seed, tolerancia".split(",");
-        	String[] props4CP = "tipoCromosoma, numVariables".split(",");
+        	String[] props4GP = "funcion, randomSeed, seed, tolerancia".split(", ");
+        	String[] props4CP = "tipoCromosoma, numVariables".split(", ");
         	model.addPropsObserver(props4GP, 		view::updateGeneralPanel);
         	model.addPropsObserver(props4CP, 		view::updateCromosomaPanel);
         	model.addPropObservers("funcion", 		view::updateCromosomaProps,
@@ -147,7 +147,6 @@ public class MainController implements Controller{
 			@Override
 			protected void process(List<Integer> chunks) {
 				Integer prog = chunks.get(chunks.size()-1);
-				System.out.println("progreso: "+prog);
 				view.progressBar.setValue(prog);
 				view.p2d.removeAllPlots();
 				view.p2d.addLinePlot("globales", maxValues);

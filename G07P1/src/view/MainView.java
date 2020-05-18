@@ -361,6 +361,8 @@ public class MainView extends JPanel implements View{
 	private void registerEvents() {
 		checkboxRandomSeed.addActionListener(e-> 
 		model.setPropValue( "randomSeed", Boolean.valueOf(checkboxRandomSeed.isSelected())));
+		tfSeed.addActionListener(e->
+		model.setPropValue("seed", Long.valueOf(tfSeed.getValue().toString())));
 		btnEjecutar.addActionListener(e->
 		model.setPropValue("randomSeed", Boolean.valueOf(checkboxRandomSeed.isSelected())));
 		cbFuncionSeleccionada.addActionListener(e->

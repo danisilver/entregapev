@@ -1,5 +1,6 @@
 package utils;
 
+import java.awt.FlowLayout;
 import java.awt.FontMetrics;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -11,6 +12,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
@@ -144,6 +146,17 @@ public class Utils {
 		}
 		
 		return var / matrix.length;
+	}
+	
+	public static JFrame showTree(Arbol a) {
+		JFrame jFrame = new JFrame();
+		jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		JPanel jp = new JPanel(new FlowLayout());
+		jFrame.add(jp);
+		jFrame.add(new TreePanel(new Ctree(a)));
+		jFrame.setSize(400,400);
+		jFrame.setVisible(true);
+		return jFrame;
 	}
 	
 }

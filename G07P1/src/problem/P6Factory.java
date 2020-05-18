@@ -3,8 +3,6 @@ package problem;
 import java.awt.Component;
 import java.util.HashMap;
 
-import javax.swing.JPanel;
-
 import core.cruce.Cruce;
 import core.cruce.CruceNodeXchng;
 import core.fitness.Fitness;
@@ -23,6 +21,7 @@ import core.selection.SeleccionTruncamiento;
 import core.selection.TarpeianBloating;
 import gen.Cromosoma;
 import gen.CromosomaGramatica;
+import utils.Multiplexer8To1;
 import view.View;
 
 /**
@@ -132,12 +131,12 @@ public class P6Factory implements ProblemFactory{
 
 	@Override
 	public View createView(HashMap<String, Object> props) {
+		Multiplexer8To1 multiplexer8To1 = new Multiplexer8To1();
 		return new View() {
 			@Override
 			public Component getComponent() {
-				return new JPanel();
+				return multiplexer8To1;
 			}
-			
 		};
 	}
 	

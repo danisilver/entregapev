@@ -11,7 +11,7 @@ import utils.Utils;
 public class CruceNodeXchng implements Cruce{
 
 	private Random random = Utils.random;
-	private static final double PROB_FUNC = 0.9;
+	private double probFoT = 0.9; // prob de mutar funcion o terminal
 	
 	class PadresHijos{
 		CromosomaGramatica p1, p2;
@@ -62,7 +62,11 @@ public class CruceNodeXchng implements Cruce{
 		hijo2 = (CromosomaGramatica)padre2.clonar();
 		
 		Arbol temp1 = nodos_selec1.get(puntoCruce1).copia();
+		int proft1 = temp1.getProfundidad();
 		Arbol temp2 = nodos_selec2.get(puntoCruce2).copia();
+		int proft2 = temp2.getProfundidad();
+		temp1.setProfundidad(proft2); //intercambiamos profundidades para dibujar bien
+		temp2.setProfundidad(proft1);
 		
 		corte(hijo1, temp2, puntoCruce1, temp1.isEsRaiz());
 		corte(hijo2, temp1, puntoCruce2, temp2.isEsRaiz());
@@ -79,12 +83,14 @@ public class CruceNodeXchng implements Cruce{
 		hijo1.evalua();
 		hijo2.evalua();
 		
-//		System.out.println(padre1.getArbol());
-//		System.out.println(hijo1.getArbol());
-//		System.out.println(padre2.getArbol());
-//		System.out.println(hijo2.getArbol());
-//		
-//		System.out.println("???????????'");
+//		JFrame t1 = Utils.showTree(padre1.getArbol());
+//		t1.setLocation(0, 0);
+//		JFrame t2 = Utils.showTree(padre2.getArbol());
+//		t2.setLocation(0, 400);
+//		JFrame t3 = Utils.showTree(hijo1.getArbol());
+//		t3.setLocation(700, 0);
+//		JFrame t4 = Utils.showTree(hijo2.getArbol());
+//		t4.setLocation(700, 400);
 		
 		mutaciones.add(new PadresHijos() {{
 			p1 = padre1;
@@ -92,15 +98,39 @@ public class CruceNodeXchng implements Cruce{
 			h1 = hijo1;
 			h2 = hijo2;
 		}});
+		
+//		t1.dispose();
+//		t2.dispose();
+//		t3.dispose();
+//		t4.dispose();
+		int profp1 = padre1.getArbol().getProfundidad();
+		int profp2 = padre2.getArbol().getProfundidad();
+		int profh1 = hijo1.getArbol().getProfundidad();
+		int profh2 = hijo1.getArbol().getProfundidad();
+		
+		if(profh2>profp1 || profh2>profp2 || profh1>profp1 || profh1>profp2) {
+			profp1=profp1;	
+		}
+		System.out.println();
 		return new Cromosoma[] {hijo1, hijo2};
 	}
 	
 	private void corte(CromosomaGramatica hijo, Arbol temp, int puntoCruce, boolean esRaiz) {
 		
 		if(!esRaiz){ //dependiendo de qué tipo era el nodo que ya no va a estar, se inserta el nuevo
-			hijo.getArbol().insertTerminal(hijo.getArbol().getHijos(), temp, puntoCruce, 0);
+			hijo.getArbol()
+				.insertTerminal(
+						hijo.getArbol().getHijos(), 
+						temp, 
+						puntoCruce, 
+						0);
 		}else{
-			hijo.getArbol().insertFuncion(hijo.getArbol().getHijos(), temp, puntoCruce, 0);
+			hijo.getArbol()
+				.insertFuncion(
+						hijo.getArbol().getHijos(), 
+						temp, 
+						puntoCruce, 
+						0);
 		}
 		
 	}
@@ -108,8 +138,7 @@ public class CruceNodeXchng implements Cruce{
 	private ArrayList<Arbol> obtieneNodos(Arbol arbol) {
 		ArrayList<Arbol> nodos = new ArrayList<Arbol>();
 		
-		//Obtenemos una porbabilidad al azar
-		if(seleccionaFunciones()){//Si devuelve true, el corte se hará en una función
+		if(random.nextDouble() < probFoT){//Si devuelve true, el corte se hará en una función
 			arbol.getFunciones(arbol.getHijos(), nodos);
 			if(nodos.size() == 0){//Si no existen funciones, se seleccionan los terminales
 				arbol.getTerminales(arbol.getHijos(), nodos);
@@ -120,39 +149,5 @@ public class CruceNodeXchng implements Cruce{
 		
 		return nodos;
 	}
-	
-	private boolean seleccionaFunciones(){
-		double prob = random.nextDouble();
-		
-		if(prob < PROB_FUNC){
-			return true;
-		}else{
-			return false;
-		}
-	}
 
 }
-
-
-/*
-		insertAs = (temp1.isEsRaiz())?Arbol.insertF:Arbol.insertT;
-		insertAs.apply(hijo1.getArbol())
-				.apply(hijo1.getArbol().getHijos())
-				.apply(temp2)
-				.apply(puntoCruce1)
-				.accept(0);
-		
-		insertAs = (temp2.isEsRaiz())?Arbol.insertF:Arbol.insertT;
-		insertAs.apply(hijo2.getArbol())
-				.apply(hijo2.getArbol().getHijos())
-				.apply(temp1)
-				.apply(puntoCruce2)
-				.accept(0);
-	private 
-	Function<Arbol, 
-	Function<ArrayList<Arbol>, 
-	Function<Arbol, 
-	Function<Integer, 
-	Consumer<Integer>>>>> insertAs;
- * */
- 

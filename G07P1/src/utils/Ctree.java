@@ -21,6 +21,14 @@ public class Ctree {
 		this.level = 0;
 		for(Object h : hijos) addNew(h);
 	}
+	public Ctree(Arbol a) {
+		this.hijos = new ArrayList<Ctree>();
+		this.value = a.getValor();
+		this.level = a.getProfundidad();
+		for(Arbol b:a.getHijos()) {
+			this.add(new Ctree(b));
+		}
+	}
 	
 	public void add(Ctree st) {
 		hijos.add(st);

@@ -362,7 +362,12 @@ public class Arbol {
 	public boolean isEsHoja()    { return esHoja; }
 	public boolean isEsRaiz()    { return esRaiz; }
 	public boolean isUseIF()     { return useIF; }
-	public void    setProfundidad(int profundidad)  { this.profundidad = profundidad; }
+	public void    setProfundidad(int profundidad)  { 
+		this.profundidad = profundidad; 
+		for(Arbol a:this.hijos) {
+			a.setProfundidad(this.profundidad+1);
+		}
+	}
 	public void    setHijos(ArrayList<Arbol> hijos) { this.hijos = hijos; }
 	public void    setMax_prof(int max_prof) { this.max_prof = max_prof; }
 	public void    setNumHijos(int numHijos) { this.numHijos = numHijos; }
