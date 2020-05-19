@@ -51,7 +51,6 @@ public class MutacionFuncionalSimple implements Mutacion {
 
 		arbolCromosoma.insertFuncion(arbolCromosoma.getHijos(), arbolFuncion, sel, 0);
 		c.setArbol(arbolCromosoma.copia());
-		c.evalua();
 		
 		return c;
 	}

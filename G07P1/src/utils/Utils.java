@@ -18,6 +18,7 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import gen.Cromosoma;
+import gen.CromosomaGramatica;
 
 public class Utils {
 	
@@ -153,10 +154,14 @@ public class Utils {
 		jFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		JPanel jp = new JPanel(new FlowLayout());
 		jFrame.add(jp);
-		jFrame.add(new TreePanel(new Ctree(a)));
+		jFrame.add(new TreePanel(new TreeNode(a)));
 		jFrame.setSize(400,400);
 		jFrame.setVisible(true);
 		return jFrame;
+	}
+	
+	public static void showTreeCromosoma(Cromosoma c) {
+		if(c instanceof CromosomaGramatica) showTree(((CromosomaGramatica)c).getArbol());
 	}
 	
 }

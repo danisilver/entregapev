@@ -434,6 +434,10 @@ public class MainView extends JPanel implements View{
 		cbBloating.addActionListener(e->
 		model.setPropValue("bloating", cbBloating.getSelectedItem()));
 		tabbedPane.addChangeListener(e->updateProblemView());
+		btnPaso.addActionListener(e->
+		p2d.removeAllPlots());
+		btnPaso.addActionListener(e->
+		jtaLog.setText(""));
 	}
 	
 	public void updateProgressBar() {
@@ -749,11 +753,19 @@ public class MainView extends JPanel implements View{
 		lblMaxDepth.setLabelFor(spinnerMaxDepth);
 		panel_17.add(spinnerMaxDepth);
 		
-		lblNaddrInputs = new JLabel("nInputs Multiplexor");
+		lblNaddrInputs = new JLabel("<html>"
+				+ "    (<b>1</b>+1&lt;&lt;<b>1</b>= 3) inputs"
+				+ "<br>(<b>2</b>+1&lt;&lt;<b>2</b>= 6) inputs"
+				+ "<br>(<b>3</b>+1&lt;&lt;<b>3</b>=11) inputs"
+				+ "<br>(<b>4</b>+1&lt;&lt;<b>4</b>=20) inputs"
+				+ "<br><b>+5</b> no permitido"
+				+ "<br><b>nAddrInputs</b> Mux"
+				+ "<br>Multiplexor"
+				+ "</html>");
 		lblNaddrInputs.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_17.add(lblNaddrInputs);
 		
-		spinnerNaddrInputs = new JSpinner(new SpinnerNumberModel(2, 2, 12, 1)); 
+		spinnerNaddrInputs = new JSpinner(new SpinnerNumberModel(2, 1, 4, 1)); 
 		lblNaddrInputs.setLabelFor(spinnerNaddrInputs);
 		panel_17.add(spinnerNaddrInputs);
 		

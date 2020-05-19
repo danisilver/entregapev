@@ -4,10 +4,9 @@ import static utils.Utils.inicCompleta;
 import static utils.Utils.inicCreciente;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import utils.Arbol;
+import utils.TreeNode;
 
 public class CromosomaGramatica extends Cromosoma {
 
@@ -15,12 +14,9 @@ public class CromosomaGramatica extends Cromosoma {
 	public static String terminales[] = { "A0", "A1", "D0", "D1", "D2", "D3" }; 
 	private Arbol  arbol;
 	private double fitness;
-	private double fitness_bruto; // Aptitud antes de transformarla
 	private int    nOutputs;
 	private int    nAddrInputs;
-	Function<Arbol,
-	Consumer<Integer>> initAs;
-	private int nInputs;
+	private int    nInputs;
 	
 	private CromosomaGramatica() { }
 
@@ -30,40 +26,35 @@ public class CromosomaGramatica extends Cromosoma {
 	 */
 	public CromosomaGramatica(int profundidad, int tipoCreacion, boolean useIf, int nAddrInputs) {
 		this.nAddrInputs = nAddrInputs;
-		arbol = new Arbol(profundidad, useIf);
-		setnOutputs(1 << nAddrInputs + (1 << nAddrInputs));
-		nInputs = (nAddrInputs + (1 << nAddrInputs));
+		this.arbol = new Arbol(profundidad, useIf);
+		this.nOutputs = 1 << nAddrInputs + (1 << nAddrInputs);
+		this.nInputs = (nAddrInputs + (1 << nAddrInputs));
 		if(terminales.length < nInputs) 
 			terminales = getTerminales();
 		
-		initAs = (tipoCreacion==0)? inicCreciente : inicCompleta;
-		initAs.apply(arbol).accept(0);
-		
-//		System.out.println(arbol);
-		
-		evalua();
+		((tipoCreacion==0)? inicCreciente : inicCompleta)
+			.apply(arbol)
+			.accept(0);
 	}
 
+	private boolean evaluated=false;
 	public double evalua() {
+		if(evaluated) return fitness;
 		ArrayList<String> func = getArbol().toArray();
+		System.out.println(func);
+		System.out.println(new TreeNode(getArbol()).toArrayString());
 		int fallos = getnOutputs();
-//		System.out.println("func: "+func);
 		for (int i = 0; i < getnOutputs(); i++) {
-//			System.out.println("input:" + i + "\tbinary:"+Integer.toBinaryString(i));
 			int _selInput = i >> (1 << nAddrInputs);
 			int nDataInputs = nInputs - nAddrInputs;
 			int _muxData  = ((i << (nAddrInputs)) & (getnOutputs()-1)) >> nAddrInputs;
 			int muxOut_i  = ((_muxData & (1<<nDataInputs-1-_selInput)) > 0)? 1:0;
 			int evaluar = evaluar(func, 0, i);
-//			System.out.println("sel:"+_selInput
-//					+ " data:"+_muxData
-//					+ " expected:"+muxOut_i
-//					+ " result:"+evaluar);
 			if(muxOut_i == evaluar) fallos--;
 		}
-		fitness_bruto = fallos;
+		evaluated = true;
 		fitness = fallos;
-		return fallos;
+		return fitness;
 	}
 	
 	private int evaluar(ArrayList<String> func, int index, int input){
@@ -90,8 +81,6 @@ public class CromosomaGramatica extends Cromosoma {
 			int leftMostT = nInputs - 1;
 			terminal = leftMostT - terminal;
 			int retu = (input & (1<<terminal))>>terminal;
-//			System.out.println("terminal: "+string
-//					+" \tret:" + retu);
 			return retu;
 		}
 	}
@@ -99,14 +88,14 @@ public class CromosomaGramatica extends Cromosoma {
 	@Override
 	public Cromosoma clonar() {
 		CromosomaGramatica c = new CromosomaGramatica();
-		c.fitness_bruto = this.fitness_bruto;
 		c.arbol	   = this.arbol.copia();
+		c.evaluated= this.evaluated;
 		c.fitness  = this.fitness;
 		c.setPuntuacion(getPuntuacion());
 		c.setPuntAcc(getPuntAcc());
 		c.nAddrInputs = this.nAddrInputs;
 		c.nInputs = this.nInputs;
-		c.setnOutputs(this.getnOutputs());
+		c.nOutputs=this.getnOutputs();
 		return c;
 	}
 	
@@ -119,21 +108,19 @@ public class CromosomaGramatica extends Cromosoma {
 	}
 	
 	public Arbol getArbol()            { return arbol; }
-	public void  setArbol(Arbol arbol) { this.arbol = arbol; }
+	public void  setArbol(Arbol arbol) { evaluated=false; this.arbol = arbol; }
 	@Override public Object[] getGenes()     { return new Arbol[] { getArbol() }; }
 	@Override public int    getGenLen(int i) { return arbol.getMax_prof(); }
 	@Override public int    getNumGenes()    { return 1; }
 	@Override public Object getGen(int i)    { return getArbol(); }
 	@Override public Object getFenotipo()    { return getArbol().toString(); }
-	@Override public double value2optimize() { return fitness; }
-	@Override public String toString() 		 { return arbol.toString(); }
+	@Override public double value2optimize() { if(evaluated) return fitness; else return evalua();}
 	@Override public void   setGen(int i, Object g) { arbol = (Arbol) g; }
+	@Override public String toString() 		 { 
+		return "evalua:"+ value2optimize()+ " representacion:" + arbol.toString(); 
+	}
 
 	public int getnOutputs() {
 		return nOutputs;
-	}
-
-	public void setnOutputs(int nOutputs) {
-		this.nOutputs = nOutputs;
 	}
 }

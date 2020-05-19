@@ -46,7 +46,6 @@ public class MutacionTerminalSimple implements Mutacion {
 		term2mut.setValor(termNuevo);
 		a.insertTerminal(a.getHijos(), term2mut, term2mutPos, 0);
 		c.setArbol(a.copia());
-		c.evalua();
 		
 		return c;
 	}

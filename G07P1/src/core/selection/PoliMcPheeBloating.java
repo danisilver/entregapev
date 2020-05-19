@@ -52,7 +52,6 @@ public class PoliMcPheeBloating implements Seleccion{
 			}
 		}
 		recalcularPuntuaciones(poblacion);
-//		System.out.println("c::"+c);
 		return tipoSeleccion.seleccion(poblacion);
 	}
 

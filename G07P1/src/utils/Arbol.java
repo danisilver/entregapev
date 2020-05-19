@@ -335,9 +335,9 @@ public class Arbol {
 	
 	@Override
 	public String toString() {
-		String s =  "[" + valor
+		String s =  "(" + valor
 				+ " " + hijosToString(hijos) + " "
-				+ "]";
+				+ ")";
 		return s;
 	}
 	
@@ -345,8 +345,8 @@ public class Arbol {
 		String cad = "";
 		for(int i  = 0; i < h.size(); i++){
 			if(h.get(i).esRaiz){
-				cad += "[" + h.get(i).valor + " " + hijosToString(h.get(i).hijos);
-				cad += "]";
+				cad += "(" + h.get(i).valor + " " + hijosToString(h.get(i).hijos);
+				cad += ")";
 			} else {
 				cad += h.get(i).valor + " ";
 			}

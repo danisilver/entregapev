@@ -1,5 +1,7 @@
 package gen;
 
+import java.util.Arrays;
+
 public class CromosomaNDP5 extends CromosomaND {
 	
 	private int[][] distancias;
@@ -57,6 +59,11 @@ public class CromosomaNDP5 extends CromosomaND {
 	@Override
 	public double value2optimize() {
 		return (double) getFenotipo();
+	}
+	
+	@Override
+	public String toString() {
+		return Arrays.deepToString(genes)+" v2o:"+value2optimize();
 	}
 	
 }

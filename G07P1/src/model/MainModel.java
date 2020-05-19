@@ -114,6 +114,8 @@ public class MainModel {
                                 .stream()
                                 .collect(Collectors.toList()));
                 
+                props.put("mainmodel"             , this);
+                
                 props.put("tipoCromosoma"       , "Binario");
                 addPropObserver("tipoCromosoma" , this::generaCruces4crom);
                 addPropObserver("tipoCromosoma" , this::generaMut4crom);

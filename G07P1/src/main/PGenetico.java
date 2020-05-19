@@ -144,6 +144,8 @@ public class PGenetico {
 	public double getProbMutacion()     { return probM; }
 	public Double getMaxFound()         { return mejorIndividuoGlobal.value2optimize(); }
 	public Double getMaxIter()          { return mejorIndividuoIteracion.value2optimize(); }
+	public Cromosoma getMaxIterCrom() 	{ return mejorIndividuoIteracion;}
+	public Cromosoma getMaxGlobalCrom()	{ return mejorIndividuoGlobal;}
 	public Double getAverage()          { return fevalMedia; }
 	public Cruce  getTipoCruce()        { return tc; }
 	public Seleccion getTipoSeleccion() { return ts; }

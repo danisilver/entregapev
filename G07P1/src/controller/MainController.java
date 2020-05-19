@@ -50,6 +50,7 @@ public class MainController implements Controller{
 
         @Override
         public void run() {
+        	view.btnEjecutar.setEnabled(false);
                 inicializarProblema();
                 new SwingWorkerProgress().execute();
                 while(pg.getGeneracionActual()<pg.getNumIteraciones()) {
@@ -59,7 +60,10 @@ public class MainController implements Controller{
 						maxValues[it] = pg.getMaxFound();
     					values   [it] = pg.getMaxIter();
     					media    [it] = pg.getAverage();
+    					
+    					view.jtaLog.append("mejor iteracion:"+pg.getMaxIterCrom().toString()+"\n");
                 }
+                utils.Utils.showTreeCromosoma(pg.getMaxGlobalCrom());
         }
 
         private void inicializarProblema() {
@@ -141,6 +145,7 @@ public class MainController implements Controller{
 					Thread.yield();
 				}
 				publish(maxIteraciones);
+				view.btnEjecutar.setEnabled(true);
 				return maxIteraciones;
 			}
 
@@ -152,12 +157,13 @@ public class MainController implements Controller{
 				view.p2d.addLinePlot("globales", maxValues);
 				view.p2d.addLinePlot("locales", values);
 				view.p2d.addLinePlot("media", media);
+				view.jtaLog.append("mejor global:" +pg.getMaxGlobalCrom().toString()+"\n");
 				super.process(chunks);
 			}
 		}
 
         @Override
-        public void      restart()                 { /*maxValues.clear(); values.clear(); media.clear();*/ }
+        public void      restart()                 { }
         public PGenetico getPg()                   { return pg; }
         public MainView  getView()                 { return view; }
         public MainModel getModel()                { return model; }

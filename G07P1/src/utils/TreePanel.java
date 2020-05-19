@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class TreePanel extends JPanel {
-	private final Ctree c;
+	private final TreeNode c;
 	private static final long serialVersionUID = 172683191819778352L;
 	int diam=50;
 	int diamOff = diam/2;
@@ -19,7 +19,7 @@ public class TreePanel extends JPanel {
 	private ZoomAndPanListener zoomAndPanListener;
 	private Font font;
 
-	public TreePanel(Ctree c) {
+	public TreePanel(TreeNode c) {
 		this.c = c;
 		this.hints = new RenderingHints(null);
 		this.hints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -38,14 +38,13 @@ public class TreePanel extends JPanel {
 		Graphics2D g = (Graphics2D)gg;
 		
 		int h = getHeight();
-		int treeh = (c.getProfundidad()+1)*2*diam;
+		int treeh = (c.getDepth()+1)*2*diam;
 		double scalefactor = ((double)h)/treeh;
 		g.setFont(font);
 		g.setRenderingHints(hints);
 		g.setTransform(zoomAndPanListener.getCoordTransform());
 		g.scale(scalefactor, scalefactor);
 		int rootpos = drawTree(g, c, 0);
-//		g.translate(rootpos/2, (c.getProfundidad()*diam)/2);
 		g.setColor(new Color(184, 217, 248));
 		int x = rootpos/2;
 		int y = 0;
@@ -53,10 +52,10 @@ public class TreePanel extends JPanel {
 		paintText(g, c, x, y);
 	}
 	
-	private int drawTree(java.awt.Graphics2D g, Ctree t, int pos) {
+	private int drawTree(java.awt.Graphics2D g, TreeNode t, int pos) {
 		if(t.getNumHijos()<=0) return diam;
 		
-		ArrayList<Ctree> hijos = t.getHijos();
+		ArrayList<TreeNode> hijos = t.getHijos();
 		int[][] hijosPoints = new int[hijos.size()][];
 		int twidth = 0;
 		int cwidth = 0;
@@ -78,7 +77,7 @@ public class TreePanel extends JPanel {
 		return twidth;
 	}
 
-	private void paintText(Graphics gg, Ctree hijo, int x, int y) {
+	private void paintText(Graphics gg, TreeNode hijo, int x, int y) {
 		Graphics2D g = (Graphics2D)gg;
 		int stringLen = (int) g.getFontMetrics()
 				.getStringBounds(hijo.toString(), gg)
@@ -89,27 +88,29 @@ public class TreePanel extends JPanel {
 	}
 	
 	public static void main(String[] args) {
-		Ctree c = new Ctree("0");
-				Ctree c0 = c.addNew("1");
-						Ctree c4 = c0.addNew("3");
+		TreeNode d = new TreeNode("0");
+				TreeNode c0 = d.addNew("1");
+						TreeNode c4 = c0.addNew("3");
 										c4.addNew("7");
 										c4.addNew("8");
-						Ctree c5 = c0.addNew("4");
+						TreeNode c5 = c0.addNew("4");
 										c5.addNew("9");
 										c5.addNew("10");
 						
-				Ctree c1 = c.addNew("2");
-						Ctree c3 = c1.addNew("5");
+				TreeNode c1 = d.addNew("2");
+						TreeNode c3 = c1.addNew("5");
 										c3.addNew("11");
-						Ctree c2 = c1.addNew("6");
+						TreeNode c2 = c1.addNew("6");
 										c2.addNew("12");
 										c2.addNew("22");
-				Ctree cc = c.addNew("A0");
-						Ctree o = cc.addNew("O");
-										Ctree ccc = o.addNew("BB");
+				TreeNode cc = d.addNew("A0");
+						TreeNode o = cc.addNew("O");
+										TreeNode ccc = o.addNew("BB");
 														ccc.addNew("CC");
 														ccc.addNew("DD");
-		int prof = c.getProfundidad();
+														
+		TreeNode c = d.clone();
+		int prof = c.getDepth();
 		int maxnodos=0;
 		for (int i = 0; i < prof; i++) {
 			maxnodos = Math.max(maxnodos, c.nodesAtLevel(i).size());

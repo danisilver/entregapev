@@ -13,12 +13,6 @@ public class CruceNodeXchng implements Cruce{
 	private Random random = Utils.random;
 	private double probFoT = 0.9; // prob de mutar funcion o terminal
 	
-	class PadresHijos{
-		CromosomaGramatica p1, p2;
-		CromosomaGramatica h1, h2;
-	};
-	
-	ArrayList<PadresHijos> mutaciones = new ArrayList<>();
 
 	@Override
 	public Cromosoma[] cruce(Cromosoma[] poblacion, double probCruce) {
@@ -80,57 +74,27 @@ public class CruceNodeXchng implements Cruce{
 				.obtieneNodos(hijo2.getArbol(), 0);
 		hijo2.getArbol().setNumNodos(nodos);
 		
-		hijo1.evalua();
-		hijo2.evalua();
-		
-//		JFrame t1 = Utils.showTree(padre1.getArbol());
-//		t1.setLocation(0, 0);
-//		JFrame t2 = Utils.showTree(padre2.getArbol());
-//		t2.setLocation(0, 400);
-//		JFrame t3 = Utils.showTree(hijo1.getArbol());
-//		t3.setLocation(700, 0);
-//		JFrame t4 = Utils.showTree(hijo2.getArbol());
-//		t4.setLocation(700, 400);
-		
-		mutaciones.add(new PadresHijos() {{
-			p1 = padre1;
-			p2 = padre2;
-			h1 = hijo1;
-			h2 = hijo2;
-		}});
-		
-//		t1.dispose();
-//		t2.dispose();
-//		t3.dispose();
-//		t4.dispose();
-		int profp1 = padre1.getArbol().getProfundidad();
-		int profp2 = padre2.getArbol().getProfundidad();
-		int profh1 = hijo1.getArbol().getProfundidad();
-		int profh2 = hijo1.getArbol().getProfundidad();
-		
-		if(profh2>profp1 || profh2>profp2 || profh1>profp1 || profh1>profp2) {
-			profp1=profp1;	
-		}
-		System.out.println();
 		return new Cromosoma[] {hijo1, hijo2};
 	}
 	
 	private void corte(CromosomaGramatica hijo, Arbol temp, int puntoCruce, boolean esRaiz) {
 		
 		if(!esRaiz){ //dependiendo de qué tipo era el nodo que ya no va a estar, se inserta el nuevo
-			hijo.getArbol()
-				.insertTerminal(
-						hijo.getArbol().getHijos(), 
-						temp, 
-						puntoCruce, 
-						0);
+			Arbol arbol = hijo.getArbol();
+			arbol.insertTerminal(
+					hijo.getArbol().getHijos(), 
+					temp, 
+					puntoCruce, 
+					0);
+			hijo.setArbol(arbol);
 		}else{
-			hijo.getArbol()
-				.insertFuncion(
+			Arbol arbol = hijo.getArbol();
+			arbol.insertFuncion(
 						hijo.getArbol().getHijos(), 
 						temp, 
 						puntoCruce, 
 						0);
+			hijo.setArbol(arbol);
 		}
 		
 	}
