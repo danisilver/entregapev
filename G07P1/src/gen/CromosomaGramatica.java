@@ -6,7 +6,6 @@ import static utils.Utils.inicCreciente;
 import java.util.ArrayList;
 
 import utils.Arbol;
-import utils.TreeNode;
 
 public class CromosomaGramatica extends Cromosoma {
 
@@ -41,8 +40,6 @@ public class CromosomaGramatica extends Cromosoma {
 	public double evalua() {
 		if(evaluated) return fitness;
 		ArrayList<String> func = getArbol().toArray();
-		System.out.println(func);
-		System.out.println(new TreeNode(getArbol()).toArrayString());
 		int fallos = getnOutputs();
 		for (int i = 0; i < getnOutputs(); i++) {
 			int _selInput = i >> (1 << nAddrInputs);
