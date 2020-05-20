@@ -1,5 +1,7 @@
 package main;
 
+import static utils.Utils.normalize;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +11,6 @@ import core.fitness.Fitness;
 import core.mutacion.Mutacion;
 import core.selection.Seleccion;
 import gen.Cromosoma;
-import utils.Utils;
 
 public class PGenetico {
 	private int    generacionActual;
@@ -99,9 +100,7 @@ public class PGenetico {
 		double evalMax = nueva[nueva.length-1].value2optimize();
 		for(Cromosoma c:nueva) {
 			c.setPuntuacion(
-					Utils.normalize(
-							c.value2optimize(), 
-							evalMin, evalMax));
+					normalize(c.value2optimize(), evalMin, evalMax));
 		}
 		
 		double total = 0d;

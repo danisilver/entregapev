@@ -20,13 +20,7 @@ public class PoliMcPheeBloating implements Seleccion{
 	
 	@Override
 	public Cromosoma[] seleccion(Cromosoma[] poblacion) {
-		double mediaNodos = Arrays.asList(poblacion)
-				.stream()
-				.mapToDouble(crom->((CromosomaGramatica)crom)
-						.getArbol()
-						.getNumNodos())
-				.sum();
-		mediaNodos = mediaNodos/poblacion.length;
+		double mediaNodos = mediaNodos(poblacion);
 		double[] l = Arrays.asList(poblacion)
 				.stream()
 				.mapToDouble(crom->((CromosomaGramatica)crom).getArbol().getNumNodos())
@@ -45,7 +39,7 @@ public class PoliMcPheeBloating implements Seleccion{
 			CromosomaGramatica cromI = (CromosomaGramatica) poblacion[i];
 			if(cromI.getArbol().getNumNodos() > mediaNodos) {
 				//F = fallos, con covarianza negativa sumamos fallos
-				double fallos = cromI.evalua() - c*cromI.getArbol().getNumNodos();
+				double fallos = cromI.evalua() - (c*cromI.getArbol().getNumNodos());
 				//la puntuacion es mas alta si hay 0 fallos
 				double puntuacion = normalize(max(0, fallos), cromI.getnOutputs(), 0);
 				cromI.setPuntuacion(puntuacion);
@@ -53,6 +47,13 @@ public class PoliMcPheeBloating implements Seleccion{
 		}
 		recalcularPuntuaciones(poblacion);
 		return tipoSeleccion.seleccion(poblacion);
+	}
+	
+	private double mediaNodos(Cromosoma[] poblacion) {
+		double mediaTradicional = 0;
+		for(Cromosoma p:poblacion) 
+			mediaTradicional+=((CromosomaGramatica)p).getArbol().getNumNodos();
+		return mediaTradicional/poblacion.length;
 	}
 
 	private void recalcularPuntuaciones(Cromosoma[] nueva) {

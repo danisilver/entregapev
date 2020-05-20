@@ -1,6 +1,5 @@
 package core.selection;
 
-import java.util.Arrays;
 import java.util.Random;
 
 import gen.Cromosoma;
@@ -11,32 +10,34 @@ public class TarpeianBloating implements Seleccion{
 
 	private Random random = Utils.random;
 	private Seleccion tipoSeleccion;
+	private int deathProportion = 7;
 
-	public TarpeianBloating(Seleccion seleccion) {
+	public TarpeianBloating(Seleccion seleccion, int deathProportion) {
 		this.tipoSeleccion = seleccion;
+		this.deathProportion = deathProportion;
 	}
 	
 	@Override
 	public Cromosoma[] seleccion(Cromosoma[] poblacion) {
-		double mediaNodos = Arrays.asList(poblacion)
-				.stream()
-				.mapToDouble(crom->((CromosomaGramatica)crom)
-						.getArbol()
-						.getNumNodos()/poblacion.length)
-				.sum();
-		double penaltyProb = 1d / poblacion.length; 
+		double mediaNodos = mediaNodos(poblacion);
 		for (int i = 0; i < poblacion.length; i++) {
 			CromosomaGramatica cromI = (CromosomaGramatica) poblacion[i];
-			if(cromI.getArbol().getNumNodos() > mediaNodos) {
-				if(random.nextDouble()<penaltyProb) {
-					cromI.setPuntuacion(poblacion[0].getPuntuacion());
-				}
+			int cromINodos = cromI.getArbol().getNumNodos();
+			double prob2penalize = 1d/deathProportion;
+			if(cromINodos > mediaNodos && random.nextDouble()<prob2penalize) {
+				cromI.setPuntuacion(poblacion[0].getPuntuacion());
 			}
 		}
-		
 		recalcularPuntuaciones(poblacion);
 		
 		return tipoSeleccion.seleccion(poblacion);
+	}
+
+	private double mediaNodos(Cromosoma[] poblacion) {
+		double mediaTradicional = 0;
+		for(Cromosoma p:poblacion) 
+			mediaTradicional+=((CromosomaGramatica)p).getArbol().getNumNodos();
+		return mediaTradicional/poblacion.length;
 	}
 	
 	private void recalcularPuntuaciones(Cromosoma[] nueva) {

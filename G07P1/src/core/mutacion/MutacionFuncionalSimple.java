@@ -30,29 +30,26 @@ public class MutacionFuncionalSimple implements Mutacion {
 	}
 	
 	public Cromosoma mutarInd(Cromosoma ind) {
-		CromosomaGramatica c = (CromosomaGramatica) ind;
-		Arbol arbolCromosoma = c.getArbol().copia();
+		CromosomaGramatica crom2return = (CromosomaGramatica) ind;
+		Arbol arbol2mut = crom2return.getArbol().copia();
 		
 		ArrayList<Arbol> funciones = new ArrayList<Arbol>();
-		arbolCromosoma.getFunciones(arbolCromosoma.getHijos(), funciones);
+		arbol2mut.getFunciones(arbol2mut.getHijos(), funciones);
 		
-		funciones.removeIf(f->List.of("AND", "OR").contains(f.getValor()));
-		if(funciones.size() < 1) return c;
+		funciones.removeIf(f->!List.of("AND", "OR").contains(f.getValor()));
+		if(funciones.size() < 1) return crom2return;
 
 		int sel = random.nextInt(funciones.size());
-		Arbol arbolFuncion = funciones.get(sel);
-		switch (arbolFuncion.getValor()) {
-		case "AND":
-			arbolFuncion.setValor("OR");
-			break;
-		case "OR":
-			arbolFuncion.setValor("AND");
+		Arbol fun2mut = funciones.get(sel);
+		switch (fun2mut.getValor()) {
+		case "AND": fun2mut.setValor("OR");  break;
+		case "OR" : fun2mut.setValor("AND"); break;
 		}
 
-		arbolCromosoma.insertFuncion(arbolCromosoma.getHijos(), arbolFuncion, sel, 0);
-		c.setArbol(arbolCromosoma.copia());
+		arbol2mut.insertFuncion(arbol2mut.getHijos(), fun2mut, sel, 0);
+		crom2return.setArbol(arbol2mut.copia());
 		
-		return c;
+		return crom2return;
 	}
 
 }

@@ -31,23 +31,22 @@ public class MutacionTerminalSimple implements Mutacion {
 	}
 	
 	public Cromosoma mutarInd(Cromosoma ind) {
-		CromosomaGramatica c = (CromosomaGramatica) ind;
-		Arbol a = c.getArbol().copia();
+		CromosomaGramatica crom2return = (CromosomaGramatica) ind;
+		Arbol arbol = crom2return.getArbol().copia();
 
 		ArrayList<Arbol> terminalesCromosoma = new ArrayList<Arbol>();
-		a.getTerminales(a.getHijos(), terminalesCromosoma);
+		arbol.getTerminales(arbol.getHijos(), terminalesCromosoma);
 
-		int term2mutPos = random.nextInt(terminalesCromosoma.size());
+		int term2mutPos  = random.nextInt(terminalesCromosoma.size());
 		String termNuevo = terminales[random.nextInt(terminales.length)];
-		Arbol term2mut = terminalesCromosoma.get(term2mutPos);
-		while (term2mut.getValor().equals(termNuevo)) {
-			termNuevo = terminales[random.nextInt(terminales.length)];
-		}
+		Arbol term2mut   = terminalesCromosoma.get(term2mutPos);
+		while (term2mut.getValor().equals(termNuevo)) 
+			termNuevo    = terminales[random.nextInt(terminales.length)];
 		term2mut.setValor(termNuevo);
-		a.insertTerminal(a.getHijos(), term2mut, term2mutPos, 0);
-		c.setArbol(a.copia());
+		arbol.insertTerminal(arbol.getHijos(), term2mut, term2mutPos, 0);
+		crom2return.setArbol(arbol.copia());
 		
-		return c;
+		return crom2return;
 	}
 
 }

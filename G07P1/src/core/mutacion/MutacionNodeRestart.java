@@ -49,38 +49,38 @@ public class MutacionNodeRestart implements Mutacion {
 	}
 
 	public Cromosoma mutarInd(Cromosoma ind) {
-		CromosomaGramatica c = (CromosomaGramatica)ind.clonar();
-		Arbol arbolCromosoma = c.getArbol().copia();
+		CromosomaGramatica crom2return = (CromosomaGramatica)ind.clonar();
+		Arbol arbol2mut = crom2return.getArbol().copia();
 		
 		ArrayList<Arbol> funciones  = new ArrayList<>();
 		ArrayList<Arbol> terminales = new ArrayList<>();
-		arbolCromosoma.getFunciones (arbolCromosoma.getHijos(), funciones);
-		arbolCromosoma.getTerminales(arbolCromosoma.getHijos(), terminales);
-		funciones.removeIf(a->a.getProfundidad()==arbolCromosoma.getMax_prof());
+		arbol2mut.getFunciones (arbol2mut.getHijos(), funciones);
+		arbol2mut.getTerminales(arbol2mut.getHijos(), terminales);
+		funciones.removeIf(n->n.getProfundidad()==arbol2mut.getMax_prof());
 		if (funciones.isEmpty()) funciones = terminales;
 
 		if (!funciones.isEmpty()) {
 			int posNode2mut = random.nextInt(funciones.size());
 			Arbol node2mut  = funciones.get(posNode2mut);
 			Arbol nuevoNodo = new Arbol(
-					arbolCromosoma.getMax_prof(), arbolCromosoma.isUseIF());
+					arbol2mut.getMax_prof(), arbol2mut.isUseIF());
 			
 			initAs = (random.nextDouble() < 0.5)? inicCreciente : inicCompleta;
 			initAs.apply(nuevoNodo)
 				  .accept(node2mut.getProfundidad());
 			
 			insertAs = node2mut.isEsRaiz()? insertF : insertT;
-			insertAs.apply(arbolCromosoma)
-				 .apply(arbolCromosoma.getHijos())
+			insertAs.apply(arbol2mut)
+				 .apply(arbol2mut.getHijos())
 				 .apply(nuevoNodo)
 				 .apply(posNode2mut)
 				 .accept(0);
 
-			arbolCromosoma.setNumNodos(arbolCromosoma.obtieneNodos(arbolCromosoma.copia(), 0));
+			arbol2mut.setNumNodos(arbol2mut.obtieneNodos(arbol2mut.copia(), 0));
 
-			c.setArbol(arbolCromosoma.copia());
+			crom2return.setArbol(arbol2mut.copia());
 		}
 		
-		return c;
+		return crom2return;
 	}
 }

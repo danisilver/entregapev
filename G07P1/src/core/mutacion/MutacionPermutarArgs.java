@@ -29,11 +29,11 @@ public class MutacionPermutarArgs implements Mutacion{
 	}
 	
 	public Cromosoma mutarInd(Cromosoma ind) {
-		CromosomaGramatica c = (CromosomaGramatica) ind.clonar();
-		Arbol a = c.getArbol();
+		CromosomaGramatica crom2return = (CromosomaGramatica) ind.clonar();
+		Arbol arbol = crom2return.getArbol();
 
-		int k = random.nextInt(a.getNumHijos() + 1);
-		Arbol node2mut = a.at(k);
+		int k = random.nextInt(arbol.getNumHijos() + 1);
+		Arbol node2mut = arbol.at(k);
 		if (node2mut.getNumHijos() > 1) {
 			int pos1 = random.nextInt(node2mut.getNumHijos());
 			int pos2 = pos1;
@@ -42,10 +42,10 @@ public class MutacionPermutarArgs implements Mutacion{
 			Arbol tmp = node2mut.getHijos().get(pos1);
 			node2mut.getHijos().set(pos1, node2mut.getHijos().get(pos2));
 			node2mut.getHijos().set(pos2, tmp);
-			c.setArbol(a);
+			crom2return.setArbol(arbol);
 		}
 		
-		return c;
+		return crom2return;
 	}
 
 }

@@ -70,7 +70,8 @@ public class MainModel {
                                                 "TerminalSimple",
                                                 "FuncionalSimple",
                                                 "NodeRestart",
-                                                "PermutarArgs"));
+                                                "PermutarArgs",
+                                                "TreeHoist"));
                 
                 cruces4crom = new HashMap<>();
                 cruces4crom.put("Binario"        , "Monopunto, Uniforme");
@@ -82,7 +83,7 @@ public class MainModel {
                 mut4crom.put("Binario"          , "Basica");
                 mut4crom.put("Real"             , "Uniforme");
                 mut4crom.put("Permutacion"      , "Insercion, Inversion, Intercambio, Heuristica");
-                mut4crom.put("Gramatica"        , "MutacionTerminalSimple, MutacionFuncionalSimple, MutacionNodeRestart, MutacionPermutarArgs");
+                mut4crom.put("Gramatica"        , "TerminalSimple, FuncionalSimple, NodeRestart, PermutarArgs, TreeHoist");
                 
                 crom4fun = new HashMap<>();
                 crom4fun.put("funcion 1"        , "Binario");
@@ -152,6 +153,7 @@ public class MainModel {
                 props.put("bloating"        	, "ninguno");//Multiplexor
                 props.put("useIF"        		, Boolean.valueOf(true));//Multiplexor
                 props.put("fichero"             , "ajuste.dat");
+                props.put("tarpeianDeathProportion"	, Integer.valueOf(7));
         }
         
         private void generaCroms4Fun() {

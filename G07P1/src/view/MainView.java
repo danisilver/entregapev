@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
@@ -24,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.JSpinner;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
@@ -126,6 +128,8 @@ public class MainView extends JPanel implements View{
 	private JLabel lblcbBloating;
 	private JComboBox<Object> cbBloating;
 	private DefaultComboBoxModel<Object> modelBloating;
+	private JLabel lblTarpeianN;
+	private JSlider jslidderTarpeianN;
 
 	public MainView(MainModel model) {
 		this.model = model;
@@ -284,6 +288,7 @@ public class MainView extends JPanel implements View{
 		}
 		if(c.indexOf("bloating")!=-1) {
 			lblcbBloating.setVisible(true); cbBloating.setVisible(true);
+			
 		}
 	}
 
@@ -438,6 +443,8 @@ public class MainView extends JPanel implements View{
 		p2d.removeAllPlots());
 		btnPaso.addActionListener(e->
 		jtaLog.setText(""));
+		jslidderTarpeianN.addChangeListener(e->
+		model.setPropValue("tarpeianDeathProportion", jslidderTarpeianN.getValue()));
 	}
 	
 	public void updateProgressBar() {
@@ -769,7 +776,7 @@ public class MainView extends JPanel implements View{
 		lblNaddrInputs.setLabelFor(spinnerNaddrInputs);
 		panel_17.add(spinnerNaddrInputs);
 		
-		lblcbGramaticaInit = new JLabel("tipo cromosoma");
+		lblcbGramaticaInit = new JLabel("tipo inicializacion");
 		lblcbGramaticaInit.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblcbGramaticaInit.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_17.add(lblcbGramaticaInit);
@@ -791,6 +798,31 @@ public class MainView extends JPanel implements View{
 		modelBloating = new DefaultComboBoxModel<Object>(new Object[] {"ninguno", "Tarpeian", "PoliMcPhee"});
 		cbBloating.setModel(modelBloating);
 		panel_17.add(cbBloating);
+		
+		lblTarpeianN = new JLabel("Death Proportion");
+		lblTarpeianN.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblTarpeianN.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblTarpeianN.setVisible(false);
+		jslidderTarpeianN = new JSlider(); lblTarpeianN.setLabelFor(jslidderTarpeianN);
+		jslidderTarpeianN.setValue(7);
+		jslidderTarpeianN.setVisible(false);
+		jslidderTarpeianN.setMinimum(2);
+		jslidderTarpeianN.setMaximum(20);
+		jslidderTarpeianN.setMinorTickSpacing(1);
+		panel_17.add(lblTarpeianN);
+		Dimension size = new Dimension(lblTarpeianN.getSize()); size.height=60;
+		jslidderTarpeianN.setPreferredSize(size);
+		jslidderTarpeianN.setSnapToTicks(true);
+		jslidderTarpeianN.setPaintTicks(true);
+		jslidderTarpeianN.setPaintLabels(true);
+		jslidderTarpeianN.setMajorTickSpacing(1);
+		panel_17.add(jslidderTarpeianN);
+
+		cbBloating.addActionListener(e->{
+			if(cbBloating.getSelectedItem().equals("Tarpeian")) {
+				lblTarpeianN.setVisible(true); jslidderTarpeianN.setVisible(true);
+			} else { lblTarpeianN.setVisible(false); jslidderTarpeianN.setVisible(false); }
+		});
 		
 		JPanel panelSeleccion = new JPanel();
 		panelSeleccion.setBorder(new TitledBorder(null, "Seleccion", TitledBorder.LEADING, TitledBorder.TOP, null, null));
