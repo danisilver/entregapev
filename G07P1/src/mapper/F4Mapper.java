@@ -12,11 +12,14 @@ public class F4Mapper extends Mapper {
 	public double f(double x, double y) {
 		
 		double res = 0d;
+		res  +=	  sin(x)
+				* pow( sin( ((numgenes-1)*x*x)/PI), 20)
+				+ sin(y)
+				* pow( sin( ((numgenes)*y*y)/PI), 20);			
 		for (int j = 1; j <= numgenes-1; j++) {
-			res  +=	  sin(x)
-					* pow( sin( ((j+2)*x*x)/PI), 20)
-					+ sin(y)
-					* pow( sin( ((j+2)*y*y)/PI), 20);			
+			double xn = 0;
+			res  +=	  sin(xn)
+					* pow( sin( (j*xn*xn)/PI), 20);
 		}
 		
 		return -res;

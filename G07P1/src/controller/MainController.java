@@ -1,10 +1,8 @@
 package controller;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-import javax.swing.SwingUtilities;
-import javax.swing.SwingWorker;
+import javax.swing.*;
 
 import core.cruce.Cruce;
 import core.fitness.TipoFitness;
@@ -13,8 +11,7 @@ import core.selection.Seleccion;
 import gen.Cromosoma;
 import main.PGenetico;
 import model.MainModel;
-import problem.ConcreteFactory;
-import problem.ProblemFactory;
+import problem.*;
 import utils.Utils;
 import view.MainView;
 

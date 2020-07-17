@@ -53,10 +53,12 @@ public class MainModel {
                                 Arrays.asList("Monopunto", 
                                                 "Uniforme",
                                                 "Aritmetico",
+                                                "CruceBLXalpha",
                                                 "CruceCO", 
                                                 "CruceCX", 
                                                 "CruceOX",
                                                 "CruceOXPP", 
+                                                "CruceOXOP",
                                                 "CrucePMX", 
                                                 "CruceERX",
                                                 "NodeXchng"));
@@ -67,6 +69,7 @@ public class MainModel {
                                                 "Intercambio",
                                                 "Inversion",
                                                 "Heuristica",
+                                                "ShuffleGens",
                                                 "TerminalSimple",
                                                 "FuncionalSimple",
                                                 "NodeRestart",
@@ -75,14 +78,14 @@ public class MainModel {
                 
                 cruces4crom = new HashMap<>();
                 cruces4crom.put("Binario"        , "Monopunto, Uniforme");
-                cruces4crom.put("Real"           , "Monopunto, Uniforme, Aritmetico");
-                cruces4crom.put("Permutacion"    , "CruceCO, CruceCX, CruceOX, CruceOXPP, CrucePMX, CruceERX");
+                cruces4crom.put("Real"           , "Monopunto, Uniforme, Aritmetico, CruceBLXalpha");
+                cruces4crom.put("Permutacion"    , "CruceCO, CruceCX, CruceOX, CruceOXPP, CrucePMX, CruceERX, CruceOXOP");
                 cruces4crom.put("Gramatica"      , "NodeXchng");
                 
                 mut4crom = new HashMap<>();
                 mut4crom.put("Binario"          , "Basica");
                 mut4crom.put("Real"             , "Uniforme");
-                mut4crom.put("Permutacion"      , "Insercion, Inversion, Intercambio, Heuristica");
+                mut4crom.put("Permutacion"      , "Insercion, Inversion, Intercambio, Heuristica, ShuffleGens");
                 mut4crom.put("Gramatica"        , "TerminalSimple, FuncionalSimple, NodeRestart, PermutarArgs, TreeHoist");
                 
                 crom4fun = new HashMap<>();
@@ -143,6 +146,7 @@ public class MainModel {
                 props.put("alfa"                , Double.valueOf(0.6d));//CruceAritmetico
                 props.put("numGens2Xchng"       , Integer.valueOf(2));//CruceOXPP
                 props.put("probXchngGen"        , Double.valueOf(0.4d));//CruceUniforme
+                props.put("blxalpha"             , Double.valueOf(0.5d));//CruceBLXalpha
                 props.put("probFlipBit"         , Double.valueOf(0.15d));//MutacionBasica
                 props.put("numGen2Perm"         , Integer.valueOf(3));//MutacionHeuristica
                 props.put("numGens2Ins"         , Integer.valueOf(1));//MutacionInsercion

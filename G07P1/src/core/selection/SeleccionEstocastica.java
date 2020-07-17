@@ -1,6 +1,6 @@
 package core.selection;
 
-import java.util.Random;
+import java.util.*;
 
 import gen.Cromosoma;
 import utils.Utils;
@@ -30,8 +30,6 @@ public class SeleccionEstocastica implements Seleccion{
 	}
 
 	private Cromosoma[] selectKInd(Cromosoma[] poblacion) {
-		int tamPoblacion = poblacion.length;
-		
 		Cromosoma[] ret = new Cromosoma[getKindividuos()];
 		double r = random.nextDouble();
 		
@@ -43,7 +41,7 @@ public class SeleccionEstocastica implements Seleccion{
 			while(prob > poblacion[j].getPuntAcc()) 
 				j++;
 			prob-=(i*dist);
-			ret[i] = poblacion[tamPoblacion-1-j];
+			ret[i] = poblacion[j];
 			i++;
 		}
 		return ret;

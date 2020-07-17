@@ -1,5 +1,7 @@
 package gen;
 
+import java.util.Arrays;
+
 public abstract class CromosomaReal extends Cromosoma{
 	Double[] genes;
 	
@@ -32,5 +34,10 @@ public abstract class CromosomaReal extends Cromosoma{
 	@Override
 	public double value2optimize() {
 		return (double) getFenotipo();
+	}
+	
+	@Override
+	public String toString() {
+		return Arrays.deepToString(genes)+" value2optimize:"+value2optimize();
 	}
 }

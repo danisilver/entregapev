@@ -1,49 +1,22 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JEditorPane;
-import javax.swing.JFormattedTextField;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
+import javax.swing.*;
+import javax.swing.border.*;
 import javax.swing.text.NumberFormatter;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
+import javax.swing.text.html.*;
 
 import org.math.plot.Plot2DPanel;
 
 import model.MainModel;
 import problem.ConcreteFactory;
-import utils.CustomHyperLinkListener;
-import utils.ModernScrollPane;
+import utils.*;
 import utils.Utils.TitleClickAdapter;
 
 public class MainView extends JPanel implements View{
@@ -130,6 +103,11 @@ public class MainView extends JPanel implements View{
 	private DefaultComboBoxModel<Object> modelBloating;
 	private JLabel lblTarpeianN;
 	private JSlider jslidderTarpeianN;
+	private JLabel lblTFtolerancia;
+	private JLabel lblBLXalpha;
+	private JSpinner spinnerBLXalpha;
+	private JSpinner spinnerOXOPn2take;
+	private JLabel lblOXOPn2take;
 
 	public MainView(MainModel model) {
 		this.model = model;
@@ -237,12 +215,16 @@ public class MainView extends JPanel implements View{
 	
 	public void updateFuncionUI(String c) {
 		JComponent[] comps = new JComponent[] {
-				lblDatosOptimizar, cbDatosOptimizar
+				lblTFtolerancia, tfTolerancia, lblDatosOptimizar, cbDatosOptimizar
 		};
 		Arrays.asList(comps).forEach(cmp->cmp.setVisible(false));
 		if(c.indexOf("datosOptimizar")!=-1) {
 			lblDatosOptimizar.setVisible(true);
 			cbDatosOptimizar.setVisible(true);
+		}
+		if(c.indexOf("tolerancia")!=-1) {
+			lblTFtolerancia.setVisible(true);
+			tfTolerancia.setVisible(true);
 		}
 	}
 	
@@ -318,7 +300,9 @@ public class MainView extends JPanel implements View{
 	public void updateCruceUI(String c) {
 		JComponent[] comps = new JComponent[] {
 				lblProbXchngGen, spinnerProbXchngGen, lblAlfa, spinnerAlfa,
-				lblNumGens2Xchng, spinnerNumGens2Xchng
+				lblNumGens2Xchng, spinnerNumGens2Xchng,
+				lblBLXalpha, spinnerBLXalpha,
+				lblOXOPn2take, spinnerOXOPn2take
 		};
 		Arrays.asList(comps).forEach(cmp->cmp.setVisible(false));
 		if(c.indexOf("probXchngGen")!=-1) {
@@ -332,6 +316,14 @@ public class MainView extends JPanel implements View{
 		if(c.indexOf("numGens2Xchng")!=-1) {
 			lblNumGens2Xchng.setVisible(true);
 			spinnerNumGens2Xchng.setVisible(true);
+		}
+		if(c.indexOf("blxalpha")!=-1) {
+			lblBLXalpha.setVisible(true);
+			spinnerBLXalpha.setVisible(true);
+		}
+		if(c.indexOf("n2take")!=-1) {
+			lblOXOPn2take.setVisible(true);
+			spinnerOXOPn2take.setVisible(true);
 		}
 	}
 
@@ -439,12 +431,12 @@ public class MainView extends JPanel implements View{
 		cbBloating.addActionListener(e->
 		model.setPropValue("bloating", cbBloating.getSelectedItem()));
 		tabbedPane.addChangeListener(e->updateProblemView());
-		btnPaso.addActionListener(e->
-		p2d.removeAllPlots());
-		btnPaso.addActionListener(e->
-		jtaLog.setText(""));
+		btnPaso.addActionListener(e-> p2d.removeAllPlots());
+		btnPaso.addActionListener(e-> jtaLog.setText(""));
 		jslidderTarpeianN.addChangeListener(e->
 		model.setPropValue("tarpeianDeathProportion", jslidderTarpeianN.getValue()));
+		spinnerOXOPn2take.addChangeListener(e->
+		model.setPropValue("blxalpha", spinnerOXOPn2take.getValue()));
 	}
 	
 	public void updateProgressBar() {
@@ -470,10 +462,10 @@ public class MainView extends JPanel implements View{
 	}
 
 	private void refreshFuncionFields(String fun) {
-		if(fun.equalsIgnoreCase("funcion 1")) updateFuncionUI("");
-		else if(fun.equalsIgnoreCase("Holder table")) updateFuncionUI("");
-		else if(fun.equalsIgnoreCase("Schubert")) updateFuncionUI("");
-		else if(fun.equalsIgnoreCase("Michalewicz")) updateFuncionUI("");
+		if(fun.equalsIgnoreCase("funcion 1")) updateFuncionUI("tolerancia");
+		else if(fun.equalsIgnoreCase("Holder table")) updateFuncionUI("tolerancia");
+		else if(fun.equalsIgnoreCase("Schubert")) updateFuncionUI("tolerancia");
+		else if(fun.equalsIgnoreCase("Michalewicz")) updateFuncionUI("tolerancia");
 		else if(fun.equalsIgnoreCase("Problema5")) updateFuncionUI("datosOptimizar"); 
 		else if(fun.equalsIgnoreCase("Multiplexor")) updateFuncionUI(""); 
 	}
@@ -502,6 +494,8 @@ public class MainView extends JPanel implements View{
 		else if(cruc.equalsIgnoreCase("CruceCX")) updateCruceUI("");
 		else if(cruc.equalsIgnoreCase("CruceOX")) updateCruceUI("");
 		else if(cruc.equalsIgnoreCase("CruceOXPP")) updateCruceUI("numGens2Xchng");
+		else if(cruc.equalsIgnoreCase("CruceOXOP")) updateCruceUI("n2take");
+		else if(cruc.equalsIgnoreCase("CruceBLXalpha")) updateCruceUI("blxalpha");
 	}
 
 	public void refreshCromosomaFields(String crom) {
@@ -626,13 +620,13 @@ public class MainView extends JPanel implements View{
 		spinnerNGeneraciones.setAlignmentY(Component.TOP_ALIGNMENT);
 		panel_4.add(spinnerNGeneraciones);
 		
-		JLabel lblNewLabel_2 = new JLabel("tolerancia"); 
-		lblNewLabel_2.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblNewLabel_2.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblNewLabel_2.setDisplayedMnemonic('o');
-		panel_4.add(lblNewLabel_2);
+		lblTFtolerancia = new JLabel("tolerancia"); 
+		lblTFtolerancia.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblTFtolerancia.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblTFtolerancia.setDisplayedMnemonic('o');
+		panel_4.add(lblTFtolerancia);
 		
-		tfTolerancia = new JTextField(); lblNewLabel_2.setLabelFor(tfTolerancia);
+		tfTolerancia = new JTextField(); lblTFtolerancia.setLabelFor(tfTolerancia);
 		tfTolerancia.setAlignmentY(Component.TOP_ALIGNMENT);
 		tfTolerancia.setText("0.001");
 		panel_4.add(tfTolerancia);
@@ -756,7 +750,7 @@ public class MainView extends JPanel implements View{
 		lblMaxDepth.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_17.add(lblMaxDepth);
 		
-		spinnerMaxDepth = new JSpinner(new SpinnerNumberModel(4, 4, 100000, 1)); 
+		spinnerMaxDepth = new JSpinner(new SpinnerNumberModel(4, 3, 100000, 1)); 
 		lblMaxDepth.setLabelFor(spinnerMaxDepth);
 		panel_17.add(spinnerMaxDepth);
 		
@@ -849,7 +843,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel_5.setDisplayedMnemonic('%');
 		panel_10.add(lblNewLabel_5);
 		
-		spinnerPorcntjElitismo = new JSpinner(new SpinnerNumberModel(0.0,0.0,0.1,0.001)); 
+		spinnerPorcntjElitismo = new JSpinner(new SpinnerNumberModel(0.0,0.0,1.0,0.01)); 
 		lblNewLabel_5.setLabelFor(spinnerPorcntjElitismo);
 		panel_10.add(spinnerPorcntjElitismo);
 		
@@ -912,7 +906,8 @@ public class MainView extends JPanel implements View{
 		panel_13.add(lblNewLabel_6);
 		
 		cbTipoCruce = new JComboBox<>(); lblNewLabel_6.setLabelFor(cbTipoCruce);
-		modelCruces = new DefaultComboBoxModel<>(new String[] {"Monopunto", "Uniforme", "Aritmetico"});
+		modelCruces = new DefaultComboBoxModel<>(
+				new String[] {"Monopunto", "Uniforme", "Aritmetico"});
 		cbTipoCruce.setModel(modelCruces);
 		panel_13.add(cbTipoCruce);
 		
@@ -946,6 +941,22 @@ public class MainView extends JPanel implements View{
 		spinnerProbXchngGen = new JSpinner();//CruceUniforme
 		spinnerProbXchngGen.setModel(new SpinnerNumberModel(0.4, 0.2, 0.5, 0.05));
 		panel_13.add(spinnerProbXchngGen);
+		
+		lblBLXalpha = new JLabel("blx-alpha");
+		lblBLXalpha.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_13.add(lblBLXalpha);
+		
+		spinnerBLXalpha = new JSpinner();
+		spinnerBLXalpha.setModel(new SpinnerNumberModel(0.5, 0.0, 1.0, 0.01));
+		panel_13.add(spinnerBLXalpha);
+		
+		lblOXOPn2take = new JLabel("n2take");
+		lblOXOPn2take.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel_13.add(lblOXOPn2take);
+		
+		spinnerOXOPn2take = new JSpinner();
+		spinnerOXOPn2take.setModel(new SpinnerNumberModel(4, 2, 10, 1));
+		panel_13.add(spinnerOXOPn2take);
 		
 		JPanel panelMutacion = new JPanel();
 		panelMutacion.setBorder(new TitledBorder(null, "Mutacion", TitledBorder.LEADING, TitledBorder.TOP, null, null));

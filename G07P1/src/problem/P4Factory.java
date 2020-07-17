@@ -1,39 +1,22 @@
 package problem;
 
 import java.awt.Component;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
-import org.jzy3d.chart.AWTChart;
-import org.jzy3d.chart.Chart;
-import org.jzy3d.colors.Color;
-import org.jzy3d.colors.ColorMapper;
+import org.jzy3d.chart.*;
+import org.jzy3d.colors.*;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
-import org.jzy3d.contour.DefaultContourColoringPolicy;
-import org.jzy3d.contour.MapperContourPictureGenerator;
+import org.jzy3d.contour.*;
 import org.jzy3d.maths.Range;
-import org.jzy3d.plot3d.primitives.Shape;
-import org.jzy3d.plot3d.primitives.Surface;
+import org.jzy3d.plot3d.primitives.*;
 import org.jzy3d.plot3d.primitives.axes.ContourAxeBox;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
-import core.cruce.Cruce;
-import core.cruce.CruceAritmetico;
-import core.cruce.CruceMonoPunto;
-import core.cruce.CruceUniforme;
+import core.cruce.*;
 import core.fitness.Fitness;
-import core.mutacion.Mutacion;
-import core.mutacion.MutacionBasica;
-import core.mutacion.MutacionUniforme;
-import core.selection.Seleccion;
-import core.selection.SeleccionEstocastica;
-import core.selection.SeleccionRanking;
-import core.selection.SeleccionRuleta;
-import core.selection.SeleccionTorneo;
-import core.selection.SeleccionTruncamiento;
-import gen.Cromosoma;
-import gen.CromosomaNDF4;
-import gen.CromosomaRealND;
+import core.mutacion.*;
+import core.selection.*;
+import gen.*;
 import mapper.F4Mapper;
 import utils.Utils;
 import view.View;
@@ -77,6 +60,12 @@ public class P4Factory implements ProblemFactory{
 			CruceAritmetico cruceAritmetico = new CruceAritmetico();
 			cruceAritmetico.setAlfa(alfa);
 			return cruceAritmetico;
+		}
+		else if(tipo.equalsIgnoreCase("CruceBLXalpha")) {
+			Double alfa			= (Double)props.get("blxalfa");
+			CruceBLXalpha cruceBlxalpha = new CruceBLXalpha();
+			cruceBlxalpha.setAlpha(alfa);
+			return cruceBlxalpha;
 		}
 		return null;
 	}

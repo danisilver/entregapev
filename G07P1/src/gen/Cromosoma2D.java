@@ -77,6 +77,6 @@ public abstract class Cromosoma2D extends Cromosoma{ //Binario
 	public String toString() {
 		double cx = getXmin() + (Integer)getGen(0) *(getXmax()-getXmin())/(Math.pow(2,getLgenx())-1);
 		double cy = getYmin() + (Integer)getGen(1) *(getYmax()-getYmin())/(Math.pow(2,getLgeny())-1);
-		return "x:"+cx+ " y:"+cy;
+		return "x:"+cx+ " y:"+cy+" value2optimize:" + value2optimize();
 	}
 }

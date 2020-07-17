@@ -1,33 +1,14 @@
 package problem;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 
-import javax.swing.JComponent;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import core.cruce.Cruce;
-import core.cruce.CruceCO;
-import core.cruce.CruceCX;
-import core.cruce.CruceERX;
-import core.cruce.CruceOX;
-import core.cruce.CruceOXPP;
-import core.cruce.CrucePMX;
+import core.cruce.*;
 import core.fitness.Fitness;
-import core.mutacion.Mutacion;
-import core.mutacion.MutacionHeuristica;
-import core.mutacion.MutacionInsercion;
-import core.mutacion.MutacionIntercambio;
-import core.mutacion.MutacionInversion;
-import core.selection.Seleccion;
-import core.selection.SeleccionEstocastica;
-import core.selection.SeleccionRanking;
-import core.selection.SeleccionRuleta;
-import core.selection.SeleccionTorneo;
-import core.selection.SeleccionTruncamiento;
-import gen.Cromosoma;
-import gen.CromosomaNDP5;
+import core.mutacion.*;
+import core.selection.*;
+import gen.*;
 import utils.Utils;
 import view.View;
 
@@ -66,6 +47,7 @@ public class P5Factory implements ProblemFactory{
 			cruceOXPP.setNumGens2Xchng(numGens2Xchng);
 			return cruceOXPP;
 		}
+		else if(tipo.equalsIgnoreCase("CruceOXOP")) return new CruceOXOP();
 		else if(tipo.equalsIgnoreCase("CrucePMX")) return new CrucePMX();
 		else if(tipo.equalsIgnoreCase("CruceERX")) return new CruceERX();
 		return null;
@@ -124,6 +106,7 @@ public class P5Factory implements ProblemFactory{
 			mutacionHeuristica.setNumGen2Perm(numGen2Perm);
 			return mutacionHeuristica;
 		}
+		if(tipo.equalsIgnoreCase("ShuffleGens")) return new MutacionShuffleG();
 		return null;
 	}
 

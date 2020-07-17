@@ -26,7 +26,11 @@ public class CromosomaRealND extends CromosomaReal {
 
 	@Override
 	public Cromosoma clonar() {
-		return new CromosomaRealND(numgenes);
+		CromosomaRealND crom = new CromosomaRealND(numgenes);
+		for (int i = 0; i < genes.length; i++) {
+			crom.setGen(i, getGen(i));
+		}
+		return crom;
 	}
 
 	@Override
