@@ -18,8 +18,7 @@ public class CruceUniforme implements Cruce{
 		
 		while(tam < tamPoblacion) {
 			if(random.nextDouble()<probCruce) {
-				Cromosoma[] crossed = crossPair(new Cromosoma[] {
-						poblacion[tam], poblacion[tam+1]});
+				Cromosoma[] crossed = crossPair(new Cromosoma[] { poblacion[tam], poblacion[tam+1]});
 				ret[tam] = crossed[0];
 				ret[tam+1] = crossed[1];
 			} else {
@@ -31,7 +30,7 @@ public class CruceUniforme implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		Cromosoma cromosoma1 = ind[0];
 		Cromosoma cromosoma2 = ind[1];
 		Cromosoma h1, h2;

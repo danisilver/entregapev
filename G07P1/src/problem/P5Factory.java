@@ -50,6 +50,7 @@ public class P5Factory implements ProblemFactory{
 		else if(tipo.equalsIgnoreCase("CruceOXOP")) return new CruceOXOP();
 		else if(tipo.equalsIgnoreCase("CrucePMX")) return new CrucePMX();
 		else if(tipo.equalsIgnoreCase("CruceERX")) return new CruceERX();
+		else if(tipo.equalsIgnoreCase("CruceZ0")) return new CrucePropioP5();
 		return null;
 	}
 

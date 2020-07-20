@@ -17,7 +17,7 @@ public class MutacionInversion implements Mutacion{
 		int tam = 0;
 		while(tam < tamPoblacion) {
 			if(random.nextDouble()<probMutacion)
-				ret[tam] = mutarCromosoma(poblacion[tam]);
+				ret[tam] = mutarInd(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam].clonar();
 			tam++;
@@ -26,7 +26,8 @@ public class MutacionInversion implements Mutacion{
 		return ret;
 	}
 
-	private Cromosoma mutarCromosoma(Cromosoma original) {
+	@Override
+	public Cromosoma mutarInd(Cromosoma original) {
 		Cromosoma res = original.clonar();
 		int numgenes = original.getNumGenes();
 		

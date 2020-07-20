@@ -28,6 +28,7 @@ public class MutacionBasica implements Mutacion{//mutacion bit a bit de cada gen
 		return ret;
 	}
 
+	@Override
 	public Cromosoma mutarInd(Cromosoma crom) {
 		Cromosoma nuevo = crom.clonar();
 		

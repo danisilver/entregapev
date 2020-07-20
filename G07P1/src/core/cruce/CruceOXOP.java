@@ -29,7 +29,7 @@ public class CruceOXOP implements Cruce {
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		int numgenes = ind[0].getGenes().length;
 		//take n positions, mark then in the parent
 		//and insert them in the order they where taken

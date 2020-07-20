@@ -30,6 +30,7 @@ public class MutacionTerminalSimple implements Mutacion {
 		return ret;
 	}
 	
+	@Override
 	public Cromosoma mutarInd(Cromosoma ind) {
 		CromosomaGramatica crom2return = (CromosomaGramatica) ind;
 		Arbol arbol = crom2return.getArbol().copia();

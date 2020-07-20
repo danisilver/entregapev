@@ -25,7 +25,7 @@ public class MutacionHeuristica implements Mutacion{
 		int tam = 0;
 		while(tam < tamPoblacion) {
 			if(random.nextDouble() < probMutacion)
-				ret[tam] = bestPermutatedCromosome(poblacion[tam]);
+				ret[tam] = mutarInd(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam].clonar();
 			tam++;
@@ -34,7 +34,7 @@ public class MutacionHeuristica implements Mutacion{
 		return ret;
 	}
 
-	private Cromosoma bestPermutatedCromosome(Cromosoma individuo) {
+	public Cromosoma mutarInd(Cromosoma individuo) {
 		TreeSet<Integer> ind2perm = new TreeSet<>();
 		setNumGen2Perm(getNumGen2Perm() % individuo.getNumGenes());
 		while(ind2perm.size() < getNumGen2Perm()) {

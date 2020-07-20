@@ -36,7 +36,7 @@ public class CruceERX implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		Integer[] genesp1 = (Integer[])ind[0].getGenes();
 		Integer[] genesp2 = (Integer[])ind[1].getGenes();
 		

@@ -9,16 +9,18 @@ import utils.Utils;
 public class MutacionUniforme implements Mutacion{
 
 	private Random random = Utils.random;
+	private double probMutacion;
 	
 	@Override
 	public Cromosoma[] mutacion(Cromosoma[] poblacion, double probMutacion) {//para cromosomas reales solo
+		this.probMutacion = probMutacion;
 		int tamPoblacion = poblacion.length;
 		Cromosoma[] ret = new Cromosoma[tamPoblacion];
 		
 		int tam = 0;
 		while(tam < tamPoblacion) {
 			if(random.nextDouble()<probMutacion)
-				ret[tam] = mutacion(poblacion[tam], probMutacion);
+				ret[tam] = mutarInd(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam];
 			tam++;
@@ -26,7 +28,8 @@ public class MutacionUniforme implements Mutacion{
 		return ret;
 	}
 
-	private Cromosoma mutacion(Cromosoma cromosoma, double probMutacion) {
+	@Override
+	public Cromosoma mutarInd(Cromosoma cromosoma) {
 		CromosomaRealND crom = (CromosomaRealND) cromosoma;
 		Object[] genes = crom.getGenes();
 		for (int i = 0; i < genes.length; i++) {

@@ -28,6 +28,7 @@ public class MutacionPermutarArgs implements Mutacion{
 		return ret;
 	}
 	
+	@Override
 	public Cromosoma mutarInd(Cromosoma ind) {
 		CromosomaGramatica crom2return = (CromosomaGramatica) ind.clonar();
 		Arbol arbol = crom2return.getArbol();

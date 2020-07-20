@@ -54,6 +54,7 @@ public class MainModel {
                                                 "Uniforme",
                                                 "Aritmetico",
                                                 "CruceBLXalpha",
+                                                "CruceZ0",
                                                 "CruceCO", 
                                                 "CruceCX", 
                                                 "CruceOX",
@@ -79,7 +80,7 @@ public class MainModel {
                 cruces4crom = new HashMap<>();
                 cruces4crom.put("Binario"        , "Monopunto, Uniforme");
                 cruces4crom.put("Real"           , "Monopunto, Uniforme, Aritmetico, CruceBLXalpha");
-                cruces4crom.put("Permutacion"    , "CruceCO, CruceCX, CruceOX, CruceOXPP, CrucePMX, CruceERX, CruceOXOP");
+                cruces4crom.put("Permutacion"    , "CruceCO, CruceCX, CruceOX, CruceOXPP, CrucePMX, CruceERX, CruceOXOP, CruceZ0");
                 cruces4crom.put("Gramatica"      , "NodeXchng");
                 
                 mut4crom = new HashMap<>();

@@ -16,7 +16,7 @@ public class MutacionShuffleG implements Mutacion {
 		int tam = 0;
 		while(tam < tamPoblacion) {
 			if(random.nextDouble() < probMutacion)
-				ret[tam] = shuffleGens(poblacion[tam]);
+				ret[tam] = mutarInd(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam].clonar();
 			tam++;
@@ -25,10 +25,11 @@ public class MutacionShuffleG implements Mutacion {
 		return ret;
 	}
 
-	private Cromosoma shuffleGens(Cromosoma cromosoma) {
+	@Override
+	public Cromosoma mutarInd(Cromosoma cromosoma) {//shuffleGens
 		Cromosoma newC = cromosoma.clonar();
 		List<Object> gens = Arrays.asList(newC.getGenes());
-		Collections.shuffle(gens);
+		Collections.shuffle(gens,random);
 		for (int i = 0; i < gens.size(); i++) 
 			newC.setGen(i, gens.get(i));
 		return newC;

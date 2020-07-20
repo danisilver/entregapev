@@ -20,7 +20,7 @@ public class MutacionIntercambio implements Mutacion{
 		
 		while(tam < tamPoblacion) {
 			if(random.nextDouble()<probMutacion)
-				ret[tam] = mutarConIntercambio(poblacion[tam]);
+				ret[tam] = mutarInd(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam].clonar();
 			tam++;
@@ -29,7 +29,8 @@ public class MutacionIntercambio implements Mutacion{
 		return ret;
 	}
 
-	private Cromosoma mutarConIntercambio(Cromosoma original) {
+	@Override
+	public Cromosoma mutarInd(Cromosoma original) {//mutarConIntercambio
 		Cromosoma mutacion = original.clonar();
 		int numgenes = original.getNumGenes(); 
 		

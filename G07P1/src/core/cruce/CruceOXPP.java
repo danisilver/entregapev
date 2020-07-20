@@ -34,7 +34,7 @@ public class CruceOXPP implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		int numgenes = ind[0].getGenes().length;
 		
 		ArrayList<Integer> genesc1 = new ArrayList<>();

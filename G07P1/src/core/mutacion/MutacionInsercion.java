@@ -19,7 +19,7 @@ public class MutacionInsercion implements Mutacion{
 		int tam = 0;
 		while(tam < tamPoblacion) {
 			if(random.nextDouble() < probMutacion)
-				ret[tam] = fillWithRandomShifts(poblacion[tam]);
+				ret[tam] = mutarInd(poblacion[tam]);
 			else
 				ret[tam] = poblacion[tam].clonar();
 			tam++;
@@ -28,7 +28,8 @@ public class MutacionInsercion implements Mutacion{
 		return ret;
 	}
 
-	private Cromosoma fillWithRandomShifts(Cromosoma original) {
+	@Override
+	public Cromosoma mutarInd(Cromosoma original) {//fillWithRandomShifts
 		int numgenes = original.getNumGenes();
 		Cromosoma mutado1 = original.clonar();
 		LinkedList<Object> genes = new LinkedList<>();  

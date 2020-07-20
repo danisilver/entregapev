@@ -28,7 +28,7 @@ public class CruceBLXalpha implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		Object[] genesP1 = ind[0].getGenes();
 		Object[] genesP2 = ind[1].getGenes();
 		Cromosoma h1 = ind[0].clonar();

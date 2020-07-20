@@ -1,7 +1,5 @@
 package gen;
 
-import java.util.Arrays;
-
 public class CromosomaNDP5 extends CromosomaND {
 	
 	private int[][] distancias;
@@ -63,7 +61,13 @@ public class CromosomaNDP5 extends CromosomaND {
 	
 	@Override
 	public String toString() {
-		return Arrays.deepToString(genes)+" v2o:"+value2optimize();
+		StringBuffer sb = new StringBuffer();
+		sb.append("{");
+		for (int i = 0; i < genes.length-1; i++) {
+			sb.append(genes[i]-1+"; ");
+		}
+		sb.append(genes[genes.length-1]-1+"}");
+		return sb.toString()+" v2o:"+value2optimize();
 	}
 	
 }

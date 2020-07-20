@@ -30,7 +30,7 @@ public class CruceCX implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		int numgenes = ind[0].getNumGenes();
 		
 		ArrayList<Integer> child1 = new ArrayList<Integer>();

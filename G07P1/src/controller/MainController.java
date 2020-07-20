@@ -4,7 +4,7 @@ import java.util.*;
 
 import javax.swing.*;
 
-import core.cruce.Cruce;
+import core.cruce.*;
 import core.fitness.TipoFitness;
 import core.mutacion.Mutacion;
 import core.selection.Seleccion;
@@ -22,6 +22,8 @@ public class MainController implements Controller{
         private PGenetico pg;
         private ProblemFactory    factory;
         double[] maxValues, values, media;
+		private Cromosoma[] maxValuesC;
+		private Cromosoma[] valuesC;
 
         public MainController(MainView view, MainModel model) {
                 this.setPg(pg);
@@ -57,8 +59,10 @@ public class MainController implements Controller{
 						maxValues[it] = pg.getMaxFound();
     					values   [it] = pg.getMaxIter();
     					media    [it] = pg.getAverage();
+    					maxValuesC[it] = pg.getMaxGlobalCrom();
+    					valuesC   [it] = pg.getMaxIterCrom();
     					
-    					view.jtaLog.append("mejor iteracion:"+pg.getMaxIterCrom().toString()+"\n");
+//    					view.jtaLog.append("mejor iteracion:"+pg.getMaxIterCrom().toString()+"\n");
                 }
                 utils.Utils.showTreeCromosoma(pg.getMaxGlobalCrom());
         }
@@ -91,12 +95,14 @@ public class MainController implements Controller{
                 Mutacion tm    = (Mutacion)   factory.createMutacion(mutStr, model.getPropsMap());
                 pg.setTipoFitness(tf);
                 pg.setTipoSeleccion(ts);
-                pg.setTipoCruce(tc);
+                pg.setTipoCruce(new CruceContador(tc));
                 pg.setTipoMutacion(tm);
                 
     			maxValues = new double[maxIteraciones];
     			values    = new double[maxIteraciones];
     			media     = new double[maxIteraciones];
+    			maxValuesC = new Cromosoma[maxIteraciones];
+    			valuesC    = new Cromosoma[maxIteraciones];
         }
         
         private void loadDataFromFile() {
@@ -148,14 +154,31 @@ public class MainController implements Controller{
 
 			@Override
 			protected void process(List<Integer> chunks) {
+				super.process(chunks);
 				Integer prog = chunks.get(chunks.size()-1);
 				view.progressBar.setValue(prog);
 				view.p2d.removeAllPlots();
 				view.p2d.addLinePlot("globales", maxValues);
 				view.p2d.addLinePlot("locales", values);
 				view.p2d.addLinePlot("media", media);
-				view.jtaLog.append("mejor global:" +pg.getMaxGlobalCrom().toString()+"\n");
-				super.process(chunks);
+//				view.jtaLog.append("mejor global:" +pg.getMaxGlobalCrom().toString()+"\n");
+				if(chunks.get(chunks.size()-1)==maxIteraciones) {
+					Cromosoma[] pob = pg.getPoblacion();
+					view.jtaLog.append("ultima poblacion\n");
+					for (int i = 0; i < pob.length; i++) {
+						view.jtaLog.append(""+pob[i].toString()+"\n");
+					}
+					view.jtaLog.append("historial iteraciones\n");
+					for (int i = 0; i < valuesC.length; i++) {
+						view.jtaLog.append("mejor iteracion:" +valuesC[i].toString()+"\n");
+					}
+					view.jtaLog.append("historial globales\n");
+					for (int i = 0; i < maxValues.length; i++) {
+						view.jtaLog.append("mejor global:" +maxValuesC[i].toString()+"\n");
+					}
+				}
+				CruceContador c = (CruceContador)pg.getTipoCruce();
+				view.jtaLog.append("total cruces:"+c.getNumCruces()+"\n");
 			}
 		}
 

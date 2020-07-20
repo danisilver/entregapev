@@ -32,7 +32,7 @@ public class CruceCO implements Cruce{//codificacion ordinal
 		
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		Cromosoma p1 = ind[0]; 
 		Cromosoma p2 = ind[1];
 		Integer[] genesp1 = (Integer[])p1.getGenes();

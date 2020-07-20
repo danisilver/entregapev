@@ -30,7 +30,7 @@ public class CruceMonoPunto implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		double r = random.nextDouble();
 		double prob2TakeSingle = 1d/(ind[0].getGenes().length); //numero de puntos de cruce
 		double probacc = 0;

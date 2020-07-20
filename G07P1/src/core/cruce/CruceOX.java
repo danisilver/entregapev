@@ -30,7 +30,7 @@ public class CruceOX implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] cromosomas) {
+	public Cromosoma[] crossPair(Cromosoma[] cromosomas) {
 		Cromosoma c1 = cromosomas[0]; 
 		Cromosoma c2 = cromosomas[1];
 		Object[] genesp1 = c1.getGenes(); 

@@ -30,7 +30,7 @@ public class CrucePMX implements Cruce{
 		return ret;
 	}
 
-	private Cromosoma[] crossPair(Cromosoma[] ind) {
+	public Cromosoma[] crossPair(Cromosoma[] ind) {
 		Cromosoma c1 = ind[0]; 
 		Cromosoma c2 = ind[1];
 		Integer[] genesp1 = (Integer[])c1.getGenes(); 

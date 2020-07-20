@@ -22,9 +22,11 @@ public class CruceNodeXchng implements Cruce{
 		
 		while(tam < tamPoblacion) {
 			if(random.nextDouble()<probCruce) {
-				Cromosoma[] crossed = cruzar(
-						poblacion[random.nextInt(tamPoblacion)], 
-						poblacion[random.nextInt(tamPoblacion)]);
+				Cromosoma[] crossed = crossPair(
+						new Cromosoma[] {
+								poblacion[random.nextInt(tamPoblacion)], 
+								poblacion[random.nextInt(tamPoblacion)]
+						});
 				ret[tam] = crossed[0];
 				ret[tam+1] = crossed[1];
 			} else {
@@ -36,9 +38,10 @@ public class CruceNodeXchng implements Cruce{
 		return ret;
 	}
 	
-	public Cromosoma[] cruzar(Cromosoma p1, Cromosoma p2){
-		CromosomaGramatica padre1 =(CromosomaGramatica) p1;
-		CromosomaGramatica padre2 =(CromosomaGramatica) p2;
+	@Override
+	public Cromosoma[] crossPair(Cromosoma[] ind){
+		CromosomaGramatica padre1 =(CromosomaGramatica) ind[0];
+		CromosomaGramatica padre2 =(CromosomaGramatica) ind[1];
 		
 		CromosomaGramatica hijo1, hijo2;
 		
