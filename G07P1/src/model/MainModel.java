@@ -36,6 +36,11 @@ public class MainModel {
                                                 "Holder table", 
                                                 "Michalewicz", 
                                                 "Schubert", 
+                                                "DeJong",
+                                                "Easom",
+                                                "CrossInTray",
+                                                "Drop-wave",
+                                                "Bukin",
                                                 "Problema5",
                                                 "Multiplexor"));
                 cromosomas.addAll(
@@ -94,6 +99,11 @@ public class MainModel {
                 crom4fun.put("Holder table"     , "Binario");
                 crom4fun.put("Schubert"         , "Binario");
                 crom4fun.put("Michalewicz"      , "Binario, Real");
+                crom4fun.put("DeJong"           , "Binario, Real");
+                crom4fun.put("Easom"            , "Binario, Real");
+                crom4fun.put("Drop-wave"        , "Binario, Real");
+                crom4fun.put("Bukin"           , "Binario, Real");
+                crom4fun.put("CrossInTray"      , "Binario, Real");
                 crom4fun.put("Problema5"        , "Permutacion");
                 crom4fun.put("Multiplexor"      , "Gramatica");
                 
@@ -245,12 +255,23 @@ public class MainModel {
                         props.put("tipoFitness", TipoFitness.MINIMIZAR);
                 else if(selF.equalsIgnoreCase("Multiplexor")) 
                         props.put("tipoFitness", TipoFitness.MINIMIZAR);
+                else if(selF.equalsIgnoreCase("DeJong")) 
+                        props.put("tipoFitness", TipoFitness.MINIMIZAR);
+                else if(selF.equalsIgnoreCase("Easom")) 
+                    props.put("tipoFitness", TipoFitness.MINIMIZAR);
+                else if(selF.equalsIgnoreCase("CrossInTray")) 
+                    props.put("tipoFitness", TipoFitness.MINIMIZAR);
+                else if(selF.equalsIgnoreCase("Drop-wave")) 
+                    props.put("tipoFitness", TipoFitness.MINIMIZAR);
+                else if(selF.equalsIgnoreCase("Bukin")) 
+                    props.put("tipoFitness", TipoFitness.MINIMIZAR);
+                
         }
         
         private void updateRandomSeed() {
                 Boolean randEnabled = (Boolean) props.get("randomSeed");
                 if(randEnabled) setPropValue("seed", Long.valueOf(System.currentTimeMillis()));
- }
+        }
         
         public String getTitle() { return title; }
         

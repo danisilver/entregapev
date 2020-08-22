@@ -19,6 +19,11 @@ public class ConcreteFactory implements ProblemFactory {
 		put("Michalewicz"	, new P4Factory());
 		put("Problema5"		, new P5Factory());
 		put("Multiplexor"	, new P6Factory());
+		put("DeJong"	    , new P7Factory());
+		put("Easom" 	    , new P8Factory());
+		put("CrossInTray"   , new P9Factory());
+		put("Drop-wave"     , new P10Factory());
+		put("Bukin"         , new P11Factory());
 	}};
 	
 	ProblemFactory selectedF;

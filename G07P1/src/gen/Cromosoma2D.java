@@ -73,6 +73,13 @@ public abstract class Cromosoma2D extends Cromosoma{ //Binario
 		this.ymin = ymin;
 	}
 	
+	@Override 
+	public int getGenLen(int i) {
+		if(i==0) return getLgenx(); 
+		if(i==1) return getLgeny(); 
+		return 0;
+	}
+	
 	@Override
 	public String toString() {
 		double cx = getXmin() + (Integer)getGen(0) *(getXmax()-getXmin())/(Math.pow(2,getLgenx())-1);
