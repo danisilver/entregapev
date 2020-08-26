@@ -201,6 +201,9 @@ public class MainView extends JPanel implements View{
 			selCrom = modelCromosomas.getSelectedItem().toString();
 		cbTipoCromosoma.setModel(modelCromosomas);
 		
+		String selF = model.getPropValue("funcion").toString();
+		if("DeJong, Easom, CrossInTray, Drop-wave, Bukin".indexOf(selF)!=-1)
+			selCrom = "";
 		refreshCromosomaFields(selCrom);
 	}
 	
@@ -530,6 +533,7 @@ public class MainView extends JPanel implements View{
 		else if(crom.equalsIgnoreCase("Real")) updateCromosomaUI("numVariables, minX, maxX");
 		else if(crom.equalsIgnoreCase("Permutacion")) updateCromosomaUI("");
 		else if(crom.equalsIgnoreCase("Gramatica")) updateCromosomaUI("maxDepth, nAddrInputs, cbGramaticaInit, instrIF, bloating");
+		else if(crom.equalsIgnoreCase("")) updateCromosomaUI("");
 	}
 
 	public void refreshSelectionFields(String sel) {
