@@ -947,7 +947,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel_7.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_13.add(lblNewLabel_7);
 		
-		spinnerProbCruce = new JSpinner(new SpinnerNumberModel(0.6,0.6,1.0,0.05));
+		spinnerProbCruce = new JSpinner(new SpinnerNumberModel(0.6,0.6,1.0,0.01));
 		panel_13.add(spinnerProbCruce);
 		
 		lblAlfa = new JLabel("alfa");
@@ -1014,7 +1014,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel_9.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_15.add(lblNewLabel_9);
 		
-		spinnerProbMutacion = new JSpinner(new SpinnerNumberModel(0.1,0.0,1.0,0.05));
+		spinnerProbMutacion = new JSpinner(new SpinnerNumberModel(0.1,0.0,1.0,0.01));
 		panel_15.add(spinnerProbMutacion);
 		
 		lblProbFlipBit = new JLabel("probFlipBit");
