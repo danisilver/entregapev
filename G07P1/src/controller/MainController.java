@@ -65,6 +65,7 @@ public class MainController implements Controller{
 //    					view.jtaLog.append("mejor iteracion:"+pg.getMaxIterCrom().toString()+"\n");
                 }
                 utils.Utils.showTreeCromosoma(pg.getMaxGlobalCrom());
+                
         }
 
         private void inicializarProblema() {
@@ -176,6 +177,7 @@ public class MainController implements Controller{
 					for (int i = 0; i < maxValues.length; i++) {
 						view.jtaLog.append("mejor global:" +maxValuesC[i].toString()+"\n");
 					}
+					view.labelSolucion.setText("mejor global:" +maxValuesC[maxValues.length-1].toString()+"\n");
 				}
 				CruceContador c = (CruceContador)pg.getTipoCruce();
 				view.jtaLog.append("total cruces:"+c.getNumCruces()+"\n");

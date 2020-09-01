@@ -135,6 +135,7 @@ public class MainView extends JPanel implements View{
 	private JSpinner spinnerBLXalpha;
 	private JSpinner spinnerOXOPn2take;
 	private JLabel lblOXOPn2take;
+	public JLabel labelSolucion;
 
 	public MainView(MainModel model) {
 		this.model = model;
@@ -918,7 +919,7 @@ public class MainView extends JPanel implements View{
 		lblTrunc.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_10.add(lblTrunc);
 		
-		spinnerTrunc = new JSpinner(new SpinnerNumberModel(0.5d,0.1d,0.5d,0.1d));//SeleccionTruncamiento
+		spinnerTrunc = new JSpinner(new SpinnerNumberModel(0.5d,0.1d,0.5d,0.05d));//SeleccionTruncamiento
 		panel_10.add(spinnerTrunc);
 		
 		JPanel panelCruce = new JPanel();
@@ -946,7 +947,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel_7.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_13.add(lblNewLabel_7);
 		
-		spinnerProbCruce = new JSpinner(new SpinnerNumberModel(0.6,0.6,1.0,0.1));
+		spinnerProbCruce = new JSpinner(new SpinnerNumberModel(0.6,0.6,1.0,0.05));
 		panel_13.add(spinnerProbCruce);
 		
 		lblAlfa = new JLabel("alfa");
@@ -1013,7 +1014,7 @@ public class MainView extends JPanel implements View{
 		lblNewLabel_9.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel_15.add(lblNewLabel_9);
 		
-		spinnerProbMutacion = new JSpinner(new SpinnerNumberModel(0.1,0.0,1.0,0.1));
+		spinnerProbMutacion = new JSpinner(new SpinnerNumberModel(0.1,0.0,1.0,0.05));
 		panel_15.add(spinnerProbMutacion);
 		
 		lblProbFlipBit = new JLabel("probFlipBit");
@@ -1065,7 +1066,10 @@ public class MainView extends JPanel implements View{
 		p2d.addLinePlot("Globales", new double[] {0});
 		p2d.addLinePlot("Locales", new double[] {0});
 		p2d.addLinePlot("media", new double[] {0});
+		p2d.addLegend("WEST");
 		panel_6.add(p2d);
+		labelSolucion = new JLabel("solucion: ninguna");
+		panel_6.add(labelSolucion, BorderLayout.SOUTH);
 		
 		panel_7 = new JPanel(true);
 		tabbedPane.addTab("Problem View", null, panel_7, null);
